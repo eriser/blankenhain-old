@@ -11,6 +11,9 @@
               pluginAAXCategory="AAX_ePlugInCategory_Dynamics" jucerVersion="3.1.0">
   <MAINGROUP id="E7lgWb" name="Blankenhain">
     <GROUP id="{86C2C631-FE57-7411-A3F9-0618356A66A7}" name="Source">
+      <FILE id="L5cAHr" name="ADSRComponent.h" compile="0" resource="0" file="Source/ADSRComponent.h"/>
+      <FILE id="h0w0nX" name="ADSRComponent.cpp" compile="1" resource="0"
+            file="Source/ADSRComponent.cpp"/>
       <FILE id="wC82lx" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>
       <FILE id="GKTP1v" name="PluginProcessor.h" compile="0" resource="0"

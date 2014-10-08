@@ -17,13 +17,11 @@
   ==============================================================================
 */
 
-#ifndef __JUCE_HEADER_3DB5996FF2CF23E__
-#define __JUCE_HEADER_3DB5996FF2CF23E__
+#ifndef __JUCE_HEADER_2C90FED4CD64E19E__
+#define __JUCE_HEADER_2C90FED4CD64E19E__
 
 //[Headers]     -- You can add your own extra header files here --
 #include "JuceHeader.h"
-#include "PluginProcessor.h"
-#include "ADSRComponent.h"
 //[/Headers]
 
 
@@ -36,22 +34,21 @@
     Describe your class and how it works here!
                                                                     //[/Comments]
 */
-class BlankenhainAudioProcessorEditor  : public AudioProcessorEditor,
-                                         public Timer
+class ADSRComponent  : public Component,
+                       public SliderListener
 {
 public:
     //==============================================================================
-    BlankenhainAudioProcessorEditor (BlankenhainAudioProcessor* ownerFilter);
-    ~BlankenhainAudioProcessorEditor();
+    ADSRComponent ();
+    ~ADSRComponent();
 
     //==============================================================================
     //[UserMethods]     -- You can add your own custom methods in this section.
-    void timerCallback();
-    BlankenhainAudioProcessor* getProcessor() const;
     //[/UserMethods]
 
     void paint (Graphics& g);
     void resized();
+    void sliderValueChanged (Slider* sliderThatWasMoved);
 
 
 
@@ -60,14 +57,17 @@ private:
     //[/UserVariables]
 
     //==============================================================================
-    ScopedPointer<ADSRComponent> component;
+    ScopedPointer<Slider> attackSlider;
+    ScopedPointer<Slider> decaySlider;
+    ScopedPointer<Slider> sustainSlider;
+    ScopedPointer<Slider> releaseSlider;
 
 
     //==============================================================================
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (BlankenhainAudioProcessorEditor)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ADSRComponent)
 };
 
 //[EndFile] You can add extra defines here...
 //[/EndFile]
 
-#endif   // __JUCE_HEADER_3DB5996FF2CF23E__
+#endif   // __JUCE_HEADER_2C90FED4CD64E19E__
