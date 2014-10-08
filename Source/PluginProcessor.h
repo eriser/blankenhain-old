@@ -67,6 +67,8 @@ public:
 	void getStateInformation(MemoryBlock& destData) override;
 	void setStateInformation(const void* data, int sizeInBytes) override;
 
+	void setADSR(double attack, double decay, double sustain, double release);
+
 private:
 	int_fast64_t timeSinceTrigger = 0;
 	int_fast64_t timeSinceRelease = 0;
@@ -74,6 +76,10 @@ private:
 	double lastNote = 0.;
 	int lastNoteNumber = 0;
 	double releaseLevel = 0;
+	double attack = 0.;
+	double decay = 0.;
+	double sustain = 0.;
+	double release = 0.;
 
 	float getADSRValue() const;
 	float getSine() const;

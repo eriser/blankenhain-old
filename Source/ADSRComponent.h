@@ -44,6 +44,10 @@ public:
 
     //==============================================================================
     //[UserMethods]     -- You can add your own custom methods in this section.
+	double getAttack() const;
+	double getDecay() const;
+	double getSustain() const;
+	double getRelease() const;
     //[/UserMethods]
 
     void paint (Graphics& g);

@@ -30,8 +30,8 @@
 BlankenhainAudioProcessorEditor::BlankenhainAudioProcessorEditor (BlankenhainAudioProcessor* ownerFilter)
     : AudioProcessorEditor(ownerFilter)
 {
-    addAndMakeVisible (component = new ADSRComponent());
-    component->setName ("new component");
+    addAndMakeVisible (adsr1Component = new ADSRComponent());
+    adsr1Component->setName ("new component");
 
 
     //[UserPreSize]
@@ -50,7 +50,7 @@ BlankenhainAudioProcessorEditor::~BlankenhainAudioProcessorEditor()
     //[Destructor_pre]. You can add your own custom destruction code here..
     //[/Destructor_pre]
 
-    component = nullptr;
+    adsr1Component = nullptr;
 
 
     //[Destructor]. You can add your own custom destruction code here..
@@ -71,7 +71,7 @@ void BlankenhainAudioProcessorEditor::paint (Graphics& g)
 
 void BlankenhainAudioProcessorEditor::resized()
 {
-    component->setBounds (8, 8, 296, 272);
+    adsr1Component->setBounds (8, 8, 296, 272);
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]
 }
@@ -82,6 +82,12 @@ void BlankenhainAudioProcessorEditor::resized()
 void BlankenhainAudioProcessorEditor::timerCallback() {
     BlankenhainAudioProcessor* ourProcessor = getProcessor();
     //exchange any data you want between UI elements and the Plugin "ourProcessor"
+	ourProcessor->setADSR(
+		adsr1Component->getAttack(),
+		adsr1Component->getDecay(),
+		adsr1Component->getSustain(),
+		adsr1Component->getRelease()
+	);
 }
 
 BlankenhainAudioProcessor* BlankenhainAudioProcessorEditor::getProcessor() const {
@@ -105,7 +111,7 @@ BEGIN_JUCER_METADATA
                  snapPixels="8" snapActive="1" snapShown="1" overlayOpacity="0.330"
                  fixedSize="0" initialWidth="600" initialHeight="400">
   <BACKGROUND backgroundColour="ffffffff"/>
-  <GENERICCOMPONENT name="new component" id="c38b575eeb60d92d" memberName="component"
+  <GENERICCOMPONENT name="new component" id="c38b575eeb60d92d" memberName="adsr1Component"
                     virtualName="" explicitFocusOrder="0" pos="8 8 296 272" class="ADSRComponent"
                     params=""/>
 </JUCER_COMPONENT>

@@ -134,6 +134,21 @@ void ADSRComponent::sliderValueChanged (Slider* sliderThatWasMoved)
 
 
 //[MiscUserCode] You can add your own definitions of your custom methods or any other code here...
+double ADSRComponent::getAttack() const {
+	return attackSlider->getValue();
+}
+
+double ADSRComponent::getDecay() const {
+	return decaySlider->getValue();
+}
+
+double ADSRComponent::getSustain() const {
+	return sustainSlider->getValue();
+}
+
+double ADSRComponent::getRelease() const {
+	return releaseSlider->getValue();
+}
 //[/MiscUserCode]
 
 

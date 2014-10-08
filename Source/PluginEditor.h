@@ -60,7 +60,7 @@ private:
     //[/UserVariables]
 
     //==============================================================================
-    ScopedPointer<ADSRComponent> component;
+    ScopedPointer<ADSRComponent> adsr1Component;
 
 
     //==============================================================================

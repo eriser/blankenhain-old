@@ -233,19 +233,26 @@ void BlankenhainAudioProcessor::setStateInformation(const void* data, int sizeIn
 	// whose contents will have been created by the getStateInformation() call.
 }
 
+
+void BlankenhainAudioProcessor::setADSR(double _attack, double _decay, double _sustain, double _release) {
+	attack = _attack;
+	decay = _decay;
+	sustain = _sustain;
+	release = _release;
+}
+
 float BlankenhainAudioProcessor::getADSRValue() const {
-	const double attack = 200. / 1000 * getSampleRate();
-	const double decay = 200. / 1000 * getSampleRate();
-	const double sustain = .5;
-	const float release = 200. / 1000 * getSampleRate();
+	const double attackSamples = attack / 1000 * getSampleRate();
+	const double decaySamples = decay / 1000 * getSampleRate();
+	const float releaseSamples = release / 1000 * getSampleRate();
 
 	float factor;
 	if (noteOn) {
-		if (timeSinceTrigger <= attack) {
-			factor = timeSinceTrigger / attack;
+		if (timeSinceTrigger < attackSamples) {
+			factor = timeSinceTrigger / attackSamples;
 		}
-		else if (timeSinceTrigger - attack <= decay) {
-			const double t = (timeSinceTrigger - attack) / decay;
+		else if (timeSinceTrigger - attackSamples < decaySamples) {
+			const double t = (timeSinceTrigger - attackSamples) / decaySamples;
 			factor = (1 - t) + sustain * t;
 		}
 		else {
@@ -253,8 +260,8 @@ float BlankenhainAudioProcessor::getADSRValue() const {
 		}
 	}
 	else {
-		if (timeSinceRelease <= release) {
-			const double t = timeSinceRelease / release;
+		if (timeSinceRelease < releaseSamples) {
+			const double t = timeSinceRelease / releaseSamples;
 			factor = releaseLevel * (1 - t);
 		}
 		else {
