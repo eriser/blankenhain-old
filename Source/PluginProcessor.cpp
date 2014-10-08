@@ -11,6 +11,8 @@
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 
+#include <cmath>
+
 
 //==============================================================================
 BlankenhainAudioProcessor::BlankenhainAudioProcessor()
@@ -149,12 +151,49 @@ void BlankenhainAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuff
 
 	// This is the place where you'd normally do the guts of your plugin's
 	// audio processing...
+	/*
 	for (int channel = 0; channel < getNumInputChannels(); ++channel)
 	{
 		float* channelData = buffer.getWritePointer(channel);
 
 		// ..do something to the data...
 	}
+	*/
+
+	MidiBuffer::Iterator iterator(midiMessages);
+	MidiMessage message;
+	int samplePosition;
+	int bufferPosition = 0;
+	if (!midiMessages.isEmpty()) {
+		Logger::outputDebugString("List midi events");
+	}
+	const double TAU = 6.283185;
+	while (iterator.getNextEvent(message, samplePosition)) {
+		if (message.isNoteOnOrOff()) {
+			String onOff = message.isNoteOn() ? "On" : "Off";
+			Logger::outputDebugString(onOff + " " + String(message.getNoteNumber()) + " " + String(samplePosition));
+			float** data = buffer.getArrayOfWritePointers();
+			for (; bufferPosition < samplePosition; bufferPosition++) {
+				const float value = noteOn ? std::sin(double(globalTime + bufferPosition) / getSampleRate() * 440 * TAU) : 0.;
+				for (int channel = 0; channel < getNumOutputChannels(); channel++) {
+					data[channel][bufferPosition] = value;
+				}
+			}
+			noteOn = message.isNoteOn();
+		}
+		else {
+			Logger::outputDebugString("Other event");
+		}
+	}
+	float** data = buffer.getArrayOfWritePointers();
+	for (; bufferPosition < buffer.getNumSamples(); bufferPosition++) {
+		const float value = noteOn ? std::sin(double(globalTime + bufferPosition) / getSampleRate() * 440 * TAU) : 0.;
+		for (int channel = 0; channel < getNumOutputChannels(); channel++) {
+			data[channel][bufferPosition] = value;
+		}
+	}
+
+	globalTime += buffer.getNumSamples();
 }
 
 //==============================================================================
