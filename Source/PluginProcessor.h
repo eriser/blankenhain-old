@@ -68,8 +68,13 @@ public:
 	void setStateInformation(const void* data, int sizeInBytes) override;
 
 private:
-	int_fast64_t globalTime = 0;
+	int_fast64_t timeSinceTrigger = 0;
+	int_fast64_t timeSinceRelease = 0;
 	bool noteOn = false;
+	double lastNote = 0.;
+	int lastNoteNumber = 0;
+
+	float getADSRValue() const;
 
 	//==============================================================================
 	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(BlankenhainAudioProcessor)

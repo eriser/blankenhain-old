@@ -154,9 +154,9 @@ void BlankenhainAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuff
 	/*
 	for (int channel = 0; channel < getNumInputChannels(); ++channel)
 	{
-		float* channelData = buffer.getWritePointer(channel);
+	float* channelData = buffer.getWritePointer(channel);
 
-		// ..do something to the data...
+	// ..do something to the data...
 	}
 	*/
 
@@ -167,19 +167,29 @@ void BlankenhainAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuff
 	if (!midiMessages.isEmpty()) {
 		Logger::outputDebugString("List midi events");
 	}
-	const double TAU = 6.283185;
 	while (iterator.getNextEvent(message, samplePosition)) {
 		if (message.isNoteOnOrOff()) {
 			String onOff = message.isNoteOn() ? "On" : "Off";
 			Logger::outputDebugString(onOff + " " + String(message.getNoteNumber()) + " " + String(samplePosition));
 			float** data = buffer.getArrayOfWritePointers();
 			for (; bufferPosition < samplePosition; bufferPosition++) {
-				const float value = noteOn ? std::sin(double(globalTime + bufferPosition) / getSampleRate() * 440 * TAU) : 0.;
+				const float value = getADSRValue();
 				for (int channel = 0; channel < getNumOutputChannels(); channel++) {
 					data[channel][bufferPosition] = value;
 				}
+				timeSinceTrigger++;
+				timeSinceRelease++;
 			}
-			noteOn = message.isNoteOn();
+			if (message.isNoteOn()) {
+				noteOn = true;
+				lastNoteNumber = message.getNoteNumber();
+				lastNote = MidiMessage::getMidiNoteInHertz(lastNoteNumber);
+				timeSinceTrigger = 0;
+			}
+			else if (lastNoteNumber == message.getNoteNumber()) {
+				noteOn = false;
+				timeSinceRelease = 0;
+			}
 		}
 		else {
 			Logger::outputDebugString("Other event");
@@ -187,13 +197,13 @@ void BlankenhainAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuff
 	}
 	float** data = buffer.getArrayOfWritePointers();
 	for (; bufferPosition < buffer.getNumSamples(); bufferPosition++) {
-		const float value = noteOn ? std::sin(double(globalTime + bufferPosition) / getSampleRate() * 440 * TAU) : 0.;
+		const float value = getADSRValue();
 		for (int channel = 0; channel < getNumOutputChannels(); channel++) {
 			data[channel][bufferPosition] = value;
 		}
+		timeSinceTrigger++;
+		timeSinceRelease++;
 	}
-
-	globalTime += buffer.getNumSamples();
 }
 
 //==============================================================================
@@ -219,6 +229,36 @@ void BlankenhainAudioProcessor::setStateInformation(const void* data, int sizeIn
 {
 	// You should use this method to restore your parameters from this memory block,
 	// whose contents will have been created by the getStateInformation() call.
+}
+
+float BlankenhainAudioProcessor::getADSRValue() const {
+	const double TAU = 6.283185;
+	const double attack = 200. / 1000 * getSampleRate();
+	const double decay = 200. / 1000 * getSampleRate();
+	const double sustain = .5;
+	const float release = 200. / 1000 * getSampleRate();
+
+	float factor = sustain;
+	if (noteOn) {
+		if (timeSinceTrigger <= attack) {
+			factor = timeSinceTrigger / attack;
+		}
+		else if (timeSinceTrigger - attack <= decay) {
+			const double t = (timeSinceTrigger - attack) / decay;
+			factor = (1 - t) + sustain * t;
+		}
+	}
+	else {
+		if (timeSinceRelease <= release) {
+			const double t = timeSinceRelease / release;
+			factor = sustain * (1 - t);
+		}
+		else {
+			factor = 0.;
+		}
+	}
+
+	return factor * std::sin(double(timeSinceTrigger) / getSampleRate() * lastNote * TAU);
 }
 
 //==============================================================================
