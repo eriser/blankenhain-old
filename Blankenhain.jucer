@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="NpnggN" name="Blankenhain" projectType="audioplug" version="1.0.0"
+<JUCERPROJECT id="NpnggN" name="Blankenhain" projectType="audioplug" version="0.0.5"
               bundleIdentifier="org.rtificial.blankenhain" includeBinaryInAppConfig="1"
               buildVST="1" buildVST3="0" buildAU="0" buildRTAS="0" buildAAX="0"
-              pluginName="Blankenhain" pluginDesc="Blankenhain" pluginManufacturer="yourcompany"
-              pluginManufacturerCode="Manu" pluginCode="Plug" pluginChannelConfigs="{1, 1}, {2, 2}"
+              pluginName="Blankenhain" pluginDesc="Blankenhain" pluginManufacturer="rtificial"
+              pluginManufacturerCode="Rtfi" pluginCode="Blan" pluginChannelConfigs="{1, 1}, {2, 2}"
               pluginIsSynth="1" pluginWantsMidiIn="1" pluginProducesMidiOut="0"
               pluginSilenceInIsSilenceOut="0" pluginEditorRequiresKeys="0"
-              pluginAUExportPrefix="BlankenhainAU" pluginRTASCategory="" aaxIdentifier="com.yourcompany.Blankenhain"
+              pluginAUExportPrefix="BlankenhainAU" pluginRTASCategory="" aaxIdentifier="org.rtificial.blankenhain"
               pluginAAXCategory="AAX_ePlugInCategory_Dynamics" jucerVersion="3.1.0">
   <MAINGROUP id="E7lgWb" name="Blankenhain">
     <GROUP id="{86C2C631-FE57-7411-A3F9-0618356A66A7}" name="Source">
