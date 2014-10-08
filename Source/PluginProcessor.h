@@ -73,8 +73,10 @@ private:
 	bool noteOn = false;
 	double lastNote = 0.;
 	int lastNoteNumber = 0;
+	double releaseLevel = 0;
 
 	float getADSRValue() const;
+	float getSine() const;
 
 	//==============================================================================
 	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(BlankenhainAudioProcessor)

@@ -173,7 +173,7 @@ void BlankenhainAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuff
 			Logger::outputDebugString(onOff + " " + String(message.getNoteNumber()) + " " + String(samplePosition));
 			float** data = buffer.getArrayOfWritePointers();
 			for (; bufferPosition < samplePosition; bufferPosition++) {
-				const float value = getADSRValue();
+				const float value = getSine();
 				for (int channel = 0; channel < getNumOutputChannels(); channel++) {
 					data[channel][bufferPosition] = value;
 				}
@@ -187,6 +187,8 @@ void BlankenhainAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuff
 				timeSinceTrigger = 0;
 			}
 			else if (lastNoteNumber == message.getNoteNumber()) {
+				timeSinceTrigger--;
+				releaseLevel = getADSRValue();
 				noteOn = false;
 				timeSinceRelease = 0;
 			}
@@ -197,7 +199,7 @@ void BlankenhainAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuff
 	}
 	float** data = buffer.getArrayOfWritePointers();
 	for (; bufferPosition < buffer.getNumSamples(); bufferPosition++) {
-		const float value = getADSRValue();
+		const float value = getSine();
 		for (int channel = 0; channel < getNumOutputChannels(); channel++) {
 			data[channel][bufferPosition] = value;
 		}
@@ -232,13 +234,12 @@ void BlankenhainAudioProcessor::setStateInformation(const void* data, int sizeIn
 }
 
 float BlankenhainAudioProcessor::getADSRValue() const {
-	const double TAU = 6.283185;
 	const double attack = 200. / 1000 * getSampleRate();
 	const double decay = 200. / 1000 * getSampleRate();
 	const double sustain = .5;
 	const float release = 200. / 1000 * getSampleRate();
 
-	float factor = sustain;
+	float factor;
 	if (noteOn) {
 		if (timeSinceTrigger <= attack) {
 			factor = timeSinceTrigger / attack;
@@ -247,18 +248,26 @@ float BlankenhainAudioProcessor::getADSRValue() const {
 			const double t = (timeSinceTrigger - attack) / decay;
 			factor = (1 - t) + sustain * t;
 		}
+		else {
+			factor = sustain;
+		}
 	}
 	else {
 		if (timeSinceRelease <= release) {
 			const double t = timeSinceRelease / release;
-			factor = sustain * (1 - t);
+			factor = releaseLevel * (1 - t);
 		}
 		else {
 			factor = 0.;
 		}
 	}
 
-	return factor * std::sin(double(timeSinceTrigger) / getSampleRate() * lastNote * TAU);
+	return factor;
+}
+
+float BlankenhainAudioProcessor::getSine() const {
+	const double TAU = 6.283185;
+	return getADSRValue() * std::sin(double(timeSinceTrigger) / getSampleRate() * lastNote * TAU);
 }
 
 //==============================================================================
