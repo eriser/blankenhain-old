@@ -18,6 +18,7 @@
 */
 
 //[Headers] You can add your own extra header files here...
+#include "PluginProcessor.h"
 //[/Headers]
 
 #include "ADSRComponent.h"
@@ -27,16 +28,16 @@
 //[/MiscUserDefs]
 
 //==============================================================================
-ADSRComponent::ADSRComponent ()
+ADSRComponent::ADSRComponent (BlankenhainAudioProcessor* _processor)
 {
     addAndMakeVisible (attackSlider = new Slider ("Attack"));
-    attackSlider->setRange (0, 1000, 0);
+    attackSlider->setRange (0, 1, 0);
     attackSlider->setSliderStyle (Slider::LinearVertical);
     attackSlider->setTextBoxStyle (Slider::TextBoxBelow, false, 80, 20);
     attackSlider->addListener (this);
 
     addAndMakeVisible (decaySlider = new Slider ("Decay"));
-    decaySlider->setRange (0, 1000, 0);
+    decaySlider->setRange (0, 1, 0);
     decaySlider->setSliderStyle (Slider::LinearVertical);
     decaySlider->setTextBoxStyle (Slider::TextBoxBelow, false, 80, 20);
     decaySlider->addListener (this);
@@ -48,7 +49,7 @@ ADSRComponent::ADSRComponent ()
     sustainSlider->addListener (this);
 
     addAndMakeVisible (releaseSlider = new Slider ("Release"));
-    releaseSlider->setRange (0, 1000, 0);
+    releaseSlider->setRange (0, 1, 0);
     releaseSlider->setSliderStyle (Slider::LinearVertical);
     releaseSlider->setTextBoxStyle (Slider::TextBoxBelow, false, 80, 20);
     releaseSlider->addListener (this);
@@ -61,6 +62,7 @@ ADSRComponent::ADSRComponent ()
 
 
     //[Constructor] You can add your own custom stuff here..
+	processor = _processor;
     //[/Constructor]
 }
 
@@ -109,21 +111,25 @@ void ADSRComponent::sliderValueChanged (Slider* sliderThatWasMoved)
     if (sliderThatWasMoved == attackSlider)
     {
         //[UserSliderCode_attackSlider] -- add your slider handling code here..
+		processor->setParameterNotifyingHost(0, float(attackSlider->getValue()));
         //[/UserSliderCode_attackSlider]
     }
     else if (sliderThatWasMoved == decaySlider)
     {
         //[UserSliderCode_decaySlider] -- add your slider handling code here..
+		processor->setParameterNotifyingHost(1, float(decaySlider->getValue()));
         //[/UserSliderCode_decaySlider]
     }
     else if (sliderThatWasMoved == sustainSlider)
     {
         //[UserSliderCode_sustainSlider] -- add your slider handling code here..
+		processor->setParameterNotifyingHost(2, float(sustainSlider->getValue()));
         //[/UserSliderCode_sustainSlider]
     }
     else if (sliderThatWasMoved == releaseSlider)
     {
         //[UserSliderCode_releaseSlider] -- add your slider handling code here..
+		processor->setParameterNotifyingHost(3, float(releaseSlider->getValue()));
         //[/UserSliderCode_releaseSlider]
     }
 
@@ -134,20 +140,36 @@ void ADSRComponent::sliderValueChanged (Slider* sliderThatWasMoved)
 
 
 //[MiscUserCode] You can add your own definitions of your custom methods or any other code here...
-double ADSRComponent::getAttack() const {
-	return attackSlider->getValue();
+float ADSRComponent::getAttack() const {
+	return float(attackSlider->getValue());
 }
 
-double ADSRComponent::getDecay() const {
-	return decaySlider->getValue();
+float ADSRComponent::getDecay() const {
+	return float(decaySlider->getValue());
 }
 
-double ADSRComponent::getSustain() const {
-	return sustainSlider->getValue();
+float ADSRComponent::getSustain() const {
+	return float(sustainSlider->getValue());
 }
 
-double ADSRComponent::getRelease() const {
-	return releaseSlider->getValue();
+float ADSRComponent::getRelease() const {
+	return float(releaseSlider->getValue());
+}
+
+void ADSRComponent::setAttack(float attack) {
+	attackSlider->setValue(attack, dontSendNotification);
+}
+
+void ADSRComponent::setDecay(float decay) {
+	decaySlider->setValue(decay, dontSendNotification);
+}
+
+void ADSRComponent::setSustain(float sustain) {
+	sustainSlider->setValue(sustain, dontSendNotification);
+}
+
+void ADSRComponent::setRelease(float release) {
+	releaseSlider->setValue(release, dontSendNotification);
 }
 //[/MiscUserCode]
 
@@ -162,17 +184,17 @@ double ADSRComponent::getRelease() const {
 BEGIN_JUCER_METADATA
 
 <JUCER_COMPONENT documentType="Component" className="ADSRComponent" componentName=""
-                 parentClasses="public Component" constructorParams="" variableInitialisers=""
-                 snapPixels="8" snapActive="1" snapShown="1" overlayOpacity="0.330"
-                 fixedSize="0" initialWidth="600" initialHeight="400">
+                 parentClasses="public Component" constructorParams="BlankenhainAudioProcessor* _processor"
+                 variableInitialisers="" snapPixels="8" snapActive="1" snapShown="1"
+                 overlayOpacity="0.330" fixedSize="0" initialWidth="600" initialHeight="400">
   <BACKGROUND backgroundColour="ffffffff"/>
   <SLIDER name="Attack" id="7f931157cf71799a" memberName="attackSlider"
           virtualName="" explicitFocusOrder="0" pos="0% 0% 25.053% 100%"
-          min="0" max="1000" int="0" style="LinearVertical" textBoxPos="TextBoxBelow"
+          min="0" max="1" int="0" style="LinearVertical" textBoxPos="TextBoxBelow"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="Decay" id="92e1ce8d74c36976" memberName="decaySlider" virtualName=""
           explicitFocusOrder="0" pos="25.053% 0% 25.053% 100%" min="0"
-          max="1000" int="0" style="LinearVertical" textBoxPos="TextBoxBelow"
+          max="1" int="0" style="LinearVertical" textBoxPos="TextBoxBelow"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="Sustain" id="877f1e939dfb38df" memberName="sustainSlider"
           virtualName="" explicitFocusOrder="0" pos="50.105% 0% 25.053% 100%"
@@ -180,7 +202,7 @@ BEGIN_JUCER_METADATA
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="Release" id="6a7f7fe4b6255174" memberName="releaseSlider"
           virtualName="" explicitFocusOrder="0" pos="74.947% 0% 25.053% 100%"
-          min="0" max="1000" int="0" style="LinearVertical" textBoxPos="TextBoxBelow"
+          min="0" max="1" int="0" style="LinearVertical" textBoxPos="TextBoxBelow"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
 </JUCER_COMPONENT>
 

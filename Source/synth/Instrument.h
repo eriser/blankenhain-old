@@ -8,7 +8,9 @@ class Instrument {
 public:
 	Instrument(VoiceAllocator& voices);
 
-	void setAdsr(const double adsr[4]);
+	const float* getAdsr() const;
+
+	void setAdsr(const float adsr[4]);
 	void setSampleRate(double sampleRate);
 	void noteOn(bh_time time, int number);
 	void noteOff(bh_time time, int number);
@@ -17,7 +19,7 @@ public:
 private:
 	static const int MIDI_MAX_NOTE = 128;
 
-	double adsr[4];
+	float adsr[4];
 	double sampleRate = 0;
 	VoiceAllocator& voices;
 	Note* notes[MIDI_MAX_NOTE];

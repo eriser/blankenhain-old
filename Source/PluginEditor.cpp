@@ -30,7 +30,7 @@
 BlankenhainAudioProcessorEditor::BlankenhainAudioProcessorEditor (BlankenhainAudioProcessor* ownerFilter)
     : AudioProcessorEditor(ownerFilter)
 {
-    addAndMakeVisible (adsr1Component = new ADSRComponent());
+    addAndMakeVisible (adsr1Component = new ADSRComponent (ownerFilter));
     adsr1Component->setName ("new component");
 
 
@@ -41,6 +41,7 @@ BlankenhainAudioProcessorEditor::BlankenhainAudioProcessorEditor (BlankenhainAud
 
 
     //[Constructor] You can add your own custom stuff here..
+	getProcessor()->requestUiUpdate();
     startTimer(200);
     //[/Constructor]
 }
@@ -81,14 +82,23 @@ void BlankenhainAudioProcessorEditor::resized()
 //[MiscUserCode] You can add your own definitions of your custom methods or any other code here...
 void BlankenhainAudioProcessorEditor::timerCallback() {
     BlankenhainAudioProcessor* ourProcessor = getProcessor();
-    //exchange any data you want between UI elements and the Plugin "ourProcessor"
-	const double adsr[4] = {
+
+	if (ourProcessor->needsUiUpdate()) {
+		adsr1Component->setAttack(ourProcessor->getParameter(0));
+		adsr1Component->setDecay(ourProcessor->getParameter(1));
+		adsr1Component->setSustain(ourProcessor->getParameter(2));
+		adsr1Component->setRelease(ourProcessor->getParameter(3));
+		ourProcessor->clearUiUpdate();
+	}
+	/*
+	const float adsr[4] = {
 		adsr1Component->getAttack(),
 		adsr1Component->getDecay(),
 		adsr1Component->getSustain(),
 		adsr1Component->getRelease()
 	};
 	ourProcessor->setAdsr(adsr);
+	*/
 }
 
 BlankenhainAudioProcessor* BlankenhainAudioProcessorEditor::getProcessor() const {
@@ -114,7 +124,7 @@ BEGIN_JUCER_METADATA
   <BACKGROUND backgroundColour="ffffffff"/>
   <GENERICCOMPONENT name="new component" id="c38b575eeb60d92d" memberName="adsr1Component"
                     virtualName="" explicitFocusOrder="0" pos="8 8 296 272" class="ADSRComponent"
-                    params=""/>
+                    params="ownerFilter"/>
 </JUCER_COMPONENT>
 
 END_JUCER_METADATA

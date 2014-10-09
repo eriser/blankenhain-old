@@ -6,14 +6,18 @@
 Instrument::Instrument(VoiceAllocator& _voices) :
 voices(_voices)
 {
-	const double _adsr[4] = { 0, 0, 0, 0 };
+	const float _adsr[4] = { 0, 0, 0, 0 };
 	setAdsr(_adsr);
 	for (int i = 0; i < MIDI_MAX_NOTE; i++) {
 		notes[i] = nullptr;
 	}
 }
 
-void Instrument::setAdsr(const double _adsr[4]) {
+const float* Instrument::getAdsr() const {
+	return adsr;
+}
+
+void Instrument::setAdsr(const float _adsr[4]) {
 	adsr[0] = _adsr[0];
 	adsr[1] = _adsr[1];
 	adsr[2] = _adsr[2];
@@ -55,9 +59,9 @@ double Instrument::getEnvelope(const Note& note, bh_time time) const {
 	const double sustain = adsr[2];
 	const double release = adsr[3];
 
-	const double attackSamples = attack / 1000 * sampleRate;
-	const double decaySamples = decay / 1000 * sampleRate;
-	const double releaseSamples = release / 1000 * sampleRate;
+	const double attackSamples = attack * sampleRate;
+	const double decaySamples = decay * sampleRate;
+	const double releaseSamples = release * sampleRate;
 
 	const bh_time timeSinceTrigger = time - note.triggerTime;
 	if (note.isOn) {
@@ -85,7 +89,7 @@ double Instrument::getEnvelope(const Note& note, bh_time time) const {
 
 bool Instrument::noteFinished(const Note& note, bh_time time) const {
 	const double release = adsr[3];
-	const double releaseSamples = release / 1000 * sampleRate;
+	const double releaseSamples = release * sampleRate;
 	const bh_time timeSinceTrigger = time - note.triggerTime;
 	return !note.isOn && timeSinceTrigger > releaseSamples;
 }

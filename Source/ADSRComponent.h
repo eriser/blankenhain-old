@@ -22,6 +22,8 @@
 
 //[Headers]     -- You can add your own extra header files here --
 #include "JuceHeader.h"
+
+class BlankenhainAudioProcessor;
 //[/Headers]
 
 
@@ -39,15 +41,20 @@ class ADSRComponent  : public Component,
 {
 public:
     //==============================================================================
-    ADSRComponent ();
+    ADSRComponent (BlankenhainAudioProcessor* _processor);
     ~ADSRComponent();
 
     //==============================================================================
     //[UserMethods]     -- You can add your own custom methods in this section.
-	double getAttack() const;
-	double getDecay() const;
-	double getSustain() const;
-	double getRelease() const;
+	float getAttack() const;
+	float getDecay() const;
+	float getSustain() const;
+	float getRelease() const;
+
+	void setAttack(float attack);
+	void setDecay(float decay);
+	void setSustain(float sustain);
+	void setRelease(float release);
     //[/UserMethods]
 
     void paint (Graphics& g);
@@ -58,6 +65,7 @@ public:
 
 private:
     //[UserVariables]   -- You can add your own custom variables in this section.
+	BlankenhainAudioProcessor* processor;
     //[/UserVariables]
 
     //==============================================================================
