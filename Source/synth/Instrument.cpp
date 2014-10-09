@@ -25,7 +25,7 @@ void Instrument::setSampleRate(double _sampleRate) {
 }
 
 void Instrument::noteOn(bh_time time, int number) {
-	notes[number] = &voices.addVoice({ this, number, time, true, 0.});
+	notes[number] = &voices.addVoice({ this, number, time, true, 0. });
 }
 
 void Instrument::noteOff(bh_time time, int number) {
@@ -33,6 +33,20 @@ void Instrument::noteOff(bh_time time, int number) {
 	notes[number]->triggerTime = time;
 	notes[number]->isOn = false;
 	notes[number] = nullptr;
+}
+
+bool Instrument::play(const Note& note, bh_time time, int start, int samples, int channels, float* const * const buffer) const {
+	const double frequency = 440. * pow(2.0, (note.number - 69) / 12.0);
+	for (int i = 0; i < samples; i++) {
+		const double TAU = 2. * std::acos(-1);
+		const bh_time currentTime = time + i;
+		const float value = float(std::sin(double(currentTime) / sampleRate * frequency * TAU) * getEnvelope(note, currentTime));
+		for (int channel = 0; channel < channels; channel++) {
+			buffer[channel][start + i] += value;
+		}
+	}
+
+	return noteFinished(note, time + samples);
 }
 
 double Instrument::getEnvelope(const Note& note, bh_time time) const {
@@ -59,7 +73,7 @@ double Instrument::getEnvelope(const Note& note, bh_time time) const {
 		}
 	}
 	else {
-		if (timeSinceTrigger <= releaseSamples && releaseSamples > 0) {
+		if (!noteFinished(note, time) && releaseSamples > 0) {
 			const double t = timeSinceTrigger / releaseSamples;
 			return note.releaseLevel * (1 - t);
 		}
@@ -69,14 +83,9 @@ double Instrument::getEnvelope(const Note& note, bh_time time) const {
 	}
 }
 
-void Instrument::play(const Note& note, bh_time time, int start, int samples, int channels, float* const * const buffer) const {
-	const double frequency = 440. * pow(2.0, (note.number - 69) / 12.0);
-	for (int i = 0; i < samples; i++) {
-		const double TAU = 2. * std::acos(-1);
-		const bh_time currentTime = time + i;
-		const float value = float(std::sin(double(currentTime) / sampleRate * frequency * TAU) * getEnvelope(note, currentTime));
-		for (int channel = 0; channel < channels; channel++) {
-			buffer[channel][start + i] += value;
-		}
-	}
+bool Instrument::noteFinished(const Note& note, bh_time time) const {
+	const double release = adsr[3];
+	const double releaseSamples = release / 1000 * sampleRate;
+	const bh_time timeSinceTrigger = time - note.triggerTime;
+	return !note.isOn && timeSinceTrigger > releaseSamples;
 }

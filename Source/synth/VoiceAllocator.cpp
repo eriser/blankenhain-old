@@ -3,10 +3,14 @@
 #include "Instrument.h"
 
 void VoiceAllocator::play(bh_time time, int start, int samples, int channels, float* const * const buffer) {
+	int deleted = 0;
 	for (int i = 0; i < size; i++) {
-		const Note& note = getVoice(i);
-		note.instrument->play(note, time, start, samples, channels, buffer);
+		Note& note = getVoice(i);
+		if (note.instrument->play(note, time, start, samples, channels, buffer)) {
+			note = getVoice(deleted++);
+		}
 	}
+	start += deleted;
 }
 
 Note& VoiceAllocator::addVoice(Note _note) {

@@ -12,7 +12,7 @@ public:
 	void setSampleRate(double sampleRate);
 	void noteOn(bh_time time, int number);
 	void noteOff(bh_time time, int number);
-	void play(const Note& note, bh_time time, int start, int samples, int channels, float* const * const buffer) const;
+	bool play(const Note& note, bh_time time, int start, int samples, int channels, float* const * const buffer) const;
 
 private:
 	static const int MIDI_MAX_NOTE = 128;
@@ -23,6 +23,7 @@ private:
 	Note* notes[MIDI_MAX_NOTE];
 
 	double getEnvelope(const Note& note, bh_time time) const;
+	bool noteFinished(const Note& note, bh_time time) const;
 };
 
 #endif  // INSTRUMENT_H_INCLUDED
