@@ -11,6 +11,15 @@
               pluginAAXCategory="AAX_ePlugInCategory_Dynamics" jucerVersion="3.1.0">
   <MAINGROUP id="E7lgWb" name="Blankenhain">
     <GROUP id="{86C2C631-FE57-7411-A3F9-0618356A66A7}" name="Source">
+      <GROUP id="{63DB33CE-2BBD-4D7E-5A37-FCF10266378A}" name="synth">
+        <FILE id="nQyCJd" name="Time.h" compile="0" resource="0" file="Source/synth/Time.h"/>
+        <FILE id="ButNxW" name="VoiceAllocater.cpp" compile="1" resource="0"
+              file="Source/synth/VoiceAllocater.cpp"/>
+        <FILE id="RMRomO" name="VoiceAllocater.h" compile="0" resource="0"
+              file="Source/synth/VoiceAllocater.h"/>
+        <FILE id="R3S1cD" name="Instrument.cpp" compile="1" resource="0" file="Source/synth/Instrument.cpp"/>
+        <FILE id="l9EhOI" name="Instrument.h" compile="0" resource="0" file="Source/synth/Instrument.h"/>
+      </GROUP>
       <FILE id="L5cAHr" name="ADSRComponent.h" compile="0" resource="0" file="Source/ADSRComponent.h"/>
       <FILE id="h0w0nX" name="ADSRComponent.cpp" compile="1" resource="0"
             file="Source/ADSRComponent.cpp"/>

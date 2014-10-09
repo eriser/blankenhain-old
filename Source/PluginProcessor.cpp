@@ -160,6 +160,7 @@ void BlankenhainAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuff
 	}
 	*/
 
+	defaultInstrument.setSampleRate(getSampleRate());
 	MidiBuffer::Iterator iterator(midiMessages);
 	MidiMessage message;
 	int samplePosition;
@@ -171,40 +172,26 @@ void BlankenhainAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuff
 		if (message.isNoteOnOrOff()) {
 			String onOff = message.isNoteOn() ? "On" : "Off";
 			Logger::outputDebugString(onOff + " " + String(message.getNoteNumber()) + " " + String(samplePosition));
-			float** data = buffer.getArrayOfWritePointers();
-			for (; bufferPosition < samplePosition; bufferPosition++) {
-				const float value = getSine();
-				for (int channel = 0; channel < getNumOutputChannels(); channel++) {
-					data[channel][bufferPosition] = value;
-				}
-				timeSinceTrigger++;
-				timeSinceRelease++;
-			}
+			const int numPlaySamples = samplePosition - bufferPosition;
+			defaultInstrument.play(globalTime, bufferPosition, numPlaySamples, getNumOutputChannels(), buffer.getArrayOfWritePointers());
+			globalTime += numPlaySamples;
+			bufferPosition = samplePosition;
 			if (message.isNoteOn()) {
-				noteOn = true;
 				lastNoteNumber = message.getNoteNumber();
-				lastNote = MidiMessage::getMidiNoteInHertz(lastNoteNumber);
-				timeSinceTrigger = 0;
+				defaultInstrument.noteOn(globalTime, lastNoteNumber);
 			}
 			else if (lastNoteNumber == message.getNoteNumber()) {
-				timeSinceTrigger--;
-				releaseLevel = getADSRValue();
-				noteOn = false;
-				timeSinceRelease = 0;
+				defaultInstrument.noteOff(globalTime, message.getNoteNumber());
 			}
 		}
 		else {
 			Logger::outputDebugString("Other event");
 		}
 	}
-	float** data = buffer.getArrayOfWritePointers();
-	for (; bufferPosition < buffer.getNumSamples(); bufferPosition++) {
-		const float value = getSine();
-		for (int channel = 0; channel < getNumOutputChannels(); channel++) {
-			data[channel][bufferPosition] = value;
-		}
-		timeSinceTrigger++;
-		timeSinceRelease++;
+	const int remainingSamples = buffer.getNumSamples() - bufferPosition;
+	if (remainingSamples > 0) {
+		defaultInstrument.play(globalTime, bufferPosition, remainingSamples, getNumOutputChannels(), buffer.getArrayOfWritePointers());
+		globalTime += remainingSamples;
 	}
 }
 
@@ -234,47 +221,8 @@ void BlankenhainAudioProcessor::setStateInformation(const void* data, int sizeIn
 }
 
 
-void BlankenhainAudioProcessor::setADSR(double _attack, double _decay, double _sustain, double _release) {
-	attack = _attack;
-	decay = _decay;
-	sustain = _sustain;
-	release = _release;
-}
-
-float BlankenhainAudioProcessor::getADSRValue() const {
-	const double attackSamples = attack / 1000 * getSampleRate();
-	const double decaySamples = decay / 1000 * getSampleRate();
-	const float releaseSamples = release / 1000 * getSampleRate();
-
-	float factor;
-	if (noteOn) {
-		if (timeSinceTrigger < attackSamples) {
-			factor = timeSinceTrigger / attackSamples;
-		}
-		else if (timeSinceTrigger - attackSamples < decaySamples) {
-			const double t = (timeSinceTrigger - attackSamples) / decaySamples;
-			factor = (1 - t) + sustain * t;
-		}
-		else {
-			factor = sustain;
-		}
-	}
-	else {
-		if (timeSinceRelease < releaseSamples) {
-			const double t = timeSinceRelease / releaseSamples;
-			factor = releaseLevel * (1 - t);
-		}
-		else {
-			factor = 0.;
-		}
-	}
-
-	return factor;
-}
-
-float BlankenhainAudioProcessor::getSine() const {
-	const double TAU = 6.283185;
-	return getADSRValue() * std::sin(double(timeSinceTrigger) / getSampleRate() * lastNote * TAU);
+void BlankenhainAudioProcessor::setAdsr(const double adsr[4]) {
+	defaultInstrument.setAdsr(adsr);
 }
 
 //==============================================================================

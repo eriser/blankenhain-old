@@ -82,12 +82,13 @@ void BlankenhainAudioProcessorEditor::resized()
 void BlankenhainAudioProcessorEditor::timerCallback() {
     BlankenhainAudioProcessor* ourProcessor = getProcessor();
     //exchange any data you want between UI elements and the Plugin "ourProcessor"
-	ourProcessor->setADSR(
+	const double adsr[4] = {
 		adsr1Component->getAttack(),
 		adsr1Component->getDecay(),
 		adsr1Component->getSustain(),
 		adsr1Component->getRelease()
-	);
+	};
+	ourProcessor->setAdsr(adsr);
 }
 
 BlankenhainAudioProcessor* BlankenhainAudioProcessorEditor::getProcessor() const {

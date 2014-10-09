@@ -15,6 +15,9 @@
 
 #include <cstdint>
 
+#include "synth/Instrument.h"
+#include "synth/Time.h"
+
 
 //==============================================================================
 /**
@@ -67,22 +70,12 @@ public:
 	void getStateInformation(MemoryBlock& destData) override;
 	void setStateInformation(const void* data, int sizeInBytes) override;
 
-	void setADSR(double attack, double decay, double sustain, double release);
+	void setAdsr(const double adsr[4]);
 
 private:
-	int_fast64_t timeSinceTrigger = 0;
-	int_fast64_t timeSinceRelease = 0;
-	bool noteOn = false;
-	double lastNote = 0.;
+	bh_time globalTime = 0;
+	Instrument defaultInstrument;
 	int lastNoteNumber = 0;
-	double releaseLevel = 0;
-	double attack = 0.;
-	double decay = 0.;
-	double sustain = 0.;
-	double release = 0.;
-
-	float getADSRValue() const;
-	float getSine() const;
 
 	//==============================================================================
 	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(BlankenhainAudioProcessor)
