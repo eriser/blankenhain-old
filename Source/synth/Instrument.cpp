@@ -3,9 +3,14 @@
 // TODO: remove dependency
 #include <cmath>
 
-Instrument::Instrument() {
+Instrument::Instrument(VoiceAllocator& _voices) :
+voices(_voices)
+{
 	const double _adsr[4] = { 0, 0, 0, 0 };
 	setAdsr(_adsr);
+	for (int i = 0; i < MIDI_MAX_NOTE; i++) {
+		notes[i] = nullptr;
+	}
 }
 
 void Instrument::setAdsr(const double _adsr[4]) {
@@ -20,18 +25,17 @@ void Instrument::setSampleRate(double _sampleRate) {
 }
 
 void Instrument::noteOn(bh_time time, int number) {
-	triggerTime = time;
-	isNoteOn = true;
-	frequency = 440. * pow(2.0, (number - 69) / 12.0);
+	notes[number] = &voices.addVoice({ this, number, time, true, 0.});
 }
 
 void Instrument::noteOff(bh_time time, int number) {
-	releaseLevel = getEnvelope(time);
-	triggerTime = time;
-	isNoteOn = false;
+	notes[number]->releaseLevel = getEnvelope(*notes[number], time);
+	notes[number]->triggerTime = time;
+	notes[number]->isOn = false;
+	notes[number] = nullptr;
 }
 
-double Instrument::getEnvelope(bh_time time) const {
+double Instrument::getEnvelope(const Note& note, bh_time time) const {
 	const double attack = adsr[0];
 	const double decay = adsr[1];
 	const double sustain = adsr[2];
@@ -41,8 +45,8 @@ double Instrument::getEnvelope(bh_time time) const {
 	const double decaySamples = decay / 1000 * sampleRate;
 	const double releaseSamples = release / 1000 * sampleRate;
 
-	const bh_time timeSinceTrigger = time - triggerTime;
-	if (isNoteOn) {
+	const bh_time timeSinceTrigger = time - note.triggerTime;
+	if (note.isOn) {
 		if (timeSinceTrigger <= attackSamples && attackSamples > 0) {
 			return timeSinceTrigger / attackSamples;
 		}
@@ -57,7 +61,7 @@ double Instrument::getEnvelope(bh_time time) const {
 	else {
 		if (timeSinceTrigger <= releaseSamples && releaseSamples > 0) {
 			const double t = timeSinceTrigger / releaseSamples;
-			return releaseLevel * (1 - t);
+			return note.releaseLevel * (1 - t);
 		}
 		else {
 			return 0.;
@@ -65,13 +69,14 @@ double Instrument::getEnvelope(bh_time time) const {
 	}
 }
 
-void Instrument::play(bh_time time, int start, int samples, int channels, float* const * const buffer) const {
+void Instrument::play(const Note& note, bh_time time, int start, int samples, int channels, float* const * const buffer) const {
+	const double frequency = 440. * pow(2.0, (note.number - 69) / 12.0);
 	for (int i = 0; i < samples; i++) {
 		const double TAU = 2. * std::acos(-1);
 		const bh_time currentTime = time + i;
-		const float value = float(std::sin(double(currentTime) / sampleRate * frequency * TAU) * getEnvelope(currentTime));
+		const float value = float(std::sin(double(currentTime) / sampleRate * frequency * TAU) * getEnvelope(note, currentTime));
 		for (int channel = 0; channel < channels; channel++) {
-			buffer[channel][start + i] = value;
+			buffer[channel][start + i] += value;
 		}
 	}
 }

@@ -15,7 +15,8 @@
 
 
 //==============================================================================
-BlankenhainAudioProcessor::BlankenhainAudioProcessor()
+BlankenhainAudioProcessor::BlankenhainAudioProcessor() :
+defaultInstrument(voices)
 {
 }
 
@@ -140,25 +141,9 @@ void BlankenhainAudioProcessor::releaseResources()
 
 void BlankenhainAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midiMessages)
 {
-	// In case we have more outputs than inputs, this code clears any output
-	// channels that didn't contain input data, (because these aren't
-	// guaranteed to be empty - they may contain garbage).
-	// I've added this to avoid people getting screaming feedback
-	// when they first compile the plugin, but obviously you don't need to
-	// this code if your algorithm already fills all the output channels.
-	for (int i = getNumInputChannels(); i < getNumOutputChannels(); ++i)
+	for (int i = 0; i < getNumOutputChannels(); i++) {
 		buffer.clear(i, 0, buffer.getNumSamples());
-
-	// This is the place where you'd normally do the guts of your plugin's
-	// audio processing...
-	/*
-	for (int channel = 0; channel < getNumInputChannels(); ++channel)
-	{
-	float* channelData = buffer.getWritePointer(channel);
-
-	// ..do something to the data...
 	}
-	*/
 
 	defaultInstrument.setSampleRate(getSampleRate());
 	MidiBuffer::Iterator iterator(midiMessages);
@@ -173,14 +158,13 @@ void BlankenhainAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuff
 			String onOff = message.isNoteOn() ? "On" : "Off";
 			Logger::outputDebugString(onOff + " " + String(message.getNoteNumber()) + " " + String(samplePosition));
 			const int numPlaySamples = samplePosition - bufferPosition;
-			defaultInstrument.play(globalTime, bufferPosition, numPlaySamples, getNumOutputChannels(), buffer.getArrayOfWritePointers());
+			voices.play(globalTime, bufferPosition, numPlaySamples, getNumOutputChannels(), buffer.getArrayOfWritePointers());
 			globalTime += numPlaySamples;
 			bufferPosition = samplePosition;
 			if (message.isNoteOn()) {
-				lastNoteNumber = message.getNoteNumber();
-				defaultInstrument.noteOn(globalTime, lastNoteNumber);
+				defaultInstrument.noteOn(globalTime, message.getNoteNumber());
 			}
-			else if (lastNoteNumber == message.getNoteNumber()) {
+			else {
 				defaultInstrument.noteOff(globalTime, message.getNoteNumber());
 			}
 		}
@@ -190,7 +174,7 @@ void BlankenhainAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuff
 	}
 	const int remainingSamples = buffer.getNumSamples() - bufferPosition;
 	if (remainingSamples > 0) {
-		defaultInstrument.play(globalTime, bufferPosition, remainingSamples, getNumOutputChannels(), buffer.getArrayOfWritePointers());
+		voices.play(globalTime, bufferPosition, remainingSamples, getNumOutputChannels(), buffer.getArrayOfWritePointers());
 		globalTime += remainingSamples;
 	}
 }

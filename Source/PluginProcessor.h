@@ -17,7 +17,7 @@
 
 #include "synth/Instrument.h"
 #include "synth/Time.h"
-
+#include "synth/VoiceAllocator.h"
 
 //==============================================================================
 /**
@@ -74,8 +74,8 @@ public:
 
 private:
 	bh_time globalTime = 0;
+	VoiceAllocator voices;
 	Instrument defaultInstrument;
-	int lastNoteNumber = 0;
 
 	//==============================================================================
 	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(BlankenhainAudioProcessor)
