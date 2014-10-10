@@ -43,6 +43,7 @@ BlankenhainAudioProcessorEditor::BlankenhainAudioProcessorEditor (BlankenhainAud
     //[Constructor] You can add your own custom stuff here..
 	getProcessor()->requestUiUpdate();
     startTimer(200);
+    setLookAndFeel(&lookAndFeel);
     //[/Constructor]
 }
 
