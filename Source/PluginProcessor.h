@@ -12,6 +12,15 @@
 //==============================================================================
 /**
 */
+
+enum ParameterEditorId {
+	ADSR1_ID = 0,
+	ADSR2_ID,
+	LFO1_ID,
+	LFO2_ID,
+	END,
+};
+
 class BlankenhainAudioProcessor : public AudioProcessor
 {
 public:
@@ -61,6 +70,8 @@ public:
 	void setStateInformation(const void* data, int sizeInBytes) override;
 
 	bool needsUiUpdate() const;
+	int getParameterIndex(enum ParameterEditorId id) const;
+	ParameterEditorId getParameterEditorId(int index) const;
 
 	void requestUiUpdate();
 	void clearUiUpdate();

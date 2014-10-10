@@ -23,38 +23,61 @@ const String BlankenhainAudioProcessor::getName() const
 
 int BlankenhainAudioProcessor::getNumParameters()
 {
-	return 4;
+	return getParameterIndex(END);
 }
 
 float BlankenhainAudioProcessor::getParameter(int index)
 {
-	return defaultInstrument.getAdsr()[index];
+	const ParameterEditorId id = getParameterEditorId(index);
+	const int relativeIndex = index - getParameterIndex(id);
+	switch (id) {
+	case ADSR1_ID:
+		return defaultInstrument.getAdsr()[relativeIndex];
+	default:
+		return 0.;
+	}
 }
 
 void BlankenhainAudioProcessor::setParameter(int index, float newValue)
 {
-	const float* prev = defaultInstrument.getAdsr();
+	const ParameterEditorId id = getParameterEditorId(index);
+	const int relativeIndex = index - getParameterIndex(id);
+	const float* prev;
 	float newAdsr[4];
-	newAdsr[0] = prev[0];
-	newAdsr[1] = prev[1];
-	newAdsr[2] = prev[2];
-	newAdsr[3] = prev[3];
-	newAdsr[index] = newValue;
-	defaultInstrument.setAdsr(newAdsr);
-	requestUiUpdate();
+	switch (id) {
+	case ADSR1_ID:
+		prev = defaultInstrument.getAdsr();
+		newAdsr[0] = prev[0];
+		newAdsr[1] = prev[1];
+		newAdsr[2] = prev[2];
+		newAdsr[3] = prev[3];
+		newAdsr[relativeIndex] = newValue;
+		defaultInstrument.setAdsr(newAdsr);
+		requestUiUpdate();
+		break;
+	default:
+		break;
+	}
 }
 
 const String BlankenhainAudioProcessor::getParameterName(int index)
 {
-	switch (index) {
-	case 0:
-		return "Attack";
-	case 1:
-		return "Decay";
-	case 2:
-		return "Sustain";
-	case 3:
-		return "Release";
+	const ParameterEditorId id = getParameterEditorId(index);
+	const int relativeIndex = index - getParameterIndex(id);
+	switch (id) {
+	case ADSR1_ID:
+		switch (relativeIndex) {
+		case 0:
+			return "Attack";
+		case 1:
+			return "Decay";
+		case 2:
+			return "Sustain";
+		case 3:
+			return "Release";
+		default:
+			return "";
+		}
 	default:
 		return "";
 	}
@@ -216,6 +239,39 @@ void BlankenhainAudioProcessor::setStateInformation(const void* data, int sizeIn
 bool BlankenhainAudioProcessor::needsUiUpdate() const {
 	return uiNeedsUpdate;
 }
+
+int BlankenhainAudioProcessor::getParameterIndex(enum ParameterEditorId id) const {
+	const int parameterIndex[] = {
+		0, // ADSR1
+		4, // ADSR2
+		8, // LFO1
+		8, // LFO2
+		8, // END
+	};
+	return parameterIndex[id];
+}
+
+ParameterEditorId BlankenhainAudioProcessor::getParameterEditorId(int index) const {
+	if (index < getParameterIndex(ADSR1_ID)) {
+		return END;
+	}
+	else if (index < getParameterIndex(ADSR2_ID)) {
+		return ADSR1_ID;
+	}
+	else if (index < getParameterIndex(LFO1_ID)) {
+		return ADSR2_ID;
+	}
+	else if (index < getParameterIndex(LFO2_ID)) {
+		return LFO1_ID;
+	}
+	else if (index < getParameterIndex(END)) {
+		return LFO2_ID;
+	}
+	else {
+		return END;
+	}
+}
+
 void BlankenhainAudioProcessor::requestUiUpdate() {
 	uiNeedsUpdate = true;
 }

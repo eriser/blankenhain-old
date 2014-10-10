@@ -28,7 +28,8 @@
 //[/MiscUserDefs]
 
 //==============================================================================
-ADSRComponent::ADSRComponent (BlankenhainAudioProcessor* _processor)
+ADSRComponent::ADSRComponent (BlankenhainAudioProcessor* _processor, int _n)
+    : processor(_processor), n(_n)
 {
     addAndMakeVisible (attackSlider = new Slider ("Attack"));
     attackSlider->setRange (0, 1, 0);
@@ -62,7 +63,7 @@ ADSRComponent::ADSRComponent (BlankenhainAudioProcessor* _processor)
 
 
     //[Constructor] You can add your own custom stuff here..
-	processor = _processor;
+	parameterOffset = processor->getParameterIndex(static_cast<ParameterEditorId>(ADSR1_ID + n));
     //[/Constructor]
 }
 
@@ -95,10 +96,10 @@ void ADSRComponent::paint (Graphics& g)
 
 void ADSRComponent::resized()
 {
-    attackSlider->setBounds (proportionOfWidth (0.0000f), proportionOfHeight (0.0000f), proportionOfWidth (0.2505f), proportionOfHeight (1.0000f));
-    decaySlider->setBounds (proportionOfWidth (0.2505f), proportionOfHeight (0.0000f), proportionOfWidth (0.2505f), proportionOfHeight (1.0000f));
-    sustainSlider->setBounds (proportionOfWidth (0.5011f), proportionOfHeight (0.0000f), proportionOfWidth (0.2505f), proportionOfHeight (1.0000f));
-    releaseSlider->setBounds (proportionOfWidth (0.7495f), proportionOfHeight (0.0000f), proportionOfWidth (0.2505f), proportionOfHeight (1.0000f));
+    attackSlider->setBounds (proportionOfWidth (0.0000f), proportionOfHeight (0.0000f), proportionOfWidth (0.2510f), proportionOfHeight (1.0000f));
+    decaySlider->setBounds (proportionOfWidth (0.2510f), proportionOfHeight (0.0000f), proportionOfWidth (0.2510f), proportionOfHeight (1.0000f));
+    sustainSlider->setBounds (proportionOfWidth (0.5005f), proportionOfHeight (0.0000f), proportionOfWidth (0.2510f), proportionOfHeight (1.0000f));
+    releaseSlider->setBounds (proportionOfWidth (0.7490f), proportionOfHeight (0.0000f), proportionOfWidth (0.2510f), proportionOfHeight (1.0000f));
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]
 }
@@ -111,25 +112,25 @@ void ADSRComponent::sliderValueChanged (Slider* sliderThatWasMoved)
     if (sliderThatWasMoved == attackSlider)
     {
         //[UserSliderCode_attackSlider] -- add your slider handling code here..
-		processor->setParameterNotifyingHost(0, float(attackSlider->getValue()));
+		processor->setParameterNotifyingHost(parameterOffset + 0, float(attackSlider->getValue()));
         //[/UserSliderCode_attackSlider]
     }
     else if (sliderThatWasMoved == decaySlider)
     {
         //[UserSliderCode_decaySlider] -- add your slider handling code here..
-		processor->setParameterNotifyingHost(1, float(decaySlider->getValue()));
+		processor->setParameterNotifyingHost(parameterOffset + 1, float(decaySlider->getValue()));
         //[/UserSliderCode_decaySlider]
     }
     else if (sliderThatWasMoved == sustainSlider)
     {
         //[UserSliderCode_sustainSlider] -- add your slider handling code here..
-		processor->setParameterNotifyingHost(2, float(sustainSlider->getValue()));
+		processor->setParameterNotifyingHost(parameterOffset + 2, float(sustainSlider->getValue()));
         //[/UserSliderCode_sustainSlider]
     }
     else if (sliderThatWasMoved == releaseSlider)
     {
         //[UserSliderCode_releaseSlider] -- add your slider handling code here..
-		processor->setParameterNotifyingHost(3, float(releaseSlider->getValue()));
+		processor->setParameterNotifyingHost(parameterOffset + 3, float(releaseSlider->getValue()));
         //[/UserSliderCode_releaseSlider]
     }
 
@@ -141,10 +142,10 @@ void ADSRComponent::sliderValueChanged (Slider* sliderThatWasMoved)
 
 //[MiscUserCode] You can add your own definitions of your custom methods or any other code here...
 void ADSRComponent::updateUi() {
-	attackSlider->setValue(processor->getParameter(0));
-	decaySlider->setValue(processor->getParameter(1));
-	sustainSlider->setValue(processor->getParameter(2));
-	releaseSlider->setValue(processor->getParameter(3));
+	attackSlider->setValue(processor->getParameter(parameterOffset + 0));
+	decaySlider->setValue(processor->getParameter(parameterOffset + 1));
+	sustainSlider->setValue(processor->getParameter(parameterOffset + 2));
+	releaseSlider->setValue(processor->getParameter(parameterOffset + 3));
 }
 //[/MiscUserCode]
 
@@ -159,9 +160,10 @@ void ADSRComponent::updateUi() {
 BEGIN_JUCER_METADATA
 
 <JUCER_COMPONENT documentType="Component" className="ADSRComponent" componentName=""
-                 parentClasses="public Component" constructorParams="BlankenhainAudioProcessor* _processor"
-                 variableInitialisers="" snapPixels="8" snapActive="1" snapShown="1"
-                 overlayOpacity="0.330" fixedSize="0" initialWidth="600" initialHeight="400">
+                 parentClasses="public Component, public ParameterEditor" constructorParams="BlankenhainAudioProcessor* _processor, int _n"
+                 variableInitialisers="processor(_processor), n(_n)" snapPixels="8"
+                 snapActive="1" snapShown="1" overlayOpacity="0.330" fixedSize="0"
+                 initialWidth="600" initialHeight="400">
   <BACKGROUND backgroundColour="ffffffff"/>
   <SLIDER name="Attack" id="7f931157cf71799a" memberName="attackSlider"
           virtualName="" explicitFocusOrder="0" pos="0% 0% 25.107% 100%"

@@ -30,13 +30,13 @@
 BlankenhainAudioProcessorEditor::BlankenhainAudioProcessorEditor (BlankenhainAudioProcessor* ownerFilter)
     : AudioProcessorEditor(ownerFilter)
 {
-    addAndMakeVisible (adsr1Wrapper = new GroupWrapComponent<ADSRComponent> (ownerFilter));
+    addAndMakeVisible (adsr1Wrapper = new GroupWrapComponent<ADSRComponent> (ownerFilter, 0));
     adsr1Wrapper->setName ("ADSR1");
 
     addAndMakeVisible (lfo1Wrapper = new GroupWrapComponent<LFOComponent>());
     lfo1Wrapper->setName ("LFO1");
 
-    addAndMakeVisible (adsr2Wrapper = new GroupWrapComponent<ADSRComponent> (ownerFilter));
+    addAndMakeVisible (adsr2Wrapper = new GroupWrapComponent<ADSRComponent> (ownerFilter, 1));
     adsr2Wrapper->setName ("ADSR2");
 
     addAndMakeVisible (lfo2Wrapper = new GroupWrapComponent<LFOComponent>());
@@ -140,13 +140,13 @@ BEGIN_JUCER_METADATA
   <BACKGROUND backgroundColour="ffffffff"/>
   <GENERICCOMPONENT name="ADSR1" id="aa02ec06e0ef68d2" memberName="adsr1Wrapper"
                     virtualName="" explicitFocusOrder="0" pos="0 0 49.929% 66.667%"
-                    class="GroupWrapComponent&lt;ADSRComponent&gt;" params="ownerFilter"/>
+                    class="GroupWrapComponent&lt;ADSRComponent&gt;" params="ownerFilter, 0"/>
   <GENERICCOMPONENT name="LFO1" id="9521c8513f7d0e00" memberName="lfo1Wrapper" virtualName=""
                     explicitFocusOrder="0" pos="0 0Rr 49.929% 33.333%" class="GroupWrapComponent&lt;LFOComponent&gt;"
                     params=""/>
   <GENERICCOMPONENT name="ADSR2" id="e97ce6f55a156364" memberName="adsr2Wrapper"
                     virtualName="" explicitFocusOrder="0" pos="49.929% 0 49.929% 66.667%"
-                    class="GroupWrapComponent&lt;ADSRComponent&gt;" params="ownerFilter"/>
+                    class="GroupWrapComponent&lt;ADSRComponent&gt;" params="ownerFilter, 1"/>
   <GENERICCOMPONENT name="LFO2" id="f836b115579cdc4f" memberName="lfo2Wrapper" virtualName=""
                     explicitFocusOrder="0" pos="49.929% 0Rr 49.929% 33.333%" class="GroupWrapComponent&lt;LFOComponent&gt;"
                     params=""/>
