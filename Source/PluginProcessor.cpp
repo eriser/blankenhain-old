@@ -5,6 +5,14 @@
 
 
 //==============================================================================
+// This creates new instances of the plugin..
+AudioProcessor* JUCE_CALLTYPE createPluginFilter()
+{
+	return new BlankenhainAudioProcessor();
+}
+
+
+//==============================================================================
 BlankenhainAudioProcessor::BlankenhainAudioProcessor() :
 defaultInstrument(voices)
 {
@@ -32,7 +40,9 @@ float BlankenhainAudioProcessor::getParameter(int index)
 	const int relativeIndex = index - getParameterIndex(id);
 	switch (id) {
 	case ADSR1_ID:
-		return defaultInstrument.getAdsr()[relativeIndex];
+		return getEnvelopeParameter(defaultInstrument.getEnvelope1(), relativeIndex);
+	case ADSR2_ID:
+		return getEnvelopeParameter(defaultInstrument.getEnvelope2(), relativeIndex);
 	default:
 		return 0.;
 	}
@@ -42,17 +52,13 @@ void BlankenhainAudioProcessor::setParameter(int index, float newValue)
 {
 	const ParameterEditorId id = getParameterEditorId(index);
 	const int relativeIndex = index - getParameterIndex(id);
-	const float* prev;
-	float newAdsr[4];
 	switch (id) {
 	case ADSR1_ID:
-		prev = defaultInstrument.getAdsr();
-		newAdsr[0] = prev[0];
-		newAdsr[1] = prev[1];
-		newAdsr[2] = prev[2];
-		newAdsr[3] = prev[3];
-		newAdsr[relativeIndex] = newValue;
-		defaultInstrument.setAdsr(newAdsr);
+		setEnvelopeParameter(defaultInstrument.getEnvelope1(), relativeIndex, newValue);
+		requestUiUpdate();
+		break;
+	case ADSR2_ID:
+		setEnvelopeParameter(defaultInstrument.getEnvelope2(), relativeIndex, newValue);
 		requestUiUpdate();
 		break;
 	default:
@@ -64,17 +70,20 @@ const String BlankenhainAudioProcessor::getParameterName(int index)
 {
 	const ParameterEditorId id = getParameterEditorId(index);
 	const int relativeIndex = index - getParameterIndex(id);
+	String idPostfix = "2";
 	switch (id) {
 	case ADSR1_ID:
+		idPostfix = "1";
+	case ADSR2_ID:
 		switch (relativeIndex) {
 		case 0:
-			return "Attack";
+			return "Attack" + idPostfix;
 		case 1:
-			return "Decay";
+			return "Decay" + idPostfix;
 		case 2:
-			return "Sustain";
+			return "Sustain" + idPostfix;
 		case 3:
-			return "Release";
+			return "Release" + idPostfix;
 		default:
 			return "";
 		}
@@ -161,9 +170,10 @@ void BlankenhainAudioProcessor::changeProgramName(int index, const String& newNa
 }
 
 //==============================================================================
-void BlankenhainAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
+void BlankenhainAudioProcessor::prepareToPlay(double _sampleRate, int samplesPerBlock)
 {
-	defaultInstrument.setSampleRate(sampleRate);
+	defaultInstrument.setSampleRate(_sampleRate);
+	sampleRate = _sampleRate;
 }
 
 void BlankenhainAudioProcessor::releaseResources()
@@ -280,9 +290,35 @@ void BlankenhainAudioProcessor::clearUiUpdate() {
 	uiNeedsUpdate = false;
 }
 
-//==============================================================================
-// This creates new instances of the plugin..
-AudioProcessor* JUCE_CALLTYPE createPluginFilter()
-{
-	return new BlankenhainAudioProcessor();
+
+float BlankenhainAudioProcessor::getEnvelopeParameter(Envelope& envelope, int index) const {
+	switch (index) {
+	case 0:
+		return float(envelope.getAttack() / sampleRate);
+	case 1:
+		return float(envelope.getDecay() / sampleRate);
+	case 2:
+		return float(envelope.getSustain());
+	case 3:
+		return float(envelope.getRelease() / sampleRate);
+	default:
+		return 0;
+	}
+}
+
+void BlankenhainAudioProcessor::setEnvelopeParameter(Envelope& envelope, int index, float newValue) {
+	switch (index) {
+	case 0:
+		envelope.setAttack(newValue * sampleRate);
+		break;
+	case 1:
+		envelope.setDecay(newValue * sampleRate);
+		break;
+	case 2:
+		envelope.setSustain(newValue);
+		break;
+	case 3:
+		envelope.setRelease(newValue * sampleRate);
+		break;
+	}
 }

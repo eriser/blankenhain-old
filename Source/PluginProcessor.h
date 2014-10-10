@@ -81,6 +81,10 @@ private:
 	VoiceAllocator voices;
 	Instrument defaultInstrument;
 	bool uiNeedsUpdate;
+	double sampleRate = 0;
+
+	float getEnvelopeParameter(Envelope& envelope, int index) const;
+	void setEnvelopeParameter(Envelope& envelope, int index, float newValue);
 
 	//==============================================================================
 	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(BlankenhainAudioProcessor)
