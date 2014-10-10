@@ -30,8 +30,17 @@
 BlankenhainAudioProcessorEditor::BlankenhainAudioProcessorEditor (BlankenhainAudioProcessor* ownerFilter)
     : AudioProcessorEditor(ownerFilter)
 {
-    addAndMakeVisible (component = new GroupWrapComponent<ADSRComponent> (ownerFilter));
-    component->setName ("new component");
+    addAndMakeVisible (adsr1Wrapper = new GroupWrapComponent<ADSRComponent> (ownerFilter));
+    adsr1Wrapper->setName ("ADSR1");
+
+    addAndMakeVisible (lfo1Wrapper = new GroupWrapComponent<LFOComponent>());
+    lfo1Wrapper->setName ("LFO1");
+
+    addAndMakeVisible (adsr2Wrapper = new GroupWrapComponent<ADSRComponent> (ownerFilter));
+    adsr2Wrapper->setName ("ADSR2");
+
+    addAndMakeVisible (lfo2Wrapper = new GroupWrapComponent<LFOComponent>());
+    lfo2Wrapper->setName ("LFO2");
 
 
     //[UserPreSize]
@@ -52,7 +61,10 @@ BlankenhainAudioProcessorEditor::~BlankenhainAudioProcessorEditor()
     //[Destructor_pre]. You can add your own custom destruction code here..
     //[/Destructor_pre]
 
-    component = nullptr;
+    adsr1Wrapper = nullptr;
+    lfo1Wrapper = nullptr;
+    adsr2Wrapper = nullptr;
+    lfo2Wrapper = nullptr;
 
 
     //[Destructor]. You can add your own custom destruction code here..
@@ -73,7 +85,10 @@ void BlankenhainAudioProcessorEditor::paint (Graphics& g)
 
 void BlankenhainAudioProcessorEditor::resized()
 {
-    component->setBounds (88, 112, 328, 256);
+    adsr1Wrapper->setBounds (0, 0, proportionOfWidth (0.4993f), proportionOfHeight (0.6667f));
+    lfo1Wrapper->setBounds (0, getHeight() - proportionOfHeight (0.3333f), proportionOfWidth (0.4993f), proportionOfHeight (0.3333f));
+    adsr2Wrapper->setBounds (proportionOfWidth (0.4993f), 0, proportionOfWidth (0.4993f), proportionOfHeight (0.6667f));
+    lfo2Wrapper->setBounds (proportionOfWidth (0.4993f), getHeight() - proportionOfHeight (0.3333f), proportionOfWidth (0.4993f), proportionOfHeight (0.3333f));
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]
 }
@@ -85,7 +100,7 @@ void BlankenhainAudioProcessorEditor::timerCallback() {
     BlankenhainAudioProcessor* ourProcessor = getProcessor();
 
 	if (ourProcessor->needsUiUpdate()) {
-		ADSRComponent& adsr1Component = component->getWrapped();
+		ADSRComponent& adsr1Component = adsr1Wrapper->getWrapped();
 		adsr1Component.setAttack(ourProcessor->getParameter(0));
 		adsr1Component.setDecay(ourProcessor->getParameter(1));
 		adsr1Component.setSustain(ourProcessor->getParameter(2));
@@ -124,9 +139,18 @@ BEGIN_JUCER_METADATA
                  snapPixels="8" snapActive="1" snapShown="1" overlayOpacity="0.330"
                  fixedSize="0" initialWidth="600" initialHeight="400">
   <BACKGROUND backgroundColour="ffffffff"/>
-  <GENERICCOMPONENT name="new component" id="aa02ec06e0ef68d2" memberName="component"
-                    virtualName="" explicitFocusOrder="0" pos="88 112 328 256" class="GroupWrapComponent&lt;ADSRComponent&gt;"
-                    params="ownerFilter"/>
+  <GENERICCOMPONENT name="ADSR1" id="aa02ec06e0ef68d2" memberName="adsr1Wrapper"
+                    virtualName="" explicitFocusOrder="0" pos="0 0 49.929% 66.667%"
+                    class="GroupWrapComponent&lt;ADSRComponent&gt;" params="ownerFilter"/>
+  <GENERICCOMPONENT name="LFO1" id="9521c8513f7d0e00" memberName="lfo1Wrapper" virtualName=""
+                    explicitFocusOrder="0" pos="0 0Rr 49.929% 33.333%" class="GroupWrapComponent&lt;LFOComponent&gt;"
+                    params=""/>
+  <GENERICCOMPONENT name="ADSR2" id="e97ce6f55a156364" memberName="adsr2Wrapper"
+                    virtualName="" explicitFocusOrder="0" pos="49.929% 0 49.929% 66.667%"
+                    class="GroupWrapComponent&lt;ADSRComponent&gt;" params="ownerFilter"/>
+  <GENERICCOMPONENT name="LFO2" id="f836b115579cdc4f" memberName="lfo2Wrapper" virtualName=""
+                    explicitFocusOrder="0" pos="49.929% 0Rr 49.929% 33.333%" class="GroupWrapComponent&lt;LFOComponent&gt;"
+                    params=""/>
 </JUCER_COMPONENT>
 
 END_JUCER_METADATA

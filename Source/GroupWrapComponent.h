@@ -13,7 +13,6 @@ public:
 		subcomponent(std::forward<Args>(args)...)
 	{
 		addAndMakeVisible(subcomponent);
-		setText("Das ist also dieser Envelope");
 	}
 
 	Subcomponent& getWrapped() {
@@ -24,7 +23,12 @@ public:
 		// TODO remove constants
 		subcomponent.setBounds(
 			getLocalBounds().reduced(8, 12).translated(0, 4)
-		);
+			);
+	}
+
+	void setName(const String &newName) override {
+		setText(newName);
+		GroupComponent::setName(newName);
 	}
 
 private:
