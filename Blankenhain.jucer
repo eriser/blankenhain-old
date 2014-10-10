@@ -29,6 +29,8 @@
       <FILE id="GzwxgR" name="LFOComponent.cpp" compile="1" resource="0"
             file="Source/LFOComponent.cpp"/>
       <FILE id="j3NvLf" name="LFOComponent.h" compile="0" resource="0" file="Source/LFOComponent.h"/>
+      <FILE id="hO80SI" name="ParameterEditor.h" compile="0" resource="0"
+            file="Source/ParameterEditor.h"/>
       <FILE id="wC82lx" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>
       <FILE id="GKTP1v" name="PluginProcessor.h" compile="0" resource="0"

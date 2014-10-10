@@ -61,11 +61,9 @@ public:
 	void setStateInformation(const void* data, int sizeInBytes) override;
 
 	bool needsUiUpdate() const;
-	const float* getAdsr() const;
 
 	void requestUiUpdate();
 	void clearUiUpdate();
-	void setAdsr(const float adsr[4]);
 
 private:
 	bh_time globalTime = 0;

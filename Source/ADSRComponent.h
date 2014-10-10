@@ -22,6 +22,7 @@
 
 //[Headers]     -- You can add your own extra header files here --
 #include "JuceHeader.h"
+#include "ParameterEditor.h"
 
 class BlankenhainAudioProcessor;
 //[/Headers]
@@ -37,6 +38,7 @@ class BlankenhainAudioProcessor;
                                                                     //[/Comments]
 */
 class ADSRComponent  : public Component,
+                       public ParameterEditor,
                        public SliderListener
 {
 public:
@@ -46,15 +48,7 @@ public:
 
     //==============================================================================
     //[UserMethods]     -- You can add your own custom methods in this section.
-	float getAttack() const;
-	float getDecay() const;
-	float getSustain() const;
-	float getRelease() const;
-
-	void setAttack(float attack);
-	void setDecay(float decay);
-	void setSustain(float sustain);
-	void setRelease(float release);
+	void updateUi() override;
     //[/UserMethods]
 
     void paint (Graphics& g);

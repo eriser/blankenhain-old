@@ -22,6 +22,7 @@
 
 //[Headers]     -- You can add your own extra header files here --
 #include "JuceHeader.h"
+#include "ParameterEditor.h"
 //[/Headers]
 
 
@@ -35,6 +36,7 @@
                                                                     //[/Comments]
 */
 class LFOComponent  : public Component,
+                      public ParameterEditor,
                       public SliderListener,
                       public ComboBoxListener
 {
@@ -45,6 +47,7 @@ public:
 
     //==============================================================================
     //[UserMethods]     -- You can add your own custom methods in this section.
+	void updateUi() override;
     //[/UserMethods]
 
     void paint (Graphics& g);

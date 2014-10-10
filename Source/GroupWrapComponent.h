@@ -17,7 +17,7 @@ public:
 
 	Subcomponent& getWrapped() {
 		return subcomponent;
-	}
+	} 
 
 	void resized() override {
 		// TODO remove constants

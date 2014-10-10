@@ -100,11 +100,10 @@ void BlankenhainAudioProcessorEditor::timerCallback() {
     BlankenhainAudioProcessor* ourProcessor = getProcessor();
 
 	if (ourProcessor->needsUiUpdate()) {
-		ADSRComponent& adsr1Component = adsr1Wrapper->getWrapped();
-		adsr1Component.setAttack(ourProcessor->getParameter(0));
-		adsr1Component.setDecay(ourProcessor->getParameter(1));
-		adsr1Component.setSustain(ourProcessor->getParameter(2));
-		adsr1Component.setRelease(ourProcessor->getParameter(3));
+		adsr1Wrapper->getWrapped().updateUi();
+		adsr2Wrapper->getWrapped().updateUi();
+		lfo1Wrapper->getWrapped().updateUi();
+		lfo2Wrapper->getWrapped().updateUi();
 		ourProcessor->clearUiUpdate();
 	}
 	/*

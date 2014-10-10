@@ -216,21 +216,12 @@ void BlankenhainAudioProcessor::setStateInformation(const void* data, int sizeIn
 bool BlankenhainAudioProcessor::needsUiUpdate() const {
 	return uiNeedsUpdate;
 }
-
-const float* BlankenhainAudioProcessor::getAdsr() const {
-	return defaultInstrument.getAdsr();
-}
-
 void BlankenhainAudioProcessor::requestUiUpdate() {
 	uiNeedsUpdate = true;
 }
 
 void BlankenhainAudioProcessor::clearUiUpdate() {
 	uiNeedsUpdate = false;
-}
-
-void BlankenhainAudioProcessor::setAdsr(const float adsr[4]) {
-	defaultInstrument.setAdsr(adsr);
 }
 
 //==============================================================================

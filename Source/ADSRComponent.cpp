@@ -140,36 +140,11 @@ void ADSRComponent::sliderValueChanged (Slider* sliderThatWasMoved)
 
 
 //[MiscUserCode] You can add your own definitions of your custom methods or any other code here...
-float ADSRComponent::getAttack() const {
-	return float(attackSlider->getValue());
-}
-
-float ADSRComponent::getDecay() const {
-	return float(decaySlider->getValue());
-}
-
-float ADSRComponent::getSustain() const {
-	return float(sustainSlider->getValue());
-}
-
-float ADSRComponent::getRelease() const {
-	return float(releaseSlider->getValue());
-}
-
-void ADSRComponent::setAttack(float attack) {
-	attackSlider->setValue(attack, dontSendNotification);
-}
-
-void ADSRComponent::setDecay(float decay) {
-	decaySlider->setValue(decay, dontSendNotification);
-}
-
-void ADSRComponent::setSustain(float sustain) {
-	sustainSlider->setValue(sustain, dontSendNotification);
-}
-
-void ADSRComponent::setRelease(float release) {
-	releaseSlider->setValue(release, dontSendNotification);
+void ADSRComponent::updateUi() {
+	attackSlider->setValue(processor->getParameter(0));
+	decaySlider->setValue(processor->getParameter(1));
+	sustainSlider->setValue(processor->getParameter(2));
+	releaseSlider->setValue(processor->getParameter(3));
 }
 //[/MiscUserCode]
 
@@ -189,19 +164,19 @@ BEGIN_JUCER_METADATA
                  overlayOpacity="0.330" fixedSize="0" initialWidth="600" initialHeight="400">
   <BACKGROUND backgroundColour="ffffffff"/>
   <SLIDER name="Attack" id="7f931157cf71799a" memberName="attackSlider"
-          virtualName="" explicitFocusOrder="0" pos="0% 0% 25.053% 100%"
+          virtualName="" explicitFocusOrder="0" pos="0% 0% 25.107% 100%"
           min="0" max="1" int="0" style="LinearVertical" textBoxPos="TextBoxBelow"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="Decay" id="92e1ce8d74c36976" memberName="decaySlider" virtualName=""
-          explicitFocusOrder="0" pos="25.053% 0% 25.053% 100%" min="0"
+          explicitFocusOrder="0" pos="25.107% 0% 25.107% 100%" min="0"
           max="1" int="0" style="LinearVertical" textBoxPos="TextBoxBelow"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="Sustain" id="877f1e939dfb38df" memberName="sustainSlider"
-          virtualName="" explicitFocusOrder="0" pos="50.105% 0% 25.053% 100%"
+          virtualName="" explicitFocusOrder="0" pos="50.071% 0% 25.107% 100%"
           min="0" max="1" int="0" style="LinearVertical" textBoxPos="TextBoxBelow"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="Release" id="6a7f7fe4b6255174" memberName="releaseSlider"
-          virtualName="" explicitFocusOrder="0" pos="74.947% 0% 25.053% 100%"
+          virtualName="" explicitFocusOrder="0" pos="74.893% 0% 25.107% 100%"
           min="0" max="1" int="0" style="LinearVertical" textBoxPos="TextBoxBelow"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
 </JUCER_COMPONENT>
