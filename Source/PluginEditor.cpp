@@ -30,8 +30,8 @@
 BlankenhainAudioProcessorEditor::BlankenhainAudioProcessorEditor (BlankenhainAudioProcessor* ownerFilter)
     : AudioProcessorEditor(ownerFilter)
 {
-    addAndMakeVisible (adsr1Component = new ADSRComponent (ownerFilter));
-    adsr1Component->setName ("new component");
+    addAndMakeVisible (component = new GroupWrapComponent<ADSRComponent> (ownerFilter));
+    component->setName ("new component");
 
 
     //[UserPreSize]
@@ -51,7 +51,7 @@ BlankenhainAudioProcessorEditor::~BlankenhainAudioProcessorEditor()
     //[Destructor_pre]. You can add your own custom destruction code here..
     //[/Destructor_pre]
 
-    adsr1Component = nullptr;
+    component = nullptr;
 
 
     //[Destructor]. You can add your own custom destruction code here..
@@ -72,7 +72,7 @@ void BlankenhainAudioProcessorEditor::paint (Graphics& g)
 
 void BlankenhainAudioProcessorEditor::resized()
 {
-    adsr1Component->setBounds (8, 8, 296, 272);
+    component->setBounds (88, 112, 328, 256);
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]
 }
@@ -84,10 +84,11 @@ void BlankenhainAudioProcessorEditor::timerCallback() {
     BlankenhainAudioProcessor* ourProcessor = getProcessor();
 
 	if (ourProcessor->needsUiUpdate()) {
-		adsr1Component->setAttack(ourProcessor->getParameter(0));
-		adsr1Component->setDecay(ourProcessor->getParameter(1));
-		adsr1Component->setSustain(ourProcessor->getParameter(2));
-		adsr1Component->setRelease(ourProcessor->getParameter(3));
+		ADSRComponent& adsr1Component = component->getWrapped();
+		adsr1Component.setAttack(ourProcessor->getParameter(0));
+		adsr1Component.setDecay(ourProcessor->getParameter(1));
+		adsr1Component.setSustain(ourProcessor->getParameter(2));
+		adsr1Component.setRelease(ourProcessor->getParameter(3));
 		ourProcessor->clearUiUpdate();
 	}
 	/*
@@ -122,8 +123,8 @@ BEGIN_JUCER_METADATA
                  snapPixels="8" snapActive="1" snapShown="1" overlayOpacity="0.330"
                  fixedSize="0" initialWidth="600" initialHeight="400">
   <BACKGROUND backgroundColour="ffffffff"/>
-  <GENERICCOMPONENT name="new component" id="c38b575eeb60d92d" memberName="adsr1Component"
-                    virtualName="" explicitFocusOrder="0" pos="8 8 296 272" class="ADSRComponent"
+  <GENERICCOMPONENT name="new component" id="aa02ec06e0ef68d2" memberName="component"
+                    virtualName="" explicitFocusOrder="0" pos="88 112 328 256" class="GroupWrapComponent&lt;ADSRComponent&gt;"
                     params="ownerFilter"/>
 </JUCER_COMPONENT>
 

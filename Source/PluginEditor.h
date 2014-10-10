@@ -24,6 +24,7 @@
 #include "JuceHeader.h"
 #include "PluginProcessor.h"
 #include "ADSRComponent.h"
+#include "GroupWrapComponent.h"
 //[/Headers]
 
 
@@ -60,7 +61,7 @@ private:
     //[/UserVariables]
 
     //==============================================================================
-    ScopedPointer<ADSRComponent> adsr1Component;
+    ScopedPointer<GroupWrapComponent<ADSRComponent>> component;
 
 
     //==============================================================================
