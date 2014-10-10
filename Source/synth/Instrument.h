@@ -4,6 +4,7 @@
 #include "Time.h"
 #include "VoiceAllocator.h"
 #include "Envelope.h"
+#include "LFO.h"
 
 class Instrument {
 public:
@@ -25,6 +26,7 @@ private:
 	VoiceAllocator& voices;
 	Note* notes[MIDI_MAX_NOTE];
 	Envelope envelope1, envelope2;
+	LFO lfo1;
 };
 
 #endif  // INSTRUMENT_H_INCLUDED

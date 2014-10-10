@@ -36,10 +36,11 @@ void Instrument::noteOff(bh_time time, int number) {
 
 bool Instrument::play(const Note& note, bh_time time, int start, int samples, int channels, float* const * const buffer) const {
 	const double frequency = 440. * pow(2.0, (note.number - 69) / 12.0);
+	const double TAU = 2. * std::acos(-1);
 	for (int i = 0; i < samples; i++) {
-		const double TAU = 2. * std::acos(-1);
 		const bh_time currentTime = time + i;
-		const float value = float(std::sin(double(currentTime) / sampleRate * frequency * TAU) * envelope1.getValue(note, currentTime));
+		const double lfo = (1. + lfo1.getValue(note, double(currentTime) / sampleRate));
+		const float value = float(std::sin(double(currentTime) / sampleRate * frequency * TAU) * lfo * envelope1.getValue(note, currentTime));
 		for (int channel = 0; channel < channels; channel++) {
 			buffer[channel][start + i] += value;
 		}
