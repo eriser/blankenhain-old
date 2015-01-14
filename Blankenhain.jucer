@@ -8,40 +8,34 @@
               pluginIsSynth="1" pluginWantsMidiIn="1" pluginProducesMidiOut="0"
               pluginSilenceInIsSilenceOut="0" pluginEditorRequiresKeys="0"
               pluginAUExportPrefix="BlankenhainAU" pluginRTASCategory="" aaxIdentifier="org.rtificial.blankenhain"
-              pluginAAXCategory="AAX_ePlugInCategory_Dynamics" jucerVersion="3.1.0">
+              pluginAAXCategory="AAX_ePlugInCategory_Dynamics" jucerVersion="3.1.1">
   <MAINGROUP id="E7lgWb" name="Blankenhain">
     <GROUP id="{86C2C631-FE57-7411-A3F9-0618356A66A7}" name="Source">
       <GROUP id="{63DB33CE-2BBD-4D7E-5A37-FCF10266378A}" name="synth">
-        <FILE id="HnLpAr" name="Envelope.cpp" compile="1" resource="0" file="Source/synth/Envelope.cpp"/>
-        <FILE id="GaBRR8" name="Envelope.h" compile="0" resource="0" file="Source/synth/Envelope.h"/>
-        <FILE id="R3S1cD" name="Instrument.cpp" compile="1" resource="0" file="Source/synth/Instrument.cpp"/>
-        <FILE id="l9EhOI" name="Instrument.h" compile="0" resource="0" file="Source/synth/Instrument.h"/>
-        <FILE id="TUjZLY" name="LFO.cpp" compile="1" resource="0" file="Source/synth/LFO.cpp"/>
-        <FILE id="LiDx6k" name="LFO.h" compile="0" resource="0" file="Source/synth/LFO.h"/>
-        <FILE id="dW47JC" name="Note.h" compile="0" resource="0" file="Source/synth/Note.h"/>
-        <FILE id="AYSYUb" name="VoiceAllocator.cpp" compile="1" resource="0"
-              file="Source/synth/VoiceAllocator.cpp"/>
-        <FILE id="GcvOc6" name="VoiceAllocator.h" compile="0" resource="0"
-              file="Source/synth/VoiceAllocator.h"/>
-        <FILE id="nQyCJd" name="Time.h" compile="0" resource="0" file="Source/synth/Time.h"/>
+        <FILE id="V1CJEw" name="Message.h" compile="0" resource="0" file="Source/synth/Message.h"/>
+        <FILE id="v8KL5F" name="Time.h" compile="0" resource="0" file="Source/synth/Time.h"/>
+        <FILE id="cZQxoB" name="Blankenhain.cpp" compile="1" resource="0" file="Source/synth/Blankenhain.cpp"/>
+        <FILE id="Ihep0y" name="Blankenhain.h" compile="0" resource="0" file="Source/synth/Blankenhain.h"/>
       </GROUP>
-      <FILE id="h0w0nX" name="ADSRComponent.cpp" compile="1" resource="0"
-            file="Source/ADSRComponent.cpp"/>
-      <FILE id="L5cAHr" name="ADSRComponent.h" compile="0" resource="0" file="Source/ADSRComponent.h"/>
-      <FILE id="d9Fgtq" name="GroupWrapComponent.h" compile="0" resource="0"
-            file="Source/GroupWrapComponent.h"/>
-      <FILE id="GzwxgR" name="LFOComponent.cpp" compile="1" resource="0"
-            file="Source/LFOComponent.cpp"/>
-      <FILE id="j3NvLf" name="LFOComponent.h" compile="0" resource="0" file="Source/LFOComponent.h"/>
-      <FILE id="hO80SI" name="ParameterEditor.h" compile="0" resource="0"
-            file="Source/ParameterEditor.h"/>
-      <FILE id="wC82lx" name="PluginProcessor.cpp" compile="1" resource="0"
-            file="Source/PluginProcessor.cpp"/>
-      <FILE id="GKTP1v" name="PluginProcessor.h" compile="0" resource="0"
-            file="Source/PluginProcessor.h"/>
-      <FILE id="MBkznJ" name="PluginEditor.cpp" compile="1" resource="0"
-            file="Source/PluginEditor.cpp"/>
-      <FILE id="opbm6n" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
+      <GROUP id="{44641236-9F8D-59BA-F64F-0FDC5DFBAE5B}" name="vst">
+        <FILE id="BOreup" name="ADSRComponent.cpp" compile="1" resource="0"
+              file="Source/vst/ADSRComponent.cpp"/>
+        <FILE id="e33XRL" name="ADSRComponent.h" compile="0" resource="0" file="Source/vst/ADSRComponent.h"/>
+        <FILE id="xdkPCw" name="GroupWrapComponent.h" compile="0" resource="0"
+              file="Source/vst/GroupWrapComponent.h"/>
+        <FILE id="VIuutE" name="LFOComponent.cpp" compile="1" resource="0"
+              file="Source/vst/LFOComponent.cpp"/>
+        <FILE id="EGigmK" name="LFOComponent.h" compile="0" resource="0" file="Source/vst/LFOComponent.h"/>
+        <FILE id="rHtRZj" name="ParameterEditor.h" compile="0" resource="0"
+              file="Source/vst/ParameterEditor.h"/>
+        <FILE id="kFQXGf" name="PluginEditor.cpp" compile="1" resource="0"
+              file="Source/vst/PluginEditor.cpp"/>
+        <FILE id="geJMmn" name="PluginEditor.h" compile="0" resource="0" file="Source/vst/PluginEditor.h"/>
+        <FILE id="kcDXwK" name="PluginProcessor.cpp" compile="1" resource="0"
+              file="Source/vst/PluginProcessor.cpp"/>
+        <FILE id="byDNM5" name="PluginProcessor.h" compile="0" resource="0"
+              file="Source/vst/PluginProcessor.h"/>
+      </GROUP>
     </GROUP>
   </MAINGROUP>
   <EXPORTFORMATS>

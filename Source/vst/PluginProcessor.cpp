@@ -13,8 +13,7 @@ AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 
 
 //==============================================================================
-BlankenhainAudioProcessor::BlankenhainAudioProcessor() :
-defaultInstrument(voices)
+BlankenhainAudioProcessor::BlankenhainAudioProcessor()
 {
 	requestUiUpdate();
 }
@@ -40,9 +39,9 @@ float BlankenhainAudioProcessor::getParameter(int index)
 	const int relativeIndex = index - getParameterIndex(id);
 	switch (id) {
 	case ADSR1_ID:
-		return getEnvelopeParameter(defaultInstrument.getEnvelope1(), relativeIndex);
+		//return getEnvelopeParameter(defaultInstrument.getEnvelope1(), relativeIndex);
 	case ADSR2_ID:
-		return getEnvelopeParameter(defaultInstrument.getEnvelope2(), relativeIndex);
+		//return getEnvelopeParameter(defaultInstrument.getEnvelope2(), relativeIndex);
 	default:
 		return 0.;
 	}
@@ -54,11 +53,11 @@ void BlankenhainAudioProcessor::setParameter(int index, float newValue)
 	const int relativeIndex = index - getParameterIndex(id);
 	switch (id) {
 	case ADSR1_ID:
-		setEnvelopeParameter(defaultInstrument.getEnvelope1(), relativeIndex, newValue);
+		//setEnvelopeParameter(defaultInstrument.getEnvelope1(), relativeIndex, newValue);
 		requestUiUpdate();
 		break;
 	case ADSR2_ID:
-		setEnvelopeParameter(defaultInstrument.getEnvelope2(), relativeIndex, newValue);
+		//setEnvelopeParameter(defaultInstrument.getEnvelope2(), relativeIndex, newValue);
 		requestUiUpdate();
 		break;
 	default:
@@ -172,7 +171,6 @@ void BlankenhainAudioProcessor::changeProgramName(int index, const String& newNa
 //==============================================================================
 void BlankenhainAudioProcessor::prepareToPlay(double _sampleRate, int samplesPerBlock)
 {
-	defaultInstrument.setSampleRate(_sampleRate);
 	sampleRate = _sampleRate;
 }
 
@@ -184,6 +182,8 @@ void BlankenhainAudioProcessor::releaseResources()
 
 void BlankenhainAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midiMessages)
 {
+
+#if 0
 	for (int i = 0; i < getNumOutputChannels(); i++) {
 		buffer.clear(i, 0, buffer.getNumSamples());
 	}
@@ -219,6 +219,8 @@ void BlankenhainAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuff
 		voices.play(globalTime, bufferPosition, remainingSamples, getNumOutputChannels(), buffer.getArrayOfWritePointers());
 		globalTime += remainingSamples;
 	}
+#endif // 0
+
 }
 
 //==============================================================================
@@ -288,37 +290,4 @@ void BlankenhainAudioProcessor::requestUiUpdate() {
 
 void BlankenhainAudioProcessor::clearUiUpdate() {
 	uiNeedsUpdate = false;
-}
-
-
-float BlankenhainAudioProcessor::getEnvelopeParameter(Envelope& envelope, int index) const {
-	switch (index) {
-	case 0:
-		return float(envelope.getAttack() / sampleRate);
-	case 1:
-		return float(envelope.getDecay() / sampleRate);
-	case 2:
-		return float(envelope.getSustain());
-	case 3:
-		return float(envelope.getRelease() / sampleRate);
-	default:
-		return 0;
-	}
-}
-
-void BlankenhainAudioProcessor::setEnvelopeParameter(Envelope& envelope, int index, float newValue) {
-	switch (index) {
-	case 0:
-		envelope.setAttack(newValue * sampleRate);
-		break;
-	case 1:
-		envelope.setDecay(newValue * sampleRate);
-		break;
-	case 2:
-		envelope.setSustain(newValue);
-		break;
-	case 3:
-		envelope.setRelease(newValue * sampleRate);
-		break;
-	}
 }
