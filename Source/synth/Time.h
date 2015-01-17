@@ -4,6 +4,8 @@
 // TODO maybe remove header dependency
 #include <cstdint>
 
-using bh_time = uint_fast64_t;
+namespace blankenhain {
+	using Time = uint_fast64_t;
+}
 
 #endif  // TIME_H_INCLUDED

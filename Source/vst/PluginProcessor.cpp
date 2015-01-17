@@ -3,6 +3,7 @@
 
 #include <cmath>
 
+using namespace blankenhain;
 
 //==============================================================================
 // This creates new instances of the plugin..
@@ -169,9 +170,9 @@ void BlankenhainAudioProcessor::changeProgramName(int index, const String& newNa
 }
 
 //==============================================================================
-void BlankenhainAudioProcessor::prepareToPlay(double _sampleRate, int samplesPerBlock)
+void BlankenhainAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 {
-	sampleRate = _sampleRate;
+	synth = std::make_unique<Blankenhain>(static_cast<unsigned int>(sampleRate));
 }
 
 void BlankenhainAudioProcessor::releaseResources()
@@ -182,6 +183,33 @@ void BlankenhainAudioProcessor::releaseResources()
 
 void BlankenhainAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midiMessages)
 {
+	for (int i = 0; i < getNumOutputChannels(); i++) {
+		buffer.clear(i, 0, buffer.getNumSamples());
+	}
+
+	MidiBuffer::Iterator iterator(midiMessages);
+	MidiMessage message;
+	int samplePosition;
+
+	std::vector<blankenhain::Message> messageBuffer;
+	messageBuffer.reserve(midiMessages.getNumEvents());
+
+	while (iterator.getNextEvent(message, samplePosition)) {
+		if (message.isNoteOnOrOff()) {
+			if (message.isNoteOn()) {
+				messageBuffer.push_back(blankenhain::Message::createNoteOn(samplePosition, message.getNoteNumber()));
+			}
+			else {
+				messageBuffer.push_back(blankenhain::Message::createNoteOff(samplePosition, message.getNoteNumber()));
+			}
+		}
+	}
+
+	blankenhain::Message* messages;
+	if (!messageBuffer.empty()) {
+		messages = &messageBuffer[0];
+	}
+	synth->processBlock(buffer.getArrayOfWritePointers(), buffer.getNumSamples(), messages, messageBuffer.size());
 
 #if 0
 	for (int i = 0; i < getNumOutputChannels(); i++) {

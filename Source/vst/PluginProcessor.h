@@ -4,6 +4,9 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 
 #include <cstdint>
+#include <memory>
+
+#include "../synth/Blankenhain.h"
 
 //==============================================================================
 /**
@@ -74,7 +77,7 @@ public:
 
 private:
 	bool uiNeedsUpdate;
-	double sampleRate = 0;
+	std::unique_ptr<blankenhain::Blankenhain> synth;
 
 	//==============================================================================
 	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(BlankenhainAudioProcessor)
