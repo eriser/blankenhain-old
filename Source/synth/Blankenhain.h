@@ -2,6 +2,7 @@
 #define BLANKENHAIN_H_INCLUDED
 
 #include "Message.h"
+#include "VoiceManager.h"
 
 namespace blankenhain {
 	class Blankenhain {
@@ -11,9 +12,9 @@ namespace blankenhain {
 		const Message* processBlock(float* outputBuffer[2], unsigned int outSamples, const Message* messages, unsigned int maxMessages);
 
 	private:
-		unsigned int sampleRate;
 		Time time;
 		bool playing;
+		VoiceManager<32> voiceManager;
 	};
 
 }

@@ -1,13 +1,10 @@
 #include "Blankenhain.h"
 
-// TODO remove dependency
-#include <cmath>
-
 namespace blankenhain {
 	Blankenhain::Blankenhain(unsigned int _sampleRate) :
-		sampleRate(_sampleRate),
 		time(0),
-		playing(false)
+		playing(false),
+		voiceManager(_sampleRate)
 	{
 	}
 
@@ -16,11 +13,11 @@ namespace blankenhain {
 		for (unsigned int i = 0; i < maxMessages; i++) {
 			const Message& message = *messages;
 			if (playing) {
-				for (; outputSamplePosition < message.time; outputSamplePosition++) {
-					outputBuffer[0][outputSamplePosition] = sin(440.0 * 2.0 * 3.14 * ((double)outputSamplePosition + time) / sampleRate);
-					outputBuffer[1][outputSamplePosition] = outputBuffer[0][outputSamplePosition];
-				}
+				voiceManager.play(time + outputSamplePosition, message.time - outputSamplePosition, outputBuffer);
 			}
+			outputBuffer[0] += message.time - outputSamplePosition;
+			outputBuffer[1] += message.time - outputSamplePosition;
+			outputSamplePosition = message.time;
 
 			switch (message.type) {
 			case MessageType::NOTE_ON:
@@ -35,10 +32,7 @@ namespace blankenhain {
 			messages++;
 		}
 		if (playing) {
-			for (; outputSamplePosition < outSamples; outputSamplePosition++) {
-				outputBuffer[0][outputSamplePosition] = sin(440.0 * 2.0 * 3.14 * ((double)outputSamplePosition + time) / sampleRate);
-				outputBuffer[1][outputSamplePosition] = outputBuffer[0][outputSamplePosition];
-			}
+			voiceManager.play(time + outputSamplePosition, outSamples - outputSamplePosition, outputBuffer);
 		}
 		time += outSamples;
 		return messages;

@@ -12,6 +12,9 @@
   <MAINGROUP id="E7lgWb" name="Blankenhain">
     <GROUP id="{86C2C631-FE57-7411-A3F9-0618356A66A7}" name="Source">
       <GROUP id="{63DB33CE-2BBD-4D7E-5A37-FCF10266378A}" name="synth">
+        <FILE id="hjaFZd" name="Voice.cpp" compile="1" resource="0" file="Source/synth/Voice.cpp"/>
+        <FILE id="lhY2z9" name="Voice.h" compile="0" resource="0" file="Source/synth/Voice.h"/>
+        <FILE id="doR7FE" name="VoiceManager.h" compile="0" resource="0" file="Source/synth/VoiceManager.h"/>
         <FILE id="V1CJEw" name="Message.h" compile="0" resource="0" file="Source/synth/Message.h"/>
         <FILE id="v8KL5F" name="Time.h" compile="0" resource="0" file="Source/synth/Time.h"/>
         <FILE id="cZQxoB" name="Blankenhain.cpp" compile="1" resource="0" file="Source/synth/Blankenhain.cpp"/>
