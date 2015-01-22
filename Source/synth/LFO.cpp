@@ -1,8 +1,7 @@
 #include "LFO.h"
 
 namespace blankenhain {
-	float LFO::next(float rateMod, float depthMod) {
-		time++;
+	float LFO::value(Time time, float rateMod, float depthMod) {
 		return 0.0;
 	}
 }

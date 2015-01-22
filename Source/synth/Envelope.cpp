@@ -1,8 +1,7 @@
 #include "Envelope.h"
 
 namespace blankenhain {
-	float Envelope::next(float attackMod, float decayMod, float sustainMod, float releaseMod) {
-		time++;
+	float Envelope::value(Time time, float attackMod, float decayMod, float sustainMod, float releaseMod) {
 		return 0.0;
 	}
 }

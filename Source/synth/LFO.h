@@ -8,10 +8,8 @@ namespace blankenhain {
 		float rate;
 		float depth;
 		bool synced;
-
-		Time time = 0;
 		
-		float next(float rateMod, float depthMod);
+		float value(Time time, float rateMod, float depthMod);
 	};
 }
 

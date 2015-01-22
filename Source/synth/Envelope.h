@@ -10,9 +10,7 @@ namespace blankenhain {
 		float sustainLevel;
 		float releaseTime;
 
-		Time time = 0;
-
-		float next(float attackMod, float decayMod, float sustainMod, float releaseMod);
+		float value(Time time, float attackMod, float decayMod, float sustainMod, float releaseMod);
 	};
 }
 
