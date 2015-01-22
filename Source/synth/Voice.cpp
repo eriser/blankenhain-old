@@ -9,10 +9,10 @@ namespace blankenhain {
 	{
 	}
 
-	Voice::Voice(Time _start, unsigned int _sampleRate) :
+	Voice::Voice(Time start_, unsigned int sampleRate_) :
 		off(false),
-		start(_start),
-		sampleRate(_sampleRate)
+		start(start_),
+		sampleRate(sampleRate_)
 	{
 	}
 

@@ -1,10 +1,10 @@
 #include "Blankenhain.h"
 
 namespace blankenhain {
-	Blankenhain::Blankenhain(unsigned int _sampleRate) :
+	Blankenhain::Blankenhain(unsigned int sampleRate_) :
 		time(0),
 		playing(false),
-		voiceManager(_sampleRate)
+		voiceManager(sampleRate_)
 	{
 	}
 

@@ -7,8 +7,8 @@ namespace blankenhain {
 	template<unsigned int N>
 	class VoiceManager {
 	public:
-		VoiceManager(unsigned int _sampleRate) :
-			sampleRate(_sampleRate)
+		VoiceManager(unsigned int sampleRate_) :
+			sampleRate(sampleRate_)
 		{
 			voices[0] = Voice(0, sampleRate);
 		}

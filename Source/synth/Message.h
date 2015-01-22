@@ -46,9 +46,9 @@ namespace blankenhain {
 			ParameterChangeMessage parameterChange;
 		};
 
-		Message(MessageType _type, Time _time) :
-			type(_type),
-			time(_time)
+		Message(MessageType type_, Time time_) :
+			type(type_),
+			time(time_)
 		{
 		}
 
