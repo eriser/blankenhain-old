@@ -3,6 +3,7 @@
 
 #include "Message.h"
 #include "VoiceManager.h"
+#include "Channel.h"
 
 namespace blankenhain {
 	class Blankenhain {
@@ -14,7 +15,8 @@ namespace blankenhain {
 	private:
 		Time time;
 		bool playing;
-		VoiceManager<32> voiceManager;
+		VoiceManager<128> voiceManager;
+		Channel channel[16];
 	};
 
 }
