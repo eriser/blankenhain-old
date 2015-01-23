@@ -4,16 +4,15 @@
 #include "Time.h"
 
 namespace blankenhain {
-	class Voice {
-	public:
+	struct Voice {
 		Voice();
 		Voice(Time start, unsigned int sampleRate);
 
-		bool isOff() const;
 		void play(Time startTime, Time duration, float* output[2]);
-	private:
+
 		Time start;
-		bool off;
+		bool noteOn;
+		bool active;
 		unsigned int sampleRate;
 	};
 }

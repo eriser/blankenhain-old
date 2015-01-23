@@ -5,19 +5,17 @@
 
 namespace blankenhain {
 	Voice::Voice() :
-		off(true)
+		noteOn(false),
+		active(false)
 	{
 	}
 
 	Voice::Voice(Time start_, unsigned int sampleRate_) :
-		off(false),
+		noteOn(true),
+		active(true),
 		start(start_),
 		sampleRate(sampleRate_)
 	{
-	}
-
-	bool Voice::isOff() const {
-		return off;
 	}
 
 	void Voice::play(Time startTime, Time duration, float* output[2]) {

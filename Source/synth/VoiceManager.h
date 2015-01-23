@@ -15,7 +15,7 @@ namespace blankenhain {
 
 		void play(Time startTime, Time duration, float* output[2]) {
 			for (unsigned int i = 0; i < N; i++) {
-				if (!voices[i].isOff()) {
+				if (voices[i].noteOn) {
 					voices[i].play(startTime, duration, output);
 				}
 			}
