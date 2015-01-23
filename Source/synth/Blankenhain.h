@@ -14,7 +14,6 @@ namespace blankenhain {
 
 	private:
 		Time time;
-		bool playing;
 		VoiceManager voiceManager;
 		Channel channels[CHANNELS];
 	};

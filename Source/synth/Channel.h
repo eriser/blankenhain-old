@@ -7,11 +7,17 @@
 #include "FilterSettings.h"
 #include "Voice.h"
 #include "Config.h"
+#include "Message.h"
 
 namespace blankenhain {
 	struct Channel {
 		Channel() = default;
 		Channel(unsigned int sampleRate);
+
+		void play(Time startTime, Time duration, float* output[2]);
+		void noteOn(const NoteOnMessage& message);
+		void noteOff(const NoteOffMessage& message);
+		void parameterChange(const ParameterChangeMessage& message);
 
 		OscillatorSettings oscillators[OSCILLATORS_PER_CHANNEL];
 		EnvelopeSettings envelopes[ENVELOPES_PER_CHANNEL];
