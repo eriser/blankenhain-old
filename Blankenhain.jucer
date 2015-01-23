@@ -12,6 +12,7 @@
   <MAINGROUP id="E7lgWb" name="Blankenhain">
     <GROUP id="{86C2C631-FE57-7411-A3F9-0618356A66A7}" name="Source">
       <GROUP id="{63DB33CE-2BBD-4D7E-5A37-FCF10266378A}" name="synth">
+        <FILE id="WqcwWJ" name="Config.h" compile="0" resource="0" file="Source/synth/Config.h"/>
         <FILE id="cZQxoB" name="Blankenhain.cpp" compile="1" resource="0" file="Source/synth/Blankenhain.cpp"/>
         <FILE id="Ihep0y" name="Blankenhain.h" compile="0" resource="0" file="Source/synth/Blankenhain.h"/>
         <FILE id="gkUXMf" name="Channel.cpp" compile="1" resource="0" file="Source/synth/Channel.cpp"/>

@@ -4,11 +4,12 @@
 #include "LFOSettings.h"
 #include "EnvelopeSettings.h"
 #include "Voice.h"
+#include "Config.h"
 
 namespace blankenhain {
 	struct Channel {
-		EnvelopeSettings envelopes[2];
-		LFOSettings lfos[3];
+		EnvelopeSettings envelopes[ENVELOPES_PER_CHANNEL];
+		LFOSettings lfos[LFOS_PER_CHANNEL];
 	};
 }
 
