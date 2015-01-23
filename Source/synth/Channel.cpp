@@ -7,12 +7,25 @@ namespace blankenhain {
 	{}
 
 	void Channel::play(Time startTime, Time duration, float* output[2]) {
+		for (unsigned int i = 0; i < duration; i++) {
+			output[0][i] = 0;
+			output[1][i] = 0;
+		}
+		voiceManager->playAll(this, startTime, duration, output);
+
+		// this would be a good place for some channel effects
 	}
 
-	void Channel::noteOn(const NoteOnMessage& message) {
+	void Channel::noteOn(Time time, const NoteOnMessage& message) {
+		Voice& voice = voiceManager->getFreeVoice(this, message.number);
+		voice = Voice(time, this, message.number);
 	}
 
 	void Channel::noteOff(const NoteOffMessage& message) {
+		Voice* voice = voiceManager->findVoice(this, message.number);
+		if (voice != nullptr) {
+			voice->noteOn = false;
+		}
 	}
 
 	void Channel::parameterChange(const ParameterChangeMessage& message) {

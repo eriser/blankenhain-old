@@ -22,7 +22,7 @@ namespace blankenhain {
 
 			switch (message.type) {
 			case MessageType::NOTE_ON:
-				channels[message.channel].noteOn(message.noteOn);
+				channels[message.channel].noteOn(message.time, message.noteOn);
 				break;
 			case MessageType::NOTE_OFF:
 				channels[message.channel].noteOff(message.noteOff);
