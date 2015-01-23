@@ -2,19 +2,18 @@
 #define VOICEMANAGER_H_INCLUDED
 
 #include "Voice.h"
+#include "Config.h"
 
 namespace blankenhain {
-	template<unsigned int N>
 	class VoiceManager {
 	public:
 		VoiceManager(unsigned int sampleRate_) :
 			sampleRate(sampleRate_)
 		{
-			voices[0] = Voice(0, sampleRate);
 		}
 
 		void play(Time startTime, Time duration, float* output[2]) {
-			for (unsigned int i = 0; i < N; i++) {
+			for (unsigned int i = 0; i < POLYPHONY; i++) {
 				if (voices[i].noteOn) {
 					voices[i].play(startTime, duration, output);
 				}
@@ -22,7 +21,7 @@ namespace blankenhain {
 		}
 
 	private:
-		Voice voices[N];
+		Voice voices[POLYPHONY];
 		unsigned int sampleRate;
 	};
 }

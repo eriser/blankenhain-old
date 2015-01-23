@@ -6,6 +6,9 @@ namespace blankenhain {
 		playing(false),
 		voiceManager(sampleRate_)
 	{
+		for (unsigned int i = 0; i < CHANNELS; i++) {
+			channels[i] = Channel(sampleRate_);
+		}
 	}
 
 	const Message* Blankenhain::processBlock(float* outputBuffer[2], unsigned int outSamples, const Message* messages, unsigned int maxMessages) {

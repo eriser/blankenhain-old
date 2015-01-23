@@ -5,9 +5,10 @@
 
 namespace blankenhain {
 	struct Filter {
-		Filter(const FilterSettings& settings);
+		Filter() = default;
+		Filter(const FilterSettings* settings);
 
-		const FilterSettings& settings;
+		const FilterSettings* settings;
 	};
 }
 

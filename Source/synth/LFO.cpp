@@ -1,7 +1,7 @@
 #include "LFO.h"
 
 namespace blankenhain {
-	LFO::LFO(const LFOSettings& settings_) :
+	LFO::LFO(const LFOSettings* settings_) :
 		settings(settings_)
 	{}
 

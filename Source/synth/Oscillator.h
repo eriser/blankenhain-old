@@ -5,9 +5,10 @@
 
 namespace blankenhain {
 	struct Oscillator {
-		Oscillator(const OscillatorSettings& settings);
+		Oscillator() = default;
+		Oscillator(const OscillatorSettings* settings);
 
-		const OscillatorSettings& settings;
+		const OscillatorSettings* settings;
 	};
 }
 

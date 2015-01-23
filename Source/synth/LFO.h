@@ -6,11 +6,12 @@
 
 namespace blankenhain {
 	struct LFO {
-		LFO(const LFOSettings& settings);
+		LFO() = default;
+		LFO(const LFOSettings* settings);
 		
 		float value(Time time, float rateMod, float depthMod);
 
-		const LFOSettings& settings;
+		const LFOSettings* settings;
 	};
 }
 

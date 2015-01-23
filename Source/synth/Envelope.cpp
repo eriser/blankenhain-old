@@ -1,7 +1,7 @@
 #include "Envelope.h"
 
 namespace blankenhain {
-	Envelope::Envelope(const EnvelopeSettings& settings_) :
+	Envelope::Envelope(const EnvelopeSettings* settings_) :
 		settings(settings_)
 	{}
 

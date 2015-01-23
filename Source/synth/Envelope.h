@@ -6,11 +6,12 @@
 
 namespace blankenhain {
 	struct Envelope {
-		Envelope(const EnvelopeSettings& settings);
+		Envelope() = default;
+		Envelope(const EnvelopeSettings* settings);
 
 		float value(Time time, float attackMod, float decayMod, float sustainMod, float releaseMod);
 
-		const EnvelopeSettings& settings;
+		const EnvelopeSettings* settings;
 	};
 }
 
