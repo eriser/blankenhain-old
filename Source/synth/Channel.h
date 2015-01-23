@@ -8,11 +8,12 @@
 #include "Voice.h"
 #include "Config.h"
 #include "Message.h"
+#include "VoiceManager.h"
 
 namespace blankenhain {
 	struct Channel {
 		Channel() = default;
-		Channel(unsigned int sampleRate);
+		Channel(unsigned int sampleRate, VoiceManager* voiceManager);
 
 		void play(Time startTime, Time duration, float* output[2]);
 		void noteOn(const NoteOnMessage& message);
@@ -25,6 +26,7 @@ namespace blankenhain {
 		FilterSettings filters[FILTERS_PER_CHANNEL];
 
 		unsigned int sampleRate;
+		VoiceManager* voiceManager;
 	};
 }
 

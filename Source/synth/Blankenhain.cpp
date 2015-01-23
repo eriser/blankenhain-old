@@ -2,11 +2,10 @@
 
 namespace blankenhain {
 	Blankenhain::Blankenhain(unsigned int sampleRate_) :
-		time(0),
-		voiceManager(sampleRate_)
+		time(0)
 	{
 		for (unsigned int i = 0; i < CHANNELS; i++) {
-			channels[i] = Channel(sampleRate_);
+			channels[i] = Channel(sampleRate_, &voiceManager);
 		}
 	}
 

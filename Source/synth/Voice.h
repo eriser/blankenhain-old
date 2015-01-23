@@ -16,7 +16,8 @@ namespace blankenhain {
 		Voice();
 		Voice(
 			Time start,
-			const Channel& channel
+			const Channel* channel,
+			unsigned int note
 			);
 
 		void play(Time startTime, Time duration, float* output[2]);
@@ -24,7 +25,8 @@ namespace blankenhain {
 		Time start;
 		bool noteOn;
 		bool active;
-		unsigned int sampleRate;
+		unsigned int note;
+		const Channel* channel;
 		Oscillator oscillators[OSCILLATORS_PER_CHANNEL];
 		Envelope envelopes[ENVELOPES_PER_CHANNEL];
 		LFO lfos[LFOS_PER_CHANNEL];
