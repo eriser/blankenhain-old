@@ -19,8 +19,8 @@ namespace blankenhain {
 	}
 
 	template<typename T>
-	T modulate(T value, T with) {
-		return clamp(value + value * with, 0.0, 1.0);
+	T modulate(T value, T with, T scale) {
+		return clamp(value + scale * with, 0.0, 1.0);
 	}
 
 }
