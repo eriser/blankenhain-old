@@ -1,8 +1,13 @@
 #ifndef OSCILLATOR_H_INCLUDED
 #define OSCILLATOR_H_INCLUDED
 
+#include "OscillatorSettings.h"
+
 namespace blankenhain {
 	struct Oscillator {
+		Oscillator(const OscillatorSettings& settings);
+
+		const OscillatorSettings& settings;
 	};
 }
 

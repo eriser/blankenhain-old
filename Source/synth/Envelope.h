@@ -2,15 +2,15 @@
 #define ENVELOPE_H_INCLUDED
 
 #include "Time.h"
+#include "EnvelopeSettings.h"
 
 namespace blankenhain {
 	struct Envelope {
-		float attackTime;
-		float decayTime;
-		float sustainLevel;
-		float releaseTime;
+		Envelope(const EnvelopeSettings& settings);
 
 		float value(Time time, float attackMod, float decayMod, float sustainMod, float releaseMod);
+
+		const EnvelopeSettings& settings;
 	};
 }
 

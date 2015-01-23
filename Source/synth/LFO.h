@@ -2,14 +2,15 @@
 #define LFO_H_INCLUDED
 
 #include "Time.h"
+#include "LFOSettings.h"
 
 namespace blankenhain {
 	struct LFO {
-		float rate;
-		float depth;
-		bool synced;
+		LFO(const LFOSettings& settings);
 		
 		float value(Time time, float rateMod, float depthMod);
+
+		const LFOSettings& settings;
 	};
 }
 

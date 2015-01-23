@@ -1,14 +1,14 @@
 #ifndef CHANNEL_H_INCLUDED
 #define CHANNEL_H_INCLUDED
 
-#include "LFO.h"
-#include "Envelope.h"
+#include "LFOSettings.h"
+#include "EnvelopeSettings.h"
 #include "Voice.h"
 
 namespace blankenhain {
 	struct Channel {
-		Envelope envelopes[2];
-		LFO lfos[3];
+		EnvelopeSettings envelopes[2];
+		LFOSettings lfos[3];
 	};
 }
 
