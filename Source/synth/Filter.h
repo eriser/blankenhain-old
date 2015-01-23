@@ -8,6 +8,8 @@ namespace blankenhain {
 		Filter() = default;
 		Filter(const FilterSettings* settings);
 
+		void process(float sample[2]);
+
 		const FilterSettings* settings;
 	};
 }

@@ -18,11 +18,11 @@ namespace blankenhain {
 			}
 			outputBuffer[0] += message.time - outputSamplePosition;
 			outputBuffer[1] += message.time - outputSamplePosition;
-			outputSamplePosition = message.time;
+			outputSamplePosition = static_cast<unsigned int>(message.time);
 
 			switch (message.type) {
 			case MessageType::NOTE_ON:
-				channels[message.channel].noteOn(message.time, message.noteOn);
+				channels[message.channel].noteOn(time + message.time, message.noteOn);
 				break;
 			case MessageType::NOTE_OFF:
 				channels[message.channel].noteOff(message.noteOff);
