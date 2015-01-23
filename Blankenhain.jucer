@@ -24,6 +24,8 @@
         <FILE id="z6Ky0Y" name="LFO.cpp" compile="1" resource="0" file="Source/synth/LFO.cpp"/>
         <FILE id="x4aJSi" name="LFO.h" compile="0" resource="0" file="Source/synth/LFO.h"/>
         <FILE id="V1CJEw" name="Message.h" compile="0" resource="0" file="Source/synth/Message.h"/>
+        <FILE id="qPC1BR" name="Oscillator.cpp" compile="1" resource="0" file="Source/synth/Oscillator.cpp"/>
+        <FILE id="SBhfsO" name="Oscillator.h" compile="0" resource="0" file="Source/synth/Oscillator.h"/>
         <FILE id="v8KL5F" name="Time.h" compile="0" resource="0" file="Source/synth/Time.h"/>
         <FILE id="hjaFZd" name="Voice.cpp" compile="1" resource="0" file="Source/synth/Voice.cpp"/>
         <FILE id="lhY2z9" name="Voice.h" compile="0" resource="0" file="Source/synth/Voice.h"/>
