@@ -1,9 +1,6 @@
 #include "Voice.h"
 #include "Channel.h"
 
-// TODO remove dependency
-#include <cmath>
-
 namespace blankenhain {
 	Voice::Voice() :
 		noteOn(false),
@@ -21,7 +18,7 @@ namespace blankenhain {
 		note(note_)
 	{
 		for (unsigned int i = 0; i < OSCILLATORS_PER_CHANNEL; i++) {
-			oscillators[i] = Oscillator(&channel->oscillators[i]);
+			oscillators[i] = Oscillator(&channel->oscillators[i], note);
 		}
 		for (unsigned int i = 0; i < ENVELOPES_PER_CHANNEL; i++) {
 			envelopes[i] = Envelope(&channel->envelopes[i]);

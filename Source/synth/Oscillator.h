@@ -7,11 +7,14 @@
 namespace blankenhain {
 	struct Oscillator {
 		Oscillator() = default;
-		Oscillator(const OscillatorSettings* settings);
+		Oscillator(const OscillatorSettings* settings, unsigned int note);
 
 		void value(Time time, float output[2]);
+		float rand();
 
 		const OscillatorSettings* settings;
+		float frequency;
+		unsigned int randomValue;
 	};
 }
 
