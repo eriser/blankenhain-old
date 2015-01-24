@@ -3,6 +3,7 @@
 
 namespace blankenhain {
 	struct EnvelopeSettings {
+		EnvelopeSettings() = default;
 		EnvelopeSettings(
 			unsigned int sampleRate_,
 			float attackTime_,
@@ -16,7 +17,6 @@ namespace blankenhain {
 			sustainLevel(sustainLevel_),
 			releaseTime(releaseTime_)
 		{}
-		EnvelopeSettings() {}
 
 		unsigned int sampleRate;
 		float attackTime;
