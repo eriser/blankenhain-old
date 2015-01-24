@@ -7,11 +7,15 @@
 namespace blankenhain {
 	struct Envelope {
 		Envelope() = default;
-		Envelope(const EnvelopeSettings* settings);
+		Envelope(const EnvelopeSettings* settings, Time start);
 
 		float value(Time time, float attackMod, float decayMod, float sustainMod, float releaseMod);
+		void noteOff(Time time);
 
 		const EnvelopeSettings* settings;
+		bool noteOn;
+		Time triggerTime;
+		float releaseLevel;
 	};
 }
 

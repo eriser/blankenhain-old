@@ -4,11 +4,13 @@
 namespace blankenhain {
 	struct EnvelopeSettings {
 		EnvelopeSettings(
+			unsigned int sampleRate_,
 			float attackTime_,
 			float decayTime_,
 			float sustainLevel_,
 			float releaseTime_
 			) :
+			sampleRate(sampleRate_),
 			attackTime(attackTime_),
 			decayTime(decayTime_),
 			sustainLevel(sustainLevel_),
@@ -16,6 +18,7 @@ namespace blankenhain {
 		{}
 		EnvelopeSettings() {}
 
+		unsigned int sampleRate;
 		float attackTime;
 		float decayTime;
 		float sustainLevel;

@@ -25,7 +25,7 @@ namespace blankenhain {
 				channels[message.channel].noteOn(time + message.time, message.noteOn);
 				break;
 			case MessageType::NOTE_OFF:
-				channels[message.channel].noteOff(message.noteOff);
+				channels[message.channel].noteOff(time + message.time, message.noteOff);
 				break;
 			case MessageType::PARAMETER_CHANGE:
 				channels[message.channel].parameterChange(message.parameterChange);

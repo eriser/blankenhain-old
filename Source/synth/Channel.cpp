@@ -21,10 +21,10 @@ namespace blankenhain {
 		voice = Voice(time, this, message.number);
 	}
 
-	void Channel::noteOff(const NoteOffMessage& message) {
+	void Channel::noteOff(Time time, const NoteOffMessage& message) {
 		Voice* voice = voiceManager->findVoice(this, message.number);
 		if (voice != nullptr) {
-			voice->noteOn = false;
+			voice->noteOff(time);
 		}
 	}
 

@@ -17,7 +17,7 @@ namespace blankenhain {
 
 		void play(Time startTime, Time duration, float* output[2]);
 		void noteOn(Time time, const NoteOnMessage& message);
-		void noteOff(const NoteOffMessage& message);
+		void noteOff(Time time, const NoteOffMessage& message);
 		void parameterChange(const ParameterChangeMessage& message);
 
 		OscillatorSettings oscillators[OSCILLATORS_PER_CHANNEL];

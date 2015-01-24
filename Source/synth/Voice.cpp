@@ -21,7 +21,7 @@ namespace blankenhain {
 			oscillators[i] = Oscillator(&channel->oscillators[i], note);
 		}
 		for (unsigned int i = 0; i < ENVELOPES_PER_CHANNEL; i++) {
-			envelopes[i] = Envelope(&channel->envelopes[i]);
+			envelopes[i] = Envelope(&channel->envelopes[i], start);
 		}
 		for (unsigned int i = 0; i < LFOS_PER_CHANNEL; i++) {
 			lfos[i] = LFO(&channel->lfos[i]);
@@ -52,6 +52,13 @@ namespace blankenhain {
 			}
 			output[0][i] = sample[0];
 			output[1][i] = sample[1];
+		}
+	}
+
+	void Voice::noteOff(Time time) {
+		noteOn = false;
+		for (unsigned int envelope = 0; envelope < ENVELOPES_PER_CHANNEL; envelope++) {
+			envelopes[envelope].noteOff(time);
 		}
 	}
 }

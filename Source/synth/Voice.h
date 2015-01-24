@@ -21,6 +21,7 @@ namespace blankenhain {
 			);
 
 		void play(Time startTime, Time duration, float* output[2]);
+		void noteOff(Time time);
 
 		Time start;
 		bool noteOn;

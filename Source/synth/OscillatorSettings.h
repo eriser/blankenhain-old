@@ -8,13 +8,13 @@ namespace blankenhain {
 
 	struct OscillatorSettings {
 		OscillatorSettings() = default;
-		OscillatorSettings(OscillatorType type_, unsigned int sampleRate_) :
-			type(type_),
-			sampleRate(sampleRate_)
+		OscillatorSettings(unsigned int sampleRate_, OscillatorType type_) :
+			sampleRate(sampleRate_),
+			type(type_)
 		{}
 
-		OscillatorType type;
 		unsigned int sampleRate;
+		OscillatorType type;
 	};
 }
 
