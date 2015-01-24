@@ -3,6 +3,7 @@
 
 #include "OscillatorSettings.h"
 #include "Time.h"
+#include "OscillatorFunction.h"
 
 namespace blankenhain {
 	struct Oscillator {
@@ -10,11 +11,10 @@ namespace blankenhain {
 		Oscillator(const OscillatorSettings* settings, unsigned int note);
 
 		void value(Time time, float output[2]);
-		float rand();
 
 		const OscillatorSettings* settings;
 		float frequency;
-		unsigned int randomValue;
+		OscillatorFunction osc;
 	};
 }
 

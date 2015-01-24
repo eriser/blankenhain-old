@@ -24,7 +24,7 @@ namespace blankenhain {
 			envelopes[i] = Envelope(&channel->envelopes[i], start);
 		}
 		for (unsigned int i = 0; i < LFOS_PER_CHANNEL; i++) {
-			lfos[i] = LFO(&channel->lfos[i]);
+			lfos[i] = LFO(&channel->lfos[i], start);
 		}
 		for (unsigned int i = 0; i < FILTERS_PER_CHANNEL; i++) {
 			filters[i] = Filter(&channel->filters[i]);

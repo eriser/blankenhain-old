@@ -1,9 +1,13 @@
 #ifndef LFOSETTINGS_H_INCLUDED
 #define LFOSETTINGS_H_INCLUDED
 
+#include "OscillatorType.h"
+
 namespace blankenhain {
 	struct LFOSettings {
-		LFOSettings(float rate_, float depth_, bool synced_) :
+		LFOSettings(unsigned int sampleRate_, OscillatorType type_, float rate_, float depth_, bool synced_) :
+			sampleRate(sampleRate_),
+			type(type_),
 			rate(rate_),
 			depth(depth_),
 			synced(synced_)
@@ -11,6 +15,8 @@ namespace blankenhain {
 
 		LFOSettings() {}
 
+		unsigned int sampleRate;
+		OscillatorType type;
 		float rate;
 		float depth;
 		bool synced;
