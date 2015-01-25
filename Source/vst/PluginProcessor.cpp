@@ -206,7 +206,7 @@ void BlankenhainAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuff
 		}
 	}
 
-	blankenhain::Message* messages;
+	blankenhain::Message* messages = nullptr;
 	if (!messageBuffer.empty()) {
 		messages = &messageBuffer[0];
 	}

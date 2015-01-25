@@ -9,12 +9,18 @@ namespace blankenhain {
 	{}
 
 	float Envelope::value(Time time, float attackMod, float decayMod, float sustainMod, float releaseMod) {
+		// TODO
+		(void)attackMod;
+		(void)decayMod;
+		(void)sustainMod;
+		(void)releaseMod;
+
 		const Time timeSinceTrigger = triggerTime - time;
 		const unsigned int sampleRate = settings->sampleRate;
-		const Time attackSamples = settings->attackTime * sampleRate;
-		const Time decaySamples = settings->decayTime * sampleRate;
-		const Time sustain = settings->sustainLevel * sampleRate;
-		const Time releaseSamples = settings->releaseTime * sampleRate;
+		const Time attackSamples = static_cast<Time>(settings->attackTime * sampleRate);
+		const Time decaySamples = static_cast<Time>(settings->decayTime * sampleRate);
+		const float sustain = settings->sustainLevel;
+		const Time releaseSamples = static_cast<Time>(settings->releaseTime * sampleRate);
 		if (noteOn) {
 			if (timeSinceTrigger <= attackSamples && attackSamples > 0) {
 				releaseLevel = static_cast<float>(timeSinceTrigger) / attackSamples;

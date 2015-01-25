@@ -5,16 +5,18 @@
 
 namespace blankenhain {
 	float OscillatorFunction::value(OscillatorType type, float x) {
-		const float TAU = acos(-1.0) * 2.0;
+		const float TAU = acos(-1.0f) * 2.0f;
 		switch (type) {
 		case OscillatorType::SINE:
 			return sin(x * TAU);
 		case OscillatorType::SQUARE:
-			return fmod(x * 2.0, 2.0) < 1.0 ? 1.0 : -1.0;
+			return fmod(x * 2.0f, 2.0f) < 1.0f ? 1.0f : -1.0f;
 		case OscillatorType::SAW:
-			return fmod(x * 2.0, 2.0) - 1.0;
+			return fmod(x * 2.0f, 2.0f) - 1.0f;
 		case OscillatorType::NOISE:
-			return rand() * 2.0 - 1.0;
+			return rand() * 2.0f - 1.0f;
+		default:
+			return 0;
 		}
 	}
 

@@ -3,6 +3,8 @@
 // TODO remove dependency
 #include <cmath>
 
+#pragma warning(disable: 4351)
+
 namespace blankenhain {
 	Filter::Filter(const FilterSettings* settings_) :
 		settings(settings_),
@@ -15,7 +17,7 @@ namespace blankenhain {
 		float a0, a1, a2;
 		float b0, b1, b2;
 
-		const float w0 = 2 * acos(-1) * settings->frequency / settings->sampleRate;
+		const float w0 = 2.0f * acos(-1.0f) * settings->frequency / settings->sampleRate;
 		const float cos_w0 = cos(w0);
 		const float sin_w0 = sin(w0);
 		const float alpha = sin_w0 / (2 * settings->Q);
@@ -53,6 +55,14 @@ namespace blankenhain {
 			a0 = 1 + alpha;
 			a1 = -2 * cos_w0;
 			a2 = 1 - alpha;
+			break;
+		default:
+			b0 = 0;
+			b1 = 0;
+			b2 = 0;
+			a0 = 1;
+			a1 = 0;
+			a2 = 0;
 			break;
 		}
 

@@ -29,5 +29,7 @@ namespace blankenhain {
 	}
 
 	void Channel::parameterChange(const ParameterChangeMessage& message) {
+		// TODO
+		(void)message;
 	}
 }

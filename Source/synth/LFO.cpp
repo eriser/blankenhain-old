@@ -7,6 +7,10 @@ namespace blankenhain {
 	{}
 
 	float LFO::value(Time time, float rateMod, float depthMod) {
+		// TODO
+		(void)rateMod;
+		(void)depthMod;
+
 		float x = settings->rate;
 		if (settings->synced) {
 			x *= time - triggerTime;
