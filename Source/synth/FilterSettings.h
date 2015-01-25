@@ -8,18 +8,19 @@ namespace blankenhain {
 
 	struct FilterSettings {
 		FilterSettings() = default;
-		FilterSettings(unsigned int sampleRate_, FilterType type_, float frequency_, float Q_) :
+		FilterSettings(unsigned int sampleRate_, FilterType type_, float frequency_, float Q_, bool active_) :
 			sampleRate(sampleRate_),
 			type(type_),
 			frequency(frequency_),
-			Q(Q_)
+			Q(Q_),
+			active(active_)
 		{}
 
 		unsigned int sampleRate;
 		FilterType type;
 		float frequency;
 		float Q;
-
+		bool active = false;
 	};
 }
 

@@ -12,6 +12,10 @@ namespace blankenhain {
 	{}
 
 	void Filter::process(float sample[2]) {
+		if (!settings->active) {
+			return;
+		}
+
 		// compute biquad coefficients
 
 		float a0, a1, a2;
