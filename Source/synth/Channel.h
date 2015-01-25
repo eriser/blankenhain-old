@@ -9,6 +9,7 @@
 #include "Config.h"
 #include "Message.h"
 #include "VoiceManager.h"
+#include "ModulationMatrix.h"
 
 namespace blankenhain {
 	struct Channel {
@@ -24,6 +25,7 @@ namespace blankenhain {
 		EnvelopeSettings envelopes[ENVELOPES_PER_CHANNEL];
 		LFOSettings lfos[LFOS_PER_CHANNEL];
 		FilterSettings filters[FILTERS_PER_CHANNEL];
+		ModulationMatrix modulationMatrix;
 
 		unsigned int sampleRate;
 		VoiceManager* voiceManager;

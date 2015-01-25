@@ -8,5 +8,6 @@ const unsigned int LFOS_PER_CHANNEL = 3;
 const unsigned int FILTERS_PER_CHANNEL = 3;
 const unsigned int POLYPHONY = 4;
 const float A_FREQUENCY = 440;
+const unsigned int MODULATION_MATRIX_ENTRIES = 8;
 
 #endif  // CONFIG_H_INCLUDED

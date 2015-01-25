@@ -67,4 +67,30 @@ namespace blankenhain {
 			envelopes[envelope].noteOff(time);
 		}
 	}
+
+	void Voice::applyModulation(float* sources, float* targets) {
+		const ModulationMatrix& matrix = channel->modulationMatrix;
+		for (unsigned int i = 0; i < MODULATION_MATRIX_ENTRIES; i++) {
+			const Modulation& mod = matrix.entries[i];
+			if (!mod.active) {
+				continue;
+			}
+
+			float sourceValue;
+			switch (mod.source) {
+				// TODO source selection
+			default:
+				sourceValue = 0.0;
+				break;
+			}
+
+			float* target = targets;
+			switch (mod.target) {
+				// TODO target selection
+			}
+			// apply meta-mod
+			const float scale = mod.scale + targets[i];
+			*target += sourceValue * scale;
+		}
+	}
 }

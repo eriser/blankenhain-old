@@ -30,6 +30,8 @@
         <FILE id="x4aJSi" name="LFO.h" compile="0" resource="0" file="Source/synth/LFO.h"/>
         <FILE id="tSVFJR" name="LFOSettings.h" compile="0" resource="0" file="Source/synth/LFOSettings.h"/>
         <FILE id="V1CJEw" name="Message.h" compile="0" resource="0" file="Source/synth/Message.h"/>
+        <FILE id="hG4HWJ" name="ModulationMatrix.h" compile="0" resource="0"
+              file="Source/synth/ModulationMatrix.h"/>
         <FILE id="qPC1BR" name="Oscillator.cpp" compile="1" resource="0" file="Source/synth/Oscillator.cpp"/>
         <FILE id="SBhfsO" name="Oscillator.h" compile="0" resource="0" file="Source/synth/Oscillator.h"/>
         <FILE id="RoryHb" name="OscillatorFunction.cpp" compile="1" resource="0"
