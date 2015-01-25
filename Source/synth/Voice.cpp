@@ -38,6 +38,12 @@ namespace blankenhain {
 				// TODO mod missing
 				envelopeValues[envelope] = envelopes[envelope].value(startTime + i, 0, 0, 0, 0);
 			}
+			// first envelope is hard-wired to volume
+			// switch off voice when envelope reaches (near) zero
+			if (envelopeValues[0] < 0.001) {
+				active = false;
+			}
+
 			float lfoValues[LFOS_PER_CHANNEL];
 			for (unsigned int lfo = 0; lfo < LFOS_PER_CHANNEL; lfo++) {
 				// TODO mod missing
