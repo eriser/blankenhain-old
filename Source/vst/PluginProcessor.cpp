@@ -196,12 +196,12 @@ void BlankenhainAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuff
 
 	while (iterator.getNextEvent(message, samplePosition)) {
 		if (message.isNoteOnOrOff()) {
-			// TODO only first channel is used
+			const int channel = message.getChannel() - 1;
 			if (message.isNoteOn()) {
-				messageBuffer.push_back(blankenhain::Message::createNoteOn(samplePosition, message.getNoteNumber(), 0));
+				messageBuffer.push_back(blankenhain::Message::createNoteOn(samplePosition, message.getNoteNumber(), channel));
 			}
 			else {
-				messageBuffer.push_back(blankenhain::Message::createNoteOff(samplePosition, message.getNoteNumber(), 0));
+				messageBuffer.push_back(blankenhain::Message::createNoteOff(samplePosition, message.getNoteNumber(), channel));
 			}
 		}
 	}
