@@ -40,7 +40,7 @@ namespace blankenhain {
 			}
 			// first envelope is hard-wired to volume
 			// switch off voice when envelope reaches (near) zero
-			if (envelopeValues[0] < 0.001) {
+			if (envelopes[0].finished) {
 				active = false;
 			}
 
@@ -56,8 +56,8 @@ namespace blankenhain {
 			for (unsigned int filter = 0; filter < FILTERS_PER_CHANNEL; filter++) {
 				filters[filter].process(sample);
 			}
-			output[0][i] = sample[0];
-			output[1][i] = sample[1];
+			output[0][i] += sample[0] * envelopeValues[0];
+			output[1][i] += sample[1] * envelopeValues[0];
 		}
 	}
 

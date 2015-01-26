@@ -16,6 +16,7 @@ namespace blankenhain {
 		bool noteOn;
 		Time triggerTime;
 		float releaseLevel;
+		bool finished;
 	};
 }
 

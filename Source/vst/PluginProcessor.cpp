@@ -173,6 +173,10 @@ void BlankenhainAudioProcessor::changeProgramName(int index, const String& newNa
 void BlankenhainAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 {
 	synth = std::make_unique<Blankenhain>(static_cast<unsigned int>(sampleRate));
+	EnvelopeSettings& env = synth->channels[0].envelopes[0];
+	env = EnvelopeSettings(static_cast<unsigned int>(sampleRate), .3, 2.3, 1., .8);
+	OscillatorSettings& osc = synth->channels[0].oscillators[0];
+	osc = OscillatorSettings(static_cast<unsigned int>(sampleRate), OscillatorType::SAW);
 }
 
 void BlankenhainAudioProcessor::releaseResources()
@@ -250,7 +254,7 @@ void BlankenhainAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuff
 	}
 #endif // 0
 
-}
+	}
 
 //==============================================================================
 bool BlankenhainAudioProcessor::hasEditor() const

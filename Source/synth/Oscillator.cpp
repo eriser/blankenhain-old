@@ -8,7 +8,7 @@ namespace blankenhain {
 	Oscillator::Oscillator(const OscillatorSettings* settings_, unsigned int note) :
 		settings(settings_)
 	{
-		frequency = A_FREQUENCY * pow(2.0f, (note - 69) / 12.0f) / settings->sampleRate;
+		frequency = A_FREQUENCY * pow(2.0f, (static_cast<int>(note) - 69) / 12.0f) / settings->sampleRate;
 	}
 
 	void Oscillator::value(Time time, float output[2]) {
