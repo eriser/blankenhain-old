@@ -215,46 +215,7 @@ void BlankenhainAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuff
 		messages = &messageBuffer[0];
 	}
 	synth->processBlock(buffer.getArrayOfWritePointers(), buffer.getNumSamples(), messages, messageBuffer.size());
-
-#if 0
-	for (int i = 0; i < getNumOutputChannels(); i++) {
-		buffer.clear(i, 0, buffer.getNumSamples());
-	}
-
-	MidiBuffer::Iterator iterator(midiMessages);
-	MidiMessage message;
-	int samplePosition;
-	int bufferPosition = 0;
-	if (!midiMessages.isEmpty()) {
-		Logger::outputDebugString("List midi events");
-	}
-	while (iterator.getNextEvent(message, samplePosition)) {
-		if (message.isNoteOnOrOff()) {
-			String onOff = message.isNoteOn() ? "On" : "Off";
-			Logger::outputDebugString(onOff + " " + String(message.getNoteNumber()) + " " + String(samplePosition));
-			const int numPlaySamples = samplePosition - bufferPosition;
-			voices.play(globalTime, bufferPosition, numPlaySamples, getNumOutputChannels(), buffer.getArrayOfWritePointers());
-			globalTime += numPlaySamples;
-			bufferPosition = samplePosition;
-			if (message.isNoteOn()) {
-				defaultInstrument.noteOn(globalTime, message.getNoteNumber());
-			}
-			else {
-				defaultInstrument.noteOff(globalTime, message.getNoteNumber());
-			}
-		}
-		else {
-			Logger::outputDebugString("Other event");
-		}
-	}
-	const int remainingSamples = buffer.getNumSamples() - bufferPosition;
-	if (remainingSamples > 0) {
-		voices.play(globalTime, bufferPosition, remainingSamples, getNumOutputChannels(), buffer.getArrayOfWritePointers());
-		globalTime += remainingSamples;
-	}
-#endif // 0
-
-	}
+}
 
 //==============================================================================
 bool BlankenhainAudioProcessor::hasEditor() const
