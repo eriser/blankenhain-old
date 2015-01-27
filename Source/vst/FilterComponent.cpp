@@ -162,6 +162,22 @@ void FilterComponent::comboBoxChanged (ComboBox* comboBoxThatHasChanged)
     if (comboBoxThatHasChanged == comboBox)
     {
         //[UserComboBoxCode_comboBox] -- add your combo box handling code here..
+		FilterSettings& filter = processor->getSynth().channels[0].filters[instance];
+		switch (comboBox->getSelectedItemIndex()) {
+		case -1:
+		case 0:
+			filter.type = FilterType::LOWPASS;
+			break;
+		case 1:
+			filter.type = FilterType::HIGHPASS;
+			break;
+		case 2:
+			filter.type = FilterType::BANDPASS;
+			break;
+		case 3:
+			filter.type = FilterType::NOTCH;
+			break;
+		}
         //[/UserComboBoxCode_comboBox]
     }
 
