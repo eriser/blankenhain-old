@@ -135,7 +135,7 @@ void BlankenhainAudioProcessor::prepareToPlay(double sampleRate, int samplesPerB
 	EnvelopeSettings& env = synth->channels[0].envelopes[0];
 	env = EnvelopeSettings(static_cast<unsigned int>(sampleRate), .0, .0, .0, .0);
 	OscillatorSettings& osc = synth->channels[0].oscillators[0];
-	osc = OscillatorSettings(static_cast<unsigned int>(sampleRate), OscillatorType::SAW);
+	osc = OscillatorSettings(static_cast<unsigned int>(sampleRate), OscillatorType::SAW, .1);
 }
 
 void BlankenhainAudioProcessor::releaseResources()

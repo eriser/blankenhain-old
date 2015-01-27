@@ -13,7 +13,7 @@ namespace blankenhain {
 		void value(Time time, float output[2]);
 
 		const OscillatorSettings* settings;
-		float frequency;
+		int note;
 		OscillatorFunction osc;
 	};
 }
