@@ -66,9 +66,9 @@ private:
     //[/UserVariables]
 
     //==============================================================================
-    ScopedPointer<Slider> slider;
-    ScopedPointer<Slider> slider2;
-    ScopedPointer<ComboBox> comboBox;
+    ScopedPointer<Slider> frequencySlider;
+    ScopedPointer<Slider> qSlider;
+    ScopedPointer<ComboBox> type;
     ScopedPointer<Label> label;
     ScopedPointer<Label> label2;
 

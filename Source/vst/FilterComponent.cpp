@@ -33,28 +33,29 @@ using namespace blankenhain;
 FilterComponent::FilterComponent (BlankenhainAudioProcessor* processor_, int instance_)
     : processor(processor_), instance(instance_)
 {
-    addAndMakeVisible (slider = new Slider ("new slider"));
-    slider->setRange (0, 1, 0.001);
-    slider->setSliderStyle (Slider::RotaryHorizontalVerticalDrag);
-    slider->setTextBoxStyle (Slider::TextBoxBelow, false, 60, 20);
-    slider->addListener (this);
+    addAndMakeVisible (frequencySlider = new Slider ("new slider"));
+    frequencySlider->setRange (0, 1, 0.001);
+    frequencySlider->setSliderStyle (Slider::RotaryHorizontalVerticalDrag);
+    frequencySlider->setTextBoxStyle (Slider::TextBoxBelow, false, 60, 20);
+    frequencySlider->addListener (this);
 
-    addAndMakeVisible (slider2 = new Slider ("new slider"));
-    slider2->setRange (0, 1, 0.001);
-    slider2->setSliderStyle (Slider::RotaryHorizontalVerticalDrag);
-    slider2->setTextBoxStyle (Slider::TextBoxBelow, false, 60, 20);
-    slider2->addListener (this);
+    addAndMakeVisible (qSlider = new Slider ("new slider"));
+    qSlider->setRange (0, 1, 0.001);
+    qSlider->setSliderStyle (Slider::RotaryHorizontalVerticalDrag);
+    qSlider->setTextBoxStyle (Slider::TextBoxBelow, false, 60, 20);
+    qSlider->addListener (this);
 
-    addAndMakeVisible (comboBox = new ComboBox ("new combo box"));
-    comboBox->setEditableText (false);
-    comboBox->setJustificationType (Justification::centredLeft);
-    comboBox->setTextWhenNothingSelected (String::empty);
-    comboBox->setTextWhenNoChoicesAvailable (TRANS("(no choices)"));
-    comboBox->addItem (TRANS("Lowpass"), 1);
-    comboBox->addItem (TRANS("Highpass"), 2);
-    comboBox->addItem (TRANS("Bandpass"), 3);
-    comboBox->addItem (TRANS("Notch"), 4);
-    comboBox->addListener (this);
+    addAndMakeVisible (type = new ComboBox ("new combo box"));
+    type->setEditableText (false);
+    type->setJustificationType (Justification::centredLeft);
+    type->setTextWhenNothingSelected (String::empty);
+    type->setTextWhenNoChoicesAvailable (TRANS("(no choices)"));
+    type->addItem (TRANS("Off"), 1);
+    type->addItem (TRANS("Lowpass"), 2);
+    type->addItem (TRANS("Highpass"), 3);
+    type->addItem (TRANS("Bandpass"), 4);
+    type->addItem (TRANS("Notch"), 5);
+    type->addListener (this);
 
     addAndMakeVisible (label = new Label ("new label",
                                           TRANS("Frequency")));
@@ -88,9 +89,9 @@ FilterComponent::~FilterComponent()
     //[Destructor_pre]. You can add your own custom destruction code here..
     //[/Destructor_pre]
 
-    slider = nullptr;
-    slider2 = nullptr;
-    comboBox = nullptr;
+    frequencySlider = nullptr;
+    qSlider = nullptr;
+    type = nullptr;
     label = nullptr;
     label2 = nullptr;
 
@@ -116,11 +117,11 @@ void FilterComponent::resized()
     //[UserPreResize] Add your own custom resize code here..
     //[/UserPreResize]
 
-    slider->setBounds (proportionOfWidth (0.0000f), proportionOfHeight (0.0000f), proportionOfWidth (0.5000f), getHeight() - 44);
-    slider2->setBounds (proportionOfWidth (0.5000f), proportionOfHeight (0.0000f), proportionOfWidth (0.5000f), getHeight() - 44);
-    comboBox->setBounds (0, getHeight() - 24, proportionOfWidth (1.0000f), 24);
-    label->setBounds (proportionOfWidth (0.0000f), getHeight() - 24 - 20, proportionOfWidth (0.5000f), 20);
-    label2->setBounds (proportionOfWidth (0.5000f), getHeight() - 24 - 20, proportionOfWidth (0.5000f), 20);
+    frequencySlider->setBounds (proportionOfWidth (0.0000f), proportionOfHeight (0.0000f), proportionOfWidth (0.5006f), getHeight() - 44);
+    qSlider->setBounds (proportionOfWidth (0.5006f), proportionOfHeight (0.0000f), proportionOfWidth (0.5006f), getHeight() - 44);
+    type->setBounds (0, getHeight() - 24, proportionOfWidth (1.0000f), 24);
+    label->setBounds (proportionOfWidth (0.0000f), getHeight() - 24 - 20, proportionOfWidth (0.5006f), 20);
+    label2->setBounds (proportionOfWidth (0.5006f), getHeight() - 24 - 20, proportionOfWidth (0.5006f), 20);
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]
 }
@@ -131,23 +132,23 @@ void FilterComponent::sliderValueChanged (Slider* sliderThatWasMoved)
 	auto& parameters = processor->getParameters();
     //[/UsersliderValueChanged_Pre]
 
-    if (sliderThatWasMoved == slider)
+    if (sliderThatWasMoved == frequencySlider)
     {
-        //[UserSliderCode_slider] -- add your slider handling code here..
+        //[UserSliderCode_frequencySlider] -- add your slider handling code here..
 		processor->setParameterNotifyingHost(
 			parameters.getParameterIndex(ParameterType::FREQUENCY, instance),
-			float(slider->getValue())
+			float(frequencySlider->getValue())
 			);
-        //[/UserSliderCode_slider]
+        //[/UserSliderCode_frequencySlider]
     }
-    else if (sliderThatWasMoved == slider2)
+    else if (sliderThatWasMoved == qSlider)
     {
-        //[UserSliderCode_slider2] -- add your slider handling code here..
+        //[UserSliderCode_qSlider] -- add your slider handling code here..
 		processor->setParameterNotifyingHost(
 			parameters.getParameterIndex(ParameterType::Q, instance),
-			float(slider2->getValue())
+			float(qSlider->getValue())
 			);
-        //[/UserSliderCode_slider2]
+        //[/UserSliderCode_qSlider]
     }
 
     //[UsersliderValueChanged_Post]
@@ -159,26 +160,32 @@ void FilterComponent::comboBoxChanged (ComboBox* comboBoxThatHasChanged)
     //[UsercomboBoxChanged_Pre]
     //[/UsercomboBoxChanged_Pre]
 
-    if (comboBoxThatHasChanged == comboBox)
+    if (comboBoxThatHasChanged == type)
     {
-        //[UserComboBoxCode_comboBox] -- add your combo box handling code here..
+        //[UserComboBoxCode_type] -- add your combo box handling code here..
 		FilterSettings& filter = processor->getSynth().channels[0].filters[instance];
-		switch (comboBox->getSelectedItemIndex()) {
+		switch (type->getSelectedItemIndex()) {
 		case -1:
 		case 0:
-			filter.type = FilterType::LOWPASS;
-			break;
+			filter.active = false;
 		case 1:
-			filter.type = FilterType::HIGHPASS;
+			filter.type = FilterType::LOWPASS;
+			filter.active = true;
 			break;
 		case 2:
-			filter.type = FilterType::BANDPASS;
+			filter.type = FilterType::HIGHPASS;
+			filter.active = true;
 			break;
 		case 3:
+			filter.type = FilterType::BANDPASS;
+			filter.active = true;
+			break;
+		case 4:
 			filter.type = FilterType::NOTCH;
+			filter.active = true;
 			break;
 		}
-        //[/UserComboBoxCode_comboBox]
+        //[/UserComboBoxCode_type]
     }
 
     //[UsercomboBoxChanged_Post]
@@ -190,8 +197,8 @@ void FilterComponent::comboBoxChanged (ComboBox* comboBoxThatHasChanged)
 //[MiscUserCode] You can add your own definitions of your custom methods or any other code here...
 void FilterComponent::updateUi() {
 	auto& parameters = processor->getParameters();
-	slider->setValue(parameters.getParameter(ParameterType::FREQUENCY, instance));
-	slider2->setValue(parameters.getParameter(ParameterType::Q, instance));
+	frequencySlider->setValue(parameters.getParameter(ParameterType::FREQUENCY, instance));
+	qSlider->setValue(parameters.getParameter(ParameterType::Q, instance));
 }
 //[/MiscUserCode]
 
@@ -211,18 +218,19 @@ BEGIN_JUCER_METADATA
                  snapPixels="8" snapActive="1" snapShown="1" overlayOpacity="0.330"
                  fixedSize="0" initialWidth="600" initialHeight="400">
   <BACKGROUND backgroundColour="ffffffff"/>
-  <SLIDER name="new slider" id="bdf7649dc12a8036" memberName="slider" virtualName=""
-          explicitFocusOrder="0" pos="0% 0% 50.055% 44M" min="0" max="1"
-          int="0.001" style="RotaryHorizontalVerticalDrag" textBoxPos="TextBoxBelow"
-          textBoxEditable="1" textBoxWidth="60" textBoxHeight="20" skewFactor="1"/>
-  <SLIDER name="new slider" id="909826510df720ec" memberName="slider2"
+  <SLIDER name="new slider" id="bdf7649dc12a8036" memberName="frequencySlider"
+          virtualName="" explicitFocusOrder="0" pos="0% 0% 50.055% 44M"
+          min="0" max="1" int="0.001" style="RotaryHorizontalVerticalDrag"
+          textBoxPos="TextBoxBelow" textBoxEditable="1" textBoxWidth="60"
+          textBoxHeight="20" skewFactor="1"/>
+  <SLIDER name="new slider" id="909826510df720ec" memberName="qSlider"
           virtualName="" explicitFocusOrder="0" pos="50.055% 0% 50.055% 44M"
           min="0" max="1" int="0.001" style="RotaryHorizontalVerticalDrag"
           textBoxPos="TextBoxBelow" textBoxEditable="1" textBoxWidth="60"
           textBoxHeight="20" skewFactor="1"/>
-  <COMBOBOX name="new combo box" id="770a46f46416bdaa" memberName="comboBox"
+  <COMBOBOX name="new combo box" id="770a46f46416bdaa" memberName="type"
             virtualName="" explicitFocusOrder="0" pos="0 0Rr 100% 24" editable="0"
-            layout="33" items="Lowpass&#10;Highpass&#10;Bandpass&#10;Notch"
+            layout="33" items="Off&#10;Lowpass&#10;Highpass&#10;Bandpass&#10;Notch"
             textWhenNonSelected="" textWhenNoItems="(no choices)"/>
   <LABEL name="new label" id="588176d33db6e210" memberName="label" virtualName=""
          explicitFocusOrder="0" pos="0% 24Rr 50.055% 20" edTextCol="ff000000"
