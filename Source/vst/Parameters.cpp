@@ -21,6 +21,12 @@ values{}, synthValues{}
 		types[getParameterIndex(ParameterType::VOLUME, instance)] = ParameterType::VOLUME;
 		types[getParameterIndex(ParameterType::DETUNE, instance)] = ParameterType::DETUNE;
 	}
+	for (int instance = 0; instance < FILTERS_PER_CHANNEL; instance++) {
+		names[getParameterIndex(ParameterType::FREQUENCY, instance)] = "Frequency" + String(instance + 1);
+		names[getParameterIndex(ParameterType::Q, instance)] = "Q" + String(instance + 1);
+		types[getParameterIndex(ParameterType::FREQUENCY, instance)] = ParameterType::FREQUENCY;
+		types[getParameterIndex(ParameterType::Q, instance)] = ParameterType::Q;
+	}
 }
 
 int Parameters::getNumParameters() const {
@@ -37,13 +43,14 @@ float Parameters::getParameter(ParameterType type, int instance) const {
 
 void Parameters::setParameter(int index, float newValue) {
 	values[index] = newValue;
-	if (types[index] == ParameterType::DETUNE) {
-		*synthValues[index] = newValue - 0.5;
+	switch (types[index]) {
+	case ParameterType::DETUNE:
+		newValue -= 0.5;
+		break;
+	case ParameterType::FREQUENCY:
+		newValue *= 1000;
 	}
-	else {
-
-		*synthValues[index] = newValue;
-	}
+	*synthValues[index] = newValue;
 }
 
 const String Parameters::getParameterName(int index) const {
@@ -55,6 +62,8 @@ int Parameters::getParameterIndex(ParameterType type, int instance) const {
 	const unsigned int envelope_offset = envelope_parameters_offset + PARAMETERS_PER_ENVELOPE * instance;
 	const unsigned int oscillator_parameters_offset = envelope_parameters_offset + PARAMETERS_PER_ENVELOPE * ENVELOPES_PER_CHANNEL;
 	const unsigned int oscillator_offset = oscillator_parameters_offset + PARAMETERS_PER_OSCILLATOR * instance;
+	const unsigned int filter_parameters_offset = oscillator_parameters_offset + PARAMETERS_PER_OSCILLATOR * OSCILLATORS_PER_CHANNEL;
+	const unsigned int filter_offset = filter_parameters_offset + PARAMETERS_PER_FILTER * instance;
 	switch (type) {
 	case ParameterType::ATTACK:
 		return envelope_offset + 0;
@@ -68,6 +77,10 @@ int Parameters::getParameterIndex(ParameterType type, int instance) const {
 		return oscillator_offset + 0;
 	case ParameterType::DETUNE:
 		return oscillator_offset + 1;
+	case ParameterType::FREQUENCY:
+		return filter_offset + 0;
+	case ParameterType::Q:
+		return filter_offset + 1;
 	default:
 		return -1;
 	}
@@ -85,5 +98,10 @@ void Parameters::setSynth(Blankenhain& synth) {
 	for (int instance = 0; instance < OSCILLATORS_PER_CHANNEL; instance++) {
 		synthValues[getParameterIndex(ParameterType::VOLUME, instance)] = &oscillatorSettings[instance].volume;
 		synthValues[getParameterIndex(ParameterType::DETUNE, instance)] = &oscillatorSettings[instance].detune;
+	}
+	FilterSettings* filterSettings = synth.channels[0].filters;
+	for (int instance = 0; instance < FILTERS_PER_CHANNEL; instance++) {
+		synthValues[getParameterIndex(ParameterType::FREQUENCY, instance)] = &filterSettings[instance].frequency;
+		synthValues[getParameterIndex(ParameterType::Q, instance)] = &filterSettings[instance].Q;
 	}
 }

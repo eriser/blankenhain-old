@@ -18,6 +18,9 @@
 */
 
 //[Headers] You can add your own extra header files here...
+#include "PluginProcessor.h"
+
+using namespace blankenhain;
 //[/Headers]
 
 #include "FilterComponent.h"
@@ -125,16 +128,25 @@ void FilterComponent::resized()
 void FilterComponent::sliderValueChanged (Slider* sliderThatWasMoved)
 {
     //[UsersliderValueChanged_Pre]
+	auto& parameters = processor->getParameters();
     //[/UsersliderValueChanged_Pre]
 
     if (sliderThatWasMoved == slider)
     {
         //[UserSliderCode_slider] -- add your slider handling code here..
+		processor->setParameterNotifyingHost(
+			parameters.getParameterIndex(ParameterType::FREQUENCY, instance),
+			float(slider->getValue())
+			);
         //[/UserSliderCode_slider]
     }
     else if (sliderThatWasMoved == slider2)
     {
         //[UserSliderCode_slider2] -- add your slider handling code here..
+		processor->setParameterNotifyingHost(
+			parameters.getParameterIndex(ParameterType::Q, instance),
+			float(slider2->getValue())
+			);
         //[/UserSliderCode_slider2]
     }
 
@@ -161,6 +173,9 @@ void FilterComponent::comboBoxChanged (ComboBox* comboBoxThatHasChanged)
 
 //[MiscUserCode] You can add your own definitions of your custom methods or any other code here...
 void FilterComponent::updateUi() {
+	auto& parameters = processor->getParameters();
+	slider->setValue(parameters.getParameter(ParameterType::FREQUENCY, instance));
+	slider2->setValue(parameters.getParameter(ParameterType::Q, instance));
 }
 //[/MiscUserCode]
 
