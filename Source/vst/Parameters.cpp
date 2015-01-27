@@ -1,13 +1,19 @@
 #include "Parameters.h"
 
+using namespace blankenhain;
+
 Parameters::Parameters() :
-values{}
+values{}, synthValues{}
 {
-	for (int instance = 0; instance < blankenhain::ENVELOPES_PER_CHANNEL; instance++) {
+	for (int instance = 0; instance < ENVELOPES_PER_CHANNEL; instance++) {
 		names[getParameterIndex(ParameterType::ATTACK, instance)] = "Attack" + String(instance + 1);
 		names[getParameterIndex(ParameterType::DECAY, instance)] = "Decay" + String(instance + 1);
 		names[getParameterIndex(ParameterType::SUSTAIN, instance)] = "Sustain" + String(instance + 1);
 		names[getParameterIndex(ParameterType::RELEASE, instance)] = "Release" + String(instance + 1);
+		types[getParameterIndex(ParameterType::ATTACK, instance)] = ParameterType::ATTACK;
+		types[getParameterIndex(ParameterType::DECAY, instance)] = ParameterType::DECAY;
+		types[getParameterIndex(ParameterType::SUSTAIN, instance)] = ParameterType::SUSTAIN;
+		types[getParameterIndex(ParameterType::RELEASE, instance)] = ParameterType::RELEASE;
 	}
 }
 
@@ -25,7 +31,7 @@ float Parameters::getParameter(ParameterType type, int instance) const {
 
 void Parameters::setParameter(int index, float newValue) {
 	values[index] = newValue;
-	// TODO set parameter in synth somehow
+	*synthValues[index] = newValue;
 }
 
 const String Parameters::getParameterName(int index) const {
@@ -45,6 +51,17 @@ int Parameters::getParameterIndex(ParameterType type, int instance) const {
 		return envelope_offset + 2;
 	case ParameterType::RELEASE:
 		return envelope_offset + 3;
+	default:
+		return -1;
+	}
+}
 
+void Parameters::setSynth(Blankenhain& synth) {
+	EnvelopeSettings* envelopeSettings = synth.channels[0].envelopes;
+	for (int instance = 0; instance < ENVELOPES_PER_CHANNEL; instance++) {
+		synthValues[getParameterIndex(ParameterType::ATTACK, instance)] = &envelopeSettings[instance].attackTime;
+		synthValues[getParameterIndex(ParameterType::DECAY, instance)] = &envelopeSettings[instance].decayTime;
+		synthValues[getParameterIndex(ParameterType::SUSTAIN, instance)] = &envelopeSettings[instance].sustainLevel;
+		synthValues[getParameterIndex(ParameterType::RELEASE, instance)] = &envelopeSettings[instance].releaseTime;
 	}
 }

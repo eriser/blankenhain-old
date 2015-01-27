@@ -131,8 +131,9 @@ void BlankenhainAudioProcessor::changeProgramName(int index, const String& newNa
 void BlankenhainAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 {
 	synth = std::make_unique<Blankenhain>(static_cast<unsigned int>(sampleRate));
+	parameters.setSynth(*synth);
 	EnvelopeSettings& env = synth->channels[0].envelopes[0];
-	env = EnvelopeSettings(static_cast<unsigned int>(sampleRate), .3, 2.3, 1., .8);
+	env = EnvelopeSettings(static_cast<unsigned int>(sampleRate), .0, .0, .0, .0);
 	OscillatorSettings& osc = synth->channels[0].oscillators[0];
 	osc = OscillatorSettings(static_cast<unsigned int>(sampleRate), OscillatorType::SAW);
 }
