@@ -211,3 +211,7 @@ void BlankenhainAudioProcessor::requestUiUpdate() {
 void BlankenhainAudioProcessor::clearUiUpdate() {
 	uiNeedsUpdate = false;
 }
+
+const Parameters& BlankenhainAudioProcessor::getParameters() const {
+	return parameters;
+}

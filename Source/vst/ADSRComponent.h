@@ -43,7 +43,7 @@ class ADSRComponent  : public Component,
 {
 public:
     //==============================================================================
-    ADSRComponent (BlankenhainAudioProcessor* _processor, int _n);
+    ADSRComponent (BlankenhainAudioProcessor* processor_, int n_);
     ~ADSRComponent();
 
     //==============================================================================
@@ -60,7 +60,7 @@ public:
 private:
     //[UserVariables]   -- You can add your own custom variables in this section.
 	BlankenhainAudioProcessor* processor;
-	int n;
+	int instance;
     //[/UserVariables]
 
     //==============================================================================

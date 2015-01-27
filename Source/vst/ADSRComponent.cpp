@@ -28,8 +28,8 @@
 //[/MiscUserDefs]
 
 //==============================================================================
-ADSRComponent::ADSRComponent (BlankenhainAudioProcessor* _processor, int _n)
-    : processor(_processor), n(_n)
+ADSRComponent::ADSRComponent (BlankenhainAudioProcessor* processor_, int instance_)
+    : processor(processor_), instance(instance_)
 {
     addAndMakeVisible (attackSlider = new Slider ("Attack"));
     attackSlider->setRange (0, 1, 0.001);
@@ -109,26 +109,43 @@ void ADSRComponent::resized()
 void ADSRComponent::sliderValueChanged (Slider* sliderThatWasMoved)
 {
     //[UsersliderValueChanged_Pre]
+	auto& parameters = processor->getParameters();
     //[/UsersliderValueChanged_Pre]
 
     if (sliderThatWasMoved == attackSlider)
     {
         //[UserSliderCode_attackSlider] -- add your slider handling code here..
+		processor->setParameterNotifyingHost(
+			parameters.getParameterIndex(ParameterType::ATTACK, instance),
+			float(attackSlider->getValue())
+		);
         //[/UserSliderCode_attackSlider]
     }
     else if (sliderThatWasMoved == decaySlider)
     {
         //[UserSliderCode_decaySlider] -- add your slider handling code here..
+		processor->setParameterNotifyingHost(
+			parameters.getParameterIndex(ParameterType::DECAY, instance),
+			float(decaySlider->getValue())
+			);
         //[/UserSliderCode_decaySlider]
     }
     else if (sliderThatWasMoved == sustainSlider)
     {
         //[UserSliderCode_sustainSlider] -- add your slider handling code here..
+		processor->setParameterNotifyingHost(
+			parameters.getParameterIndex(ParameterType::SUSTAIN, instance),
+			float(sustainSlider->getValue())
+			);
         //[/UserSliderCode_sustainSlider]
     }
     else if (sliderThatWasMoved == releaseSlider)
     {
         //[UserSliderCode_releaseSlider] -- add your slider handling code here..
+		processor->setParameterNotifyingHost(
+			parameters.getParameterIndex(ParameterType::RELEASE, instance),
+			float(releaseSlider->getValue())
+			);
         //[/UserSliderCode_releaseSlider]
     }
 
@@ -140,6 +157,11 @@ void ADSRComponent::sliderValueChanged (Slider* sliderThatWasMoved)
 
 //[MiscUserCode] You can add your own definitions of your custom methods or any other code here...
 void ADSRComponent::updateUi() {
+	auto& parameters = processor->getParameters();
+	attackSlider->setValue(parameters.getParameter(ParameterType::ATTACK, instance));
+	decaySlider->setValue(parameters.getParameter(ParameterType::DECAY, instance));
+	sustainSlider->setValue(parameters.getParameter(ParameterType::SUSTAIN, instance));
+	releaseSlider->setValue(parameters.getParameter(ParameterType::RELEASE, instance));
 }
 //[/MiscUserCode]
 

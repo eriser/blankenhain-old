@@ -66,6 +66,8 @@ public:
 	void requestUiUpdate();
 	void clearUiUpdate();
 
+	const Parameters& getParameters() const;
+
 private:
 	bool uiNeedsUpdate;
 	std::unique_ptr<blankenhain::Blankenhain> synth;
