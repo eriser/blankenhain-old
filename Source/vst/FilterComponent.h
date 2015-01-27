@@ -17,17 +17,14 @@
   ==============================================================================
 */
 
-#ifndef __JUCE_HEADER_3DB5996FF2CF23E__
-#define __JUCE_HEADER_3DB5996FF2CF23E__
+#ifndef __JUCE_HEADER_62CD23C3F29F59D6__
+#define __JUCE_HEADER_62CD23C3F29F59D6__
 
 //[Headers]     -- You can add your own extra header files here --
 #include "JuceHeader.h"
-#include "PluginProcessor.h"
-#include "ADSRComponent.h"
-#include "GroupWrapComponent.h"
-#include "LFOComponent.h"
-#include "OscillatorComponent.h"
-#include "FilterComponent.h"
+#include "ParameterEditor.h"
+
+class BlankenhainAudioProcessor;
 //[/Headers]
 
 
@@ -40,47 +37,47 @@
     Describe your class and how it works here!
                                                                     //[/Comments]
 */
-class BlankenhainAudioProcessorEditor  : public AudioProcessorEditor,
-                                         public Timer
+class FilterComponent  : public Component,
+                         public ParameterEditor,
+                         public SliderListener,
+                         public ComboBoxListener
 {
 public:
     //==============================================================================
-    BlankenhainAudioProcessorEditor (BlankenhainAudioProcessor* ownerFilter);
-    ~BlankenhainAudioProcessorEditor();
+    FilterComponent (BlankenhainAudioProcessor* processor_, int instance_);
+    ~FilterComponent();
 
     //==============================================================================
     //[UserMethods]     -- You can add your own custom methods in this section.
-    void timerCallback();
-    BlankenhainAudioProcessor* getProcessor() const;
+	void updateUi() override;
     //[/UserMethods]
 
     void paint (Graphics& g);
     void resized();
+    void sliderValueChanged (Slider* sliderThatWasMoved);
+    void comboBoxChanged (ComboBox* comboBoxThatHasChanged);
 
 
 
 private:
     //[UserVariables]   -- You can add your own custom variables in this section.
-    LookAndFeel_V3 lookAndFeel;
+	BlankenhainAudioProcessor* processor;
+	int instance;
     //[/UserVariables]
 
     //==============================================================================
-    ScopedPointer<GroupWrapComponent<ADSRComponent>> adsr1Wrapper;
-    ScopedPointer<GroupWrapComponent<LFOComponent>> lfo1Wrapper;
-    ScopedPointer<GroupWrapComponent<ADSRComponent>> adsr2Wrapper;
-    ScopedPointer<GroupWrapComponent<LFOComponent>> lfo2Wrapper;
-    ScopedPointer<GroupWrapComponent<LFOComponent>> lfo3Wrapper;
-    ScopedPointer<GroupWrapComponent<OscillatorComponent>> osc1Wrapper;
-    ScopedPointer<GroupWrapComponent<OscillatorComponent>> osc2Wrapper;
-    ScopedPointer<GroupWrapComponent<FilterComponent>> filter1Wrapper;
-    ScopedPointer<GroupWrapComponent<FilterComponent>> filter2Wrapper;
+    ScopedPointer<Slider> slider;
+    ScopedPointer<Slider> slider2;
+    ScopedPointer<ComboBox> comboBox;
+    ScopedPointer<Label> label;
+    ScopedPointer<Label> label2;
 
 
     //==============================================================================
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (BlankenhainAudioProcessorEditor)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (FilterComponent)
 };
 
 //[EndFile] You can add extra defines here...
 //[/EndFile]
 
-#endif   // __JUCE_HEADER_3DB5996FF2CF23E__
+#endif   // __JUCE_HEADER_62CD23C3F29F59D6__

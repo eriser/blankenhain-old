@@ -116,10 +116,10 @@ void OscillatorComponent::resized()
     //[UserPreResize] Add your own custom resize code here..
     //[/UserPreResize]
 
-    volumeSlider->setBounds (proportionOfWidth (0.0000f), proportionOfHeight (0.0000f), proportionOfWidth (0.5000f), getHeight() - 44);
-    detuneSlider->setBounds (proportionOfWidth (0.5000f), proportionOfHeight (0.0000f), proportionOfWidth (0.5000f), getHeight() - 44);
-    label->setBounds (proportionOfWidth (0.0000f), getHeight() - 24 - 20, proportionOfWidth (0.5000f), 20);
-    label2->setBounds (proportionOfWidth (0.5000f), getHeight() - 24 - 20, proportionOfWidth (0.5000f), 20);
+    volumeSlider->setBounds (proportionOfWidth (0.0000f), proportionOfHeight (0.0000f), proportionOfWidth (0.5006f), getHeight() - 44);
+    detuneSlider->setBounds (proportionOfWidth (0.5006f), proportionOfHeight (0.0000f), proportionOfWidth (0.5006f), getHeight() - 44);
+    label->setBounds (proportionOfWidth (0.0000f), getHeight() - 24 - 20, proportionOfWidth (0.5006f), 20);
+    label2->setBounds (proportionOfWidth (0.5006f), getHeight() - 24 - 20, proportionOfWidth (0.5006f), 20);
     waveform->setBounds (0, getHeight() - 24, proportionOfWidth (1.0000f), 24);
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]

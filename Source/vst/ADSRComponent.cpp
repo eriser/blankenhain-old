@@ -98,10 +98,10 @@ void ADSRComponent::resized()
     //[UserPreResize] Add your own custom resize code here..
     //[/UserPreResize]
 
-    attackSlider->setBounds (proportionOfWidth (0.0000f), proportionOfHeight (0.0000f), proportionOfWidth (0.2510f), proportionOfHeight (1.0000f));
-    decaySlider->setBounds (proportionOfWidth (0.2510f), proportionOfHeight (0.0000f), proportionOfWidth (0.2510f), proportionOfHeight (1.0000f));
-    sustainSlider->setBounds (proportionOfWidth (0.5000f), proportionOfHeight (0.0000f), proportionOfWidth (0.2510f), proportionOfHeight (1.0000f));
-    releaseSlider->setBounds (proportionOfWidth (0.7490f), proportionOfHeight (0.0000f), proportionOfWidth (0.2510f), proportionOfHeight (1.0000f));
+    attackSlider->setBounds (proportionOfWidth (0.0000f), proportionOfHeight (0.0000f), proportionOfWidth (0.2514f), proportionOfHeight (1.0000f));
+    decaySlider->setBounds (proportionOfWidth (0.2514f), proportionOfHeight (0.0000f), proportionOfWidth (0.2514f), proportionOfHeight (1.0000f));
+    sustainSlider->setBounds (proportionOfWidth (0.5006f), proportionOfHeight (0.0000f), proportionOfWidth (0.2514f), proportionOfHeight (1.0000f));
+    releaseSlider->setBounds (proportionOfWidth (0.7486f), proportionOfHeight (0.0000f), proportionOfWidth (0.2514f), proportionOfHeight (1.0000f));
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]
 }
@@ -182,19 +182,19 @@ BEGIN_JUCER_METADATA
                  fixedSize="0" initialWidth="600" initialHeight="400">
   <BACKGROUND backgroundColour="ffffffff"/>
   <SLIDER name="Attack" id="7f931157cf71799a" memberName="attackSlider"
-          virtualName="" explicitFocusOrder="0" pos="0% 0% 25.104% 100%"
+          virtualName="" explicitFocusOrder="0" pos="0% 0% 25.137% 100%"
           min="0" max="1" int="0.001" style="LinearVertical" textBoxPos="TextBoxBelow"
           textBoxEditable="1" textBoxWidth="60" textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="Decay" id="92e1ce8d74c36976" memberName="decaySlider" virtualName=""
-          explicitFocusOrder="0" pos="25.104% 0% 25.104% 100%" min="0"
+          explicitFocusOrder="0" pos="25.137% 0% 25.137% 100%" min="0"
           max="1" int="0.001" style="LinearVertical" textBoxPos="TextBoxBelow"
           textBoxEditable="1" textBoxWidth="60" textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="Sustain" id="877f1e939dfb38df" memberName="sustainSlider"
-          virtualName="" explicitFocusOrder="0" pos="50% 0% 25.104% 100%"
+          virtualName="" explicitFocusOrder="0" pos="50.055% 0% 25.137% 100%"
           min="0" max="1" int="0.001" style="LinearVertical" textBoxPos="TextBoxBelow"
           textBoxEditable="1" textBoxWidth="60" textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="Release" id="6a7f7fe4b6255174" memberName="releaseSlider"
-          virtualName="" explicitFocusOrder="0" pos="74.896% 0% 25.104% 100%"
+          virtualName="" explicitFocusOrder="0" pos="74.863% 0% 25.137% 100%"
           min="0" max="1" int="0.001" style="LinearVertical" textBoxPos="TextBoxBelow"
           textBoxEditable="1" textBoxWidth="60" textBoxHeight="20" skewFactor="1"/>
 </JUCER_COMPONENT>
