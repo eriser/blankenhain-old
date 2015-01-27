@@ -45,6 +45,12 @@ BlankenhainAudioProcessorEditor::BlankenhainAudioProcessorEditor (BlankenhainAud
     addAndMakeVisible (lfo3Wrapper = new GroupWrapComponent<LFOComponent>());
     lfo3Wrapper->setName ("LFO3");
 
+    addAndMakeVisible (osc1Wrapper = new GroupWrapComponent<OscillatorComponent>());
+    osc1Wrapper->setName ("OSC1");
+
+    addAndMakeVisible (osc2Wrapper = new GroupWrapComponent<OscillatorComponent>());
+    osc2Wrapper->setName ("OSC2");
+
 
     //[UserPreSize]
     //[/UserPreSize]
@@ -69,6 +75,8 @@ BlankenhainAudioProcessorEditor::~BlankenhainAudioProcessorEditor()
     adsr2Wrapper = nullptr;
     lfo2Wrapper = nullptr;
     lfo3Wrapper = nullptr;
+    osc1Wrapper = nullptr;
+    osc2Wrapper = nullptr;
 
 
     //[Destructor]. You can add your own custom destruction code here..
@@ -92,11 +100,13 @@ void BlankenhainAudioProcessorEditor::resized()
     //[UserPreResize] Add your own custom resize code here..
     //[/UserPreResize]
 
-    adsr1Wrapper->setBounds (0, 0, proportionOfWidth (0.4993f), proportionOfHeight (0.6667f));
-    lfo1Wrapper->setBounds (0, getHeight() - proportionOfHeight (0.3333f), proportionOfWidth (0.3333f), proportionOfHeight (0.3333f));
-    adsr2Wrapper->setBounds (proportionOfWidth (0.4993f), 0, proportionOfWidth (0.4993f), proportionOfHeight (0.6667f));
-    lfo2Wrapper->setBounds (proportionOfWidth (0.3333f), getHeight() - proportionOfHeight (0.3333f), proportionOfWidth (0.3333f), proportionOfHeight (0.3333f));
-    lfo3Wrapper->setBounds (proportionOfWidth (0.6666f), proportionOfHeight (0.6666f), proportionOfWidth (0.3333f), proportionOfHeight (0.3333f));
+    adsr1Wrapper->setBounds (proportionOfWidth (0.5000f), 0, proportionOfWidth (0.5000f), proportionOfHeight (0.3333f));
+    lfo1Wrapper->setBounds (0, getHeight() - proportionOfHeight (0.3333f), proportionOfWidth (0.3329f), proportionOfHeight (0.3333f));
+    adsr2Wrapper->setBounds (proportionOfWidth (0.5000f), proportionOfHeight (0.3333f), proportionOfWidth (0.5000f), proportionOfHeight (0.3333f));
+    lfo2Wrapper->setBounds (proportionOfWidth (0.3329f), getHeight() - proportionOfHeight (0.3333f), proportionOfWidth (0.3329f), proportionOfHeight (0.3333f));
+    lfo3Wrapper->setBounds (proportionOfWidth (0.6671f), proportionOfHeight (0.6667f), proportionOfWidth (0.3329f), proportionOfHeight (0.3333f));
+    osc1Wrapper->setBounds (proportionOfWidth (0.0000f), proportionOfHeight (0.0000f), proportionOfWidth (0.5000f), proportionOfHeight (0.3333f));
+    osc2Wrapper->setBounds (proportionOfWidth (0.0000f), proportionOfHeight (0.3333f), proportionOfWidth (0.5000f), proportionOfHeight (0.3333f));
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]
 }
@@ -147,13 +157,13 @@ BEGIN_JUCER_METADATA
                  fixedSize="0" initialWidth="600" initialHeight="400">
   <BACKGROUND backgroundColour="ffffffff"/>
   <GENERICCOMPONENT name="ADSR1" id="aa02ec06e0ef68d2" memberName="adsr1Wrapper"
-                    virtualName="" explicitFocusOrder="0" pos="0 0 49.858% 66.667%"
+                    virtualName="" explicitFocusOrder="0" pos="50% 0 50% 33.333%"
                     class="GroupWrapComponent&lt;ADSRComponent&gt;" params="ownerFilter, 0"/>
   <GENERICCOMPONENT name="LFO1" id="9521c8513f7d0e00" memberName="lfo1Wrapper" virtualName=""
                     explicitFocusOrder="0" pos="0 0Rr 33.286% 33.333%" class="GroupWrapComponent&lt;LFOComponent&gt;"
                     params=""/>
   <GENERICCOMPONENT name="ADSR2" id="e97ce6f55a156364" memberName="adsr2Wrapper"
-                    virtualName="" explicitFocusOrder="0" pos="49.858% 0 49.858% 66.667%"
+                    virtualName="" explicitFocusOrder="0" pos="50% 33.333% 50% 33.333%"
                     class="GroupWrapComponent&lt;ADSRComponent&gt;" params="ownerFilter, 1"/>
   <GENERICCOMPONENT name="LFO2" id="f836b115579cdc4f" memberName="lfo2Wrapper" virtualName=""
                     explicitFocusOrder="0" pos="33.286% 0Rr 33.286% 33.333%" class="GroupWrapComponent&lt;LFOComponent&gt;"
@@ -161,6 +171,12 @@ BEGIN_JUCER_METADATA
   <GENERICCOMPONENT name="LFO3" id="7abe9eb613638bcb" memberName="lfo3Wrapper" virtualName=""
                     explicitFocusOrder="0" pos="66.714% 66.667% 33.286% 33.333%"
                     class="GroupWrapComponent&lt;LFOComponent&gt;" params=""/>
+  <GENERICCOMPONENT name="OSC1" id="301482411b8be9b8" memberName="osc1Wrapper" virtualName=""
+                    explicitFocusOrder="0" pos="0% 0% 50% 33.333%" class="GroupWrapComponent&lt;OscillatorComponent&gt;"
+                    params=""/>
+  <GENERICCOMPONENT name="OSC2" id="da7522de7cbdc9a7" memberName="osc2Wrapper" virtualName=""
+                    explicitFocusOrder="0" pos="0% 33.333% 50% 33.333%" class="GroupWrapComponent&lt;OscillatorComponent&gt;"
+                    params=""/>
 </JUCER_COMPONENT>
 
 END_JUCER_METADATA

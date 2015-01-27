@@ -58,6 +58,10 @@
         <FILE id="VIuutE" name="LFOComponent.cpp" compile="1" resource="0"
               file="Source/vst/LFOComponent.cpp"/>
         <FILE id="EGigmK" name="LFOComponent.h" compile="0" resource="0" file="Source/vst/LFOComponent.h"/>
+        <FILE id="Re65hJ" name="OscillatorComponent.cpp" compile="1" resource="0"
+              file="Source/vst/OscillatorComponent.cpp"/>
+        <FILE id="GF9QcQ" name="OscillatorComponent.h" compile="0" resource="0"
+              file="Source/vst/OscillatorComponent.h"/>
         <FILE id="rHtRZj" name="ParameterEditor.h" compile="0" resource="0"
               file="Source/vst/ParameterEditor.h"/>
         <FILE id="kFQXGf" name="PluginEditor.cpp" compile="1" resource="0"
