@@ -7,7 +7,7 @@
   the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
   and re-saved.
 
-  Created with Introjucer version: 3.1.0
+  Created with Introjucer version: 3.1.1
 
   ------------------------------------------------------------------------------
 
@@ -32,27 +32,27 @@ ADSRComponent::ADSRComponent (BlankenhainAudioProcessor* _processor, int _n)
     : processor(_processor), n(_n)
 {
     addAndMakeVisible (attackSlider = new Slider ("Attack"));
-    attackSlider->setRange (0, 1, 0);
+    attackSlider->setRange (0, 1, 0.001);
     attackSlider->setSliderStyle (Slider::LinearVertical);
-    attackSlider->setTextBoxStyle (Slider::TextBoxBelow, false, 80, 20);
+    attackSlider->setTextBoxStyle (Slider::TextBoxBelow, false, 60, 20);
     attackSlider->addListener (this);
 
     addAndMakeVisible (decaySlider = new Slider ("Decay"));
-    decaySlider->setRange (0, 1, 0);
+    decaySlider->setRange (0, 1, 0.001);
     decaySlider->setSliderStyle (Slider::LinearVertical);
-    decaySlider->setTextBoxStyle (Slider::TextBoxBelow, false, 80, 20);
+    decaySlider->setTextBoxStyle (Slider::TextBoxBelow, false, 60, 20);
     decaySlider->addListener (this);
 
     addAndMakeVisible (sustainSlider = new Slider ("Sustain"));
-    sustainSlider->setRange (0, 1, 0);
+    sustainSlider->setRange (0, 1, 0.001);
     sustainSlider->setSliderStyle (Slider::LinearVertical);
-    sustainSlider->setTextBoxStyle (Slider::TextBoxBelow, false, 80, 20);
+    sustainSlider->setTextBoxStyle (Slider::TextBoxBelow, false, 60, 20);
     sustainSlider->addListener (this);
 
     addAndMakeVisible (releaseSlider = new Slider ("Release"));
-    releaseSlider->setRange (0, 1, 0);
+    releaseSlider->setRange (0, 1, 0.001);
     releaseSlider->setSliderStyle (Slider::LinearVertical);
-    releaseSlider->setTextBoxStyle (Slider::TextBoxBelow, false, 80, 20);
+    releaseSlider->setTextBoxStyle (Slider::TextBoxBelow, false, 60, 20);
     releaseSlider->addListener (this);
 
 
@@ -95,10 +95,13 @@ void ADSRComponent::paint (Graphics& g)
 
 void ADSRComponent::resized()
 {
-    attackSlider->setBounds (proportionOfWidth (0.0000f), proportionOfHeight (0.0000f), proportionOfWidth (0.2510f), proportionOfHeight (1.0000f));
-    decaySlider->setBounds (proportionOfWidth (0.2510f), proportionOfHeight (0.0000f), proportionOfWidth (0.2510f), proportionOfHeight (1.0000f));
-    sustainSlider->setBounds (proportionOfWidth (0.5005f), proportionOfHeight (0.0000f), proportionOfWidth (0.2510f), proportionOfHeight (1.0000f));
-    releaseSlider->setBounds (proportionOfWidth (0.7490f), proportionOfHeight (0.0000f), proportionOfWidth (0.2510f), proportionOfHeight (1.0000f));
+    //[UserPreResize] Add your own custom resize code here..
+    //[/UserPreResize]
+
+    attackSlider->setBounds (proportionOfWidth (0.0000f), proportionOfHeight (0.0000f), proportionOfWidth (0.2511f), proportionOfHeight (1.0000f));
+    decaySlider->setBounds (proportionOfWidth (0.2511f), proportionOfHeight (0.0000f), proportionOfWidth (0.2511f), proportionOfHeight (1.0000f));
+    sustainSlider->setBounds (proportionOfWidth (0.5007f), proportionOfHeight (0.0000f), proportionOfWidth (0.2511f), proportionOfHeight (1.0000f));
+    releaseSlider->setBounds (proportionOfWidth (0.7489f), proportionOfHeight (0.0000f), proportionOfWidth (0.2511f), proportionOfHeight (1.0000f));
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]
 }
@@ -157,21 +160,21 @@ BEGIN_JUCER_METADATA
                  initialWidth="600" initialHeight="400">
   <BACKGROUND backgroundColour="ffffffff"/>
   <SLIDER name="Attack" id="7f931157cf71799a" memberName="attackSlider"
-          virtualName="" explicitFocusOrder="0" pos="0% 0% 25.107% 100%"
-          min="0" max="1" int="0" style="LinearVertical" textBoxPos="TextBoxBelow"
-          textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
+          virtualName="" explicitFocusOrder="0" pos="0% 0% 25.104% 100%"
+          min="0" max="1" int="0.001" style="LinearVertical" textBoxPos="TextBoxBelow"
+          textBoxEditable="1" textBoxWidth="60" textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="Decay" id="92e1ce8d74c36976" memberName="decaySlider" virtualName=""
-          explicitFocusOrder="0" pos="25.107% 0% 25.107% 100%" min="0"
-          max="1" int="0" style="LinearVertical" textBoxPos="TextBoxBelow"
-          textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
+          explicitFocusOrder="0" pos="25.104% 0% 25.104% 100%" min="0"
+          max="1" int="0.001" style="LinearVertical" textBoxPos="TextBoxBelow"
+          textBoxEditable="1" textBoxWidth="60" textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="Sustain" id="877f1e939dfb38df" memberName="sustainSlider"
-          virtualName="" explicitFocusOrder="0" pos="50.071% 0% 25.107% 100%"
-          min="0" max="1" int="0" style="LinearVertical" textBoxPos="TextBoxBelow"
-          textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
+          virtualName="" explicitFocusOrder="0" pos="50% 0% 25.104% 100%"
+          min="0" max="1" int="0.001" style="LinearVertical" textBoxPos="TextBoxBelow"
+          textBoxEditable="1" textBoxWidth="60" textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="Release" id="6a7f7fe4b6255174" memberName="releaseSlider"
-          virtualName="" explicitFocusOrder="0" pos="74.893% 0% 25.107% 100%"
-          min="0" max="1" int="0" style="LinearVertical" textBoxPos="TextBoxBelow"
-          textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
+          virtualName="" explicitFocusOrder="0" pos="74.896% 0% 25.104% 100%"
+          min="0" max="1" int="0.001" style="LinearVertical" textBoxPos="TextBoxBelow"
+          textBoxEditable="1" textBoxWidth="60" textBoxHeight="20" skewFactor="1"/>
 </JUCER_COMPONENT>
 
 END_JUCER_METADATA
