@@ -5,11 +5,15 @@
 #include "../synth/Config.h"
 
 enum class ParameterType {
-	ATTACK, DECAY, SUSTAIN, RELEASE
+	ATTACK, DECAY, SUSTAIN, RELEASE,
+	VOLUME, DETUNE
 };
 
+const unsigned int PARAMETERS_PER_ENVELOPE = 4;
+const unsigned int PARAMETERS_PER_OSCILLATOR = 2;
 const int N_PARAMETERS = 
-	4 * blankenhain::ENVELOPES_PER_CHANNEL
+	PARAMETERS_PER_ENVELOPE * blankenhain::ENVELOPES_PER_CHANNEL
+	+ PARAMETERS_PER_OSCILLATOR * blankenhain::OSCILLATORS_PER_CHANNEL
 ;
 
 #include "../synth/Blankenhain.h"

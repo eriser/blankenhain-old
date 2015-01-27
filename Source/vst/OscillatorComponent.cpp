@@ -128,16 +128,25 @@ void OscillatorComponent::resized()
 void OscillatorComponent::sliderValueChanged (Slider* sliderThatWasMoved)
 {
     //[UsersliderValueChanged_Pre]
+	auto& parameters = processor->getParameters();
     //[/UsersliderValueChanged_Pre]
 
     if (sliderThatWasMoved == volumeSlider)
     {
         //[UserSliderCode_volumeSlider] -- add your slider handling code here..
+		processor->setParameterNotifyingHost(
+			parameters.getParameterIndex(ParameterType::VOLUME, instance),
+			float(volumeSlider->getValue())
+			);
         //[/UserSliderCode_volumeSlider]
     }
     else if (sliderThatWasMoved == detuneSlider)
     {
         //[UserSliderCode_detuneSlider] -- add your slider handling code here..
+		processor->setParameterNotifyingHost(
+			parameters.getParameterIndex(ParameterType::DETUNE, instance),
+			float(detuneSlider->getValue())
+			);
         //[/UserSliderCode_detuneSlider]
     }
 
@@ -180,6 +189,9 @@ void OscillatorComponent::comboBoxChanged (ComboBox* comboBoxThatHasChanged)
 
 //[MiscUserCode] You can add your own definitions of your custom methods or any other code here...
 void OscillatorComponent::updateUi() {
+	auto& parameters = processor->getParameters();
+	volumeSlider->setValue(parameters.getParameter(ParameterType::VOLUME, instance));
+	detuneSlider->setValue(parameters.getParameter(ParameterType::DETUNE, instance));
 }
 //[/MiscUserCode]
 
