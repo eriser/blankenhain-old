@@ -7,18 +7,11 @@
 #include <memory>
 
 #include "../synth/Blankenhain.h"
+#include "Parameters.h"
 
 //==============================================================================
 /**
 */
-
-enum ParameterEditorId {
-	ADSR1_ID = 0,
-	ADSR2_ID,
-	LFO1_ID,
-	LFO2_ID,
-	END,
-};
 
 class BlankenhainAudioProcessor : public AudioProcessor
 {
@@ -69,8 +62,6 @@ public:
 	void setStateInformation(const void* data, int sizeInBytes) override;
 
 	bool needsUiUpdate() const;
-	int getParameterIndex(enum ParameterEditorId id) const;
-	ParameterEditorId getParameterEditorId(int index) const;
 
 	void requestUiUpdate();
 	void clearUiUpdate();
@@ -78,6 +69,7 @@ public:
 private:
 	bool uiNeedsUpdate;
 	std::unique_ptr<blankenhain::Blankenhain> synth;
+	Parameters parameters;
 
 	//==============================================================================
 	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(BlankenhainAudioProcessor)

@@ -63,7 +63,6 @@ ADSRComponent::ADSRComponent (BlankenhainAudioProcessor* _processor, int _n)
 
 
     //[Constructor] You can add your own custom stuff here..
-	parameterOffset = processor->getParameterIndex(static_cast<ParameterEditorId>(ADSR1_ID + n));
     //[/Constructor]
 }
 
@@ -112,25 +111,21 @@ void ADSRComponent::sliderValueChanged (Slider* sliderThatWasMoved)
     if (sliderThatWasMoved == attackSlider)
     {
         //[UserSliderCode_attackSlider] -- add your slider handling code here..
-		processor->setParameterNotifyingHost(parameterOffset + 0, float(attackSlider->getValue()));
         //[/UserSliderCode_attackSlider]
     }
     else if (sliderThatWasMoved == decaySlider)
     {
         //[UserSliderCode_decaySlider] -- add your slider handling code here..
-		processor->setParameterNotifyingHost(parameterOffset + 1, float(decaySlider->getValue()));
         //[/UserSliderCode_decaySlider]
     }
     else if (sliderThatWasMoved == sustainSlider)
     {
         //[UserSliderCode_sustainSlider] -- add your slider handling code here..
-		processor->setParameterNotifyingHost(parameterOffset + 2, float(sustainSlider->getValue()));
         //[/UserSliderCode_sustainSlider]
     }
     else if (sliderThatWasMoved == releaseSlider)
     {
         //[UserSliderCode_releaseSlider] -- add your slider handling code here..
-		processor->setParameterNotifyingHost(parameterOffset + 3, float(releaseSlider->getValue()));
         //[/UserSliderCode_releaseSlider]
     }
 
@@ -142,10 +137,6 @@ void ADSRComponent::sliderValueChanged (Slider* sliderThatWasMoved)
 
 //[MiscUserCode] You can add your own definitions of your custom methods or any other code here...
 void ADSRComponent::updateUi() {
-	attackSlider->setValue(processor->getParameter(parameterOffset + 0));
-	decaySlider->setValue(processor->getParameter(parameterOffset + 1));
-	sustainSlider->setValue(processor->getParameter(parameterOffset + 2));
-	releaseSlider->setValue(processor->getParameter(parameterOffset + 3));
 }
 //[/MiscUserCode]
 

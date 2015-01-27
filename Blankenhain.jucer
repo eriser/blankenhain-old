@@ -50,6 +50,8 @@
         <FILE id="doR7FE" name="VoiceManager.h" compile="0" resource="0" file="Source/synth/VoiceManager.h"/>
       </GROUP>
       <GROUP id="{44641236-9F8D-59BA-F64F-0FDC5DFBAE5B}" name="vst">
+        <FILE id="jyl8yC" name="Parameters.cpp" compile="1" resource="0" file="Source/vst/Parameters.cpp"/>
+        <FILE id="kwvj4Q" name="Parameters.h" compile="0" resource="0" file="Source/vst/Parameters.h"/>
         <FILE id="BOreup" name="ADSRComponent.cpp" compile="1" resource="0"
               file="Source/vst/ADSRComponent.cpp"/>
         <FILE id="e33XRL" name="ADSRComponent.h" compile="0" resource="0" file="Source/vst/ADSRComponent.h"/>

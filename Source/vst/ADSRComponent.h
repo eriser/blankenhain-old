@@ -61,7 +61,6 @@ private:
     //[UserVariables]   -- You can add your own custom variables in this section.
 	BlankenhainAudioProcessor* processor;
 	int n;
-	int parameterOffset;
     //[/UserVariables]
 
     //==============================================================================
