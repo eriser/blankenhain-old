@@ -67,6 +67,7 @@ public:
 	void clearUiUpdate();
 
 	const Parameters& getParameters() const;
+	blankenhain::Blankenhain& getSynth();
 
 private:
 	bool uiNeedsUpdate;

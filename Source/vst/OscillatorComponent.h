@@ -22,6 +22,9 @@
 
 //[Headers]     -- You can add your own extra header files here --
 #include "JuceHeader.h"
+#include "ParameterEditor.h"
+
+class BlankenhainAudioProcessor;
 //[/Headers]
 
 
@@ -35,16 +38,18 @@
                                                                     //[/Comments]
 */
 class OscillatorComponent  : public Component,
+                             public ParameterEditor,
                              public SliderListener,
                              public ComboBoxListener
 {
 public:
     //==============================================================================
-    OscillatorComponent ();
+    OscillatorComponent (BlankenhainAudioProcessor* processor_, int instance_);
     ~OscillatorComponent();
 
     //==============================================================================
     //[UserMethods]     -- You can add your own custom methods in this section.
+	void updateUi() override;
     //[/UserMethods]
 
     void paint (Graphics& g);
@@ -56,14 +61,16 @@ public:
 
 private:
     //[UserVariables]   -- You can add your own custom variables in this section.
+	BlankenhainAudioProcessor* processor;
+	int instance;
     //[/UserVariables]
 
     //==============================================================================
-    ScopedPointer<Slider> slider;
-    ScopedPointer<Slider> slider2;
+    ScopedPointer<Slider> volumeSlider;
+    ScopedPointer<Slider> detuneSlider;
     ScopedPointer<Label> label;
     ScopedPointer<Label> label2;
-    ScopedPointer<ComboBox> comboBox;
+    ScopedPointer<ComboBox> waveform;
 
 
     //==============================================================================

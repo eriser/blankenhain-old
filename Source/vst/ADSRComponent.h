@@ -43,7 +43,7 @@ class ADSRComponent  : public Component,
 {
 public:
     //==============================================================================
-    ADSRComponent (BlankenhainAudioProcessor* processor_, int n_);
+    ADSRComponent (BlankenhainAudioProcessor* processor_, int instance_);
     ~ADSRComponent();
 
     //==============================================================================

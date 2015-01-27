@@ -23,6 +23,8 @@
 //[Headers]     -- You can add your own extra header files here --
 #include "JuceHeader.h"
 #include "ParameterEditor.h"
+
+class BlankenhainAudioProcessor;
 //[/Headers]
 
 
@@ -42,7 +44,7 @@ class LFOComponent  : public Component,
 {
 public:
     //==============================================================================
-    LFOComponent ();
+    LFOComponent (BlankenhainAudioProcessor* processor_, int instance_);
     ~LFOComponent();
 
     //==============================================================================
@@ -59,12 +61,14 @@ public:
 
 private:
     //[UserVariables]   -- You can add your own custom variables in this section.
+	BlankenhainAudioProcessor* processor;
+	int instance;
     //[/UserVariables]
 
     //==============================================================================
-    ScopedPointer<Slider> slider;
-    ScopedPointer<ComboBox> comboBox;
-    ScopedPointer<Slider> slider2;
+    ScopedPointer<Slider> rateSlider;
+    ScopedPointer<ComboBox> waveform;
+    ScopedPointer<Slider> depthSlider;
     ScopedPointer<Label> label;
     ScopedPointer<Label> label2;
 

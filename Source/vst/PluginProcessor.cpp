@@ -216,3 +216,7 @@ void BlankenhainAudioProcessor::clearUiUpdate() {
 const Parameters& BlankenhainAudioProcessor::getParameters() const {
 	return parameters;
 }
+
+Blankenhain& BlankenhainAudioProcessor::getSynth() {
+	return *synth;
+}

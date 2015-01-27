@@ -98,10 +98,10 @@ void ADSRComponent::resized()
     //[UserPreResize] Add your own custom resize code here..
     //[/UserPreResize]
 
-    attackSlider->setBounds (proportionOfWidth (0.0000f), proportionOfHeight (0.0000f), proportionOfWidth (0.2511f), proportionOfHeight (1.0000f));
-    decaySlider->setBounds (proportionOfWidth (0.2511f), proportionOfHeight (0.0000f), proportionOfWidth (0.2511f), proportionOfHeight (1.0000f));
-    sustainSlider->setBounds (proportionOfWidth (0.5007f), proportionOfHeight (0.0000f), proportionOfWidth (0.2511f), proportionOfHeight (1.0000f));
-    releaseSlider->setBounds (proportionOfWidth (0.7489f), proportionOfHeight (0.0000f), proportionOfWidth (0.2511f), proportionOfHeight (1.0000f));
+    attackSlider->setBounds (proportionOfWidth (0.0000f), proportionOfHeight (0.0000f), proportionOfWidth (0.2510f), proportionOfHeight (1.0000f));
+    decaySlider->setBounds (proportionOfWidth (0.2510f), proportionOfHeight (0.0000f), proportionOfWidth (0.2510f), proportionOfHeight (1.0000f));
+    sustainSlider->setBounds (proportionOfWidth (0.5000f), proportionOfHeight (0.0000f), proportionOfWidth (0.2510f), proportionOfHeight (1.0000f));
+    releaseSlider->setBounds (proportionOfWidth (0.7490f), proportionOfHeight (0.0000f), proportionOfWidth (0.2510f), proportionOfHeight (1.0000f));
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]
 }
@@ -176,10 +176,10 @@ void ADSRComponent::updateUi() {
 BEGIN_JUCER_METADATA
 
 <JUCER_COMPONENT documentType="Component" className="ADSRComponent" componentName=""
-                 parentClasses="public Component, public ParameterEditor" constructorParams="BlankenhainAudioProcessor* _processor, int _n"
-                 variableInitialisers="processor(_processor), n(_n)" snapPixels="8"
-                 snapActive="1" snapShown="1" overlayOpacity="0.330" fixedSize="0"
-                 initialWidth="600" initialHeight="400">
+                 parentClasses="public Component, public ParameterEditor" constructorParams="BlankenhainAudioProcessor* processor_, int instance_"
+                 variableInitialisers="processor(processor_), instance(instance_)"
+                 snapPixels="8" snapActive="1" snapShown="1" overlayOpacity="0.330"
+                 fixedSize="0" initialWidth="600" initialHeight="400">
   <BACKGROUND backgroundColour="ffffffff"/>
   <SLIDER name="Attack" id="7f931157cf71799a" memberName="attackSlider"
           virtualName="" explicitFocusOrder="0" pos="0% 0% 25.104% 100%"

@@ -27,30 +27,31 @@
 //[/MiscUserDefs]
 
 //==============================================================================
-LFOComponent::LFOComponent ()
+LFOComponent::LFOComponent (BlankenhainAudioProcessor* processor_, int instance_)
+    : processor(processor_), instance(instance_)
 {
-    addAndMakeVisible (slider = new Slider ("new slider"));
-    slider->setRange (0, 1, 0.001);
-    slider->setSliderStyle (Slider::RotaryHorizontalVerticalDrag);
-    slider->setTextBoxStyle (Slider::TextBoxBelow, false, 60, 20);
-    slider->addListener (this);
+    addAndMakeVisible (rateSlider = new Slider ("new slider"));
+    rateSlider->setRange (0, 1, 0.001);
+    rateSlider->setSliderStyle (Slider::RotaryHorizontalVerticalDrag);
+    rateSlider->setTextBoxStyle (Slider::TextBoxBelow, false, 60, 20);
+    rateSlider->addListener (this);
 
-    addAndMakeVisible (comboBox = new ComboBox ("new combo box"));
-    comboBox->setEditableText (false);
-    comboBox->setJustificationType (Justification::centredLeft);
-    comboBox->setTextWhenNothingSelected (String::empty);
-    comboBox->setTextWhenNoChoicesAvailable (TRANS("(no choices)"));
-    comboBox->addItem (TRANS("Sine"), 1);
-    comboBox->addItem (TRANS("Triangle"), 2);
-    comboBox->addItem (TRANS("Square"), 3);
-    comboBox->addItem (TRANS("Noise"), 4);
-    comboBox->addListener (this);
+    addAndMakeVisible (waveform = new ComboBox ("new combo box"));
+    waveform->setEditableText (false);
+    waveform->setJustificationType (Justification::centredLeft);
+    waveform->setTextWhenNothingSelected (String::empty);
+    waveform->setTextWhenNoChoicesAvailable (TRANS("(no choices)"));
+    waveform->addItem (TRANS("Sine"), 1);
+    waveform->addItem (TRANS("Triangle"), 2);
+    waveform->addItem (TRANS("Square"), 3);
+    waveform->addItem (TRANS("Noise"), 4);
+    waveform->addListener (this);
 
-    addAndMakeVisible (slider2 = new Slider ("new slider"));
-    slider2->setRange (0, 1, 0.001);
-    slider2->setSliderStyle (Slider::RotaryHorizontalVerticalDrag);
-    slider2->setTextBoxStyle (Slider::TextBoxBelow, false, 60, 20);
-    slider2->addListener (this);
+    addAndMakeVisible (depthSlider = new Slider ("new slider"));
+    depthSlider->setRange (0, 1, 0.001);
+    depthSlider->setSliderStyle (Slider::RotaryHorizontalVerticalDrag);
+    depthSlider->setTextBoxStyle (Slider::TextBoxBelow, false, 60, 20);
+    depthSlider->addListener (this);
 
     addAndMakeVisible (label = new Label ("new label",
                                           TRANS("Rate")));
@@ -84,9 +85,9 @@ LFOComponent::~LFOComponent()
     //[Destructor_pre]. You can add your own custom destruction code here..
     //[/Destructor_pre]
 
-    slider = nullptr;
-    comboBox = nullptr;
-    slider2 = nullptr;
+    rateSlider = nullptr;
+    waveform = nullptr;
+    depthSlider = nullptr;
     label = nullptr;
     label2 = nullptr;
 
@@ -112,9 +113,9 @@ void LFOComponent::resized()
     //[UserPreResize] Add your own custom resize code here..
     //[/UserPreResize]
 
-    slider->setBounds (0, 0, proportionOfWidth (0.5000f), getHeight() - 44);
-    comboBox->setBounds (proportionOfWidth (0.0000f), getHeight() - 24, proportionOfWidth (1.0000f), 24);
-    slider2->setBounds (proportionOfWidth (0.5000f), 0, proportionOfWidth (0.5000f), getHeight() - 44);
+    rateSlider->setBounds (0, 0, proportionOfWidth (0.5000f), getHeight() - 44);
+    waveform->setBounds (proportionOfWidth (0.0000f), getHeight() - 24, proportionOfWidth (1.0000f), 24);
+    depthSlider->setBounds (proportionOfWidth (0.5000f), 0, proportionOfWidth (0.5000f), getHeight() - 44);
     label->setBounds (0, getHeight() - 24 - 20, proportionOfWidth (0.5000f), 20);
     label2->setBounds (proportionOfWidth (0.5000f), getHeight() - 24 - 20, proportionOfWidth (0.5000f), 20);
     //[UserResized] Add your own custom resize handling here..
@@ -126,15 +127,15 @@ void LFOComponent::sliderValueChanged (Slider* sliderThatWasMoved)
     //[UsersliderValueChanged_Pre]
     //[/UsersliderValueChanged_Pre]
 
-    if (sliderThatWasMoved == slider)
+    if (sliderThatWasMoved == rateSlider)
     {
-        //[UserSliderCode_slider] -- add your slider handling code here..
-        //[/UserSliderCode_slider]
+        //[UserSliderCode_rateSlider] -- add your slider handling code here..
+        //[/UserSliderCode_rateSlider]
     }
-    else if (sliderThatWasMoved == slider2)
+    else if (sliderThatWasMoved == depthSlider)
     {
-        //[UserSliderCode_slider2] -- add your slider handling code here..
-        //[/UserSliderCode_slider2]
+        //[UserSliderCode_depthSlider] -- add your slider handling code here..
+        //[/UserSliderCode_depthSlider]
     }
 
     //[UsersliderValueChanged_Post]
@@ -146,10 +147,10 @@ void LFOComponent::comboBoxChanged (ComboBox* comboBoxThatHasChanged)
     //[UsercomboBoxChanged_Pre]
     //[/UsercomboBoxChanged_Pre]
 
-    if (comboBoxThatHasChanged == comboBox)
+    if (comboBoxThatHasChanged == waveform)
     {
-        //[UserComboBoxCode_comboBox] -- add your combo box handling code here..
-        //[/UserComboBoxCode_comboBox]
+        //[UserComboBoxCode_waveform] -- add your combo box handling code here..
+        //[/UserComboBoxCode_waveform]
     }
 
     //[UsercomboBoxChanged_Post]
@@ -174,19 +175,20 @@ void LFOComponent::updateUi() {
 BEGIN_JUCER_METADATA
 
 <JUCER_COMPONENT documentType="Component" className="LFOComponent" componentName=""
-                 parentClasses="public Component, public ParameterEditor" constructorParams=""
-                 variableInitialisers="" snapPixels="8" snapActive="1" snapShown="1"
-                 overlayOpacity="0.330" fixedSize="0" initialWidth="600" initialHeight="400">
+                 parentClasses="public Component, public ParameterEditor" constructorParams="BlankenhainAudioProcessor* processor_, int instance_"
+                 variableInitialisers="processor(processor_), instance(instance_)"
+                 snapPixels="8" snapActive="1" snapShown="1" overlayOpacity="0.330"
+                 fixedSize="0" initialWidth="600" initialHeight="400">
   <BACKGROUND backgroundColour="ffffffff"/>
-  <SLIDER name="new slider" id="25adebd8cb2e4432" memberName="slider" virtualName=""
-          explicitFocusOrder="0" pos="0 0 50% 44M" min="0" max="1" int="0.001"
-          style="RotaryHorizontalVerticalDrag" textBoxPos="TextBoxBelow"
+  <SLIDER name="new slider" id="25adebd8cb2e4432" memberName="rateSlider"
+          virtualName="" explicitFocusOrder="0" pos="0 0 50% 44M" min="0"
+          max="1" int="0.001" style="RotaryHorizontalVerticalDrag" textBoxPos="TextBoxBelow"
           textBoxEditable="1" textBoxWidth="60" textBoxHeight="20" skewFactor="1"/>
-  <COMBOBOX name="new combo box" id="72f6ebc4b6994175" memberName="comboBox"
+  <COMBOBOX name="new combo box" id="72f6ebc4b6994175" memberName="waveform"
             virtualName="" explicitFocusOrder="0" pos="0% 0Rr 100% 24" editable="0"
             layout="33" items="Sine&#10;Triangle&#10;Square&#10;Noise" textWhenNonSelected=""
             textWhenNoItems="(no choices)"/>
-  <SLIDER name="new slider" id="2d5bc2faa83f1489" memberName="slider2"
+  <SLIDER name="new slider" id="2d5bc2faa83f1489" memberName="depthSlider"
           virtualName="" explicitFocusOrder="0" pos="50% 0 50% 44M" min="0"
           max="1" int="0.001" style="RotaryHorizontalVerticalDrag" textBoxPos="TextBoxBelow"
           textBoxEditable="1" textBoxWidth="60" textBoxHeight="20" skewFactor="1"/>
