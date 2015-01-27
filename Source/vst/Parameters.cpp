@@ -37,7 +37,13 @@ float Parameters::getParameter(ParameterType type, int instance) const {
 
 void Parameters::setParameter(int index, float newValue) {
 	values[index] = newValue;
-	*synthValues[index] = newValue;
+	if (types[index] == ParameterType::DETUNE) {
+		*synthValues[index] = newValue - 0.5;
+	}
+	else {
+
+		*synthValues[index] = newValue;
+	}
 }
 
 const String Parameters::getParameterName(int index) const {

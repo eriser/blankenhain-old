@@ -145,7 +145,7 @@ void OscillatorComponent::sliderValueChanged (Slider* sliderThatWasMoved)
         //[UserSliderCode_detuneSlider] -- add your slider handling code here..
 		processor->setParameterNotifyingHost(
 			parameters.getParameterIndex(ParameterType::DETUNE, instance),
-			float(detuneSlider->getValue())
+			float(detuneSlider->getValue() + 0.5)
 			);
         //[/UserSliderCode_detuneSlider]
     }
@@ -191,7 +191,7 @@ void OscillatorComponent::comboBoxChanged (ComboBox* comboBoxThatHasChanged)
 void OscillatorComponent::updateUi() {
 	auto& parameters = processor->getParameters();
 	volumeSlider->setValue(parameters.getParameter(ParameterType::VOLUME, instance));
-	detuneSlider->setValue(parameters.getParameter(ParameterType::DETUNE, instance));
+	detuneSlider->setValue(parameters.getParameter(ParameterType::DETUNE, instance) - 0.5);
 }
 //[/MiscUserCode]
 
