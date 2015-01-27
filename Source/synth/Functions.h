@@ -15,7 +15,7 @@ namespace blankenhain {
 
 	template<typename T>
 	T clamp(T value, T minVal, T maxVal) {
-		return min(max(x, minVal), maxVal);
+		return min(max(value, minVal), maxVal);
 	}
 
 	template<typename T>

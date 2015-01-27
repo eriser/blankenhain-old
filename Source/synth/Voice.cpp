@@ -1,5 +1,6 @@
 #include "Voice.h"
 #include "Channel.h"
+#include "Functions.h"
 
 namespace blankenhain {
 	Voice::Voice() :
@@ -53,6 +54,8 @@ namespace blankenhain {
 			for (unsigned int oscillator = 0; oscillator < OSCILLATORS_PER_CHANNEL; oscillator++) {
 				oscillators[oscillator].value(startTime + i, sample);
 			}
+			sample[0] = clamp(sample[0], 0.f, 1.f);
+			sample[1] = clamp(sample[1], 0.f, 1.f);
 			for (unsigned int filter = 0; filter < FILTERS_PER_CHANNEL; filter++) {
 				filters[filter].process(sample);
 			}
