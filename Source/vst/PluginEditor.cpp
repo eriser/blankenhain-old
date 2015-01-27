@@ -7,7 +7,7 @@
   the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
   and re-saved.
 
-  Created with Introjucer version: 3.1.0
+  Created with Introjucer version: 3.1.1
 
   ------------------------------------------------------------------------------
 
@@ -42,6 +42,9 @@ BlankenhainAudioProcessorEditor::BlankenhainAudioProcessorEditor (BlankenhainAud
     addAndMakeVisible (lfo2Wrapper = new GroupWrapComponent<LFOComponent>());
     lfo2Wrapper->setName ("LFO2");
 
+    addAndMakeVisible (lfo3Wrapper = new GroupWrapComponent<LFOComponent>());
+    lfo3Wrapper->setName ("LFO3");
+
 
     //[UserPreSize]
     //[/UserPreSize]
@@ -65,6 +68,7 @@ BlankenhainAudioProcessorEditor::~BlankenhainAudioProcessorEditor()
     lfo1Wrapper = nullptr;
     adsr2Wrapper = nullptr;
     lfo2Wrapper = nullptr;
+    lfo3Wrapper = nullptr;
 
 
     //[Destructor]. You can add your own custom destruction code here..
@@ -85,10 +89,14 @@ void BlankenhainAudioProcessorEditor::paint (Graphics& g)
 
 void BlankenhainAudioProcessorEditor::resized()
 {
+    //[UserPreResize] Add your own custom resize code here..
+    //[/UserPreResize]
+
     adsr1Wrapper->setBounds (0, 0, proportionOfWidth (0.4993f), proportionOfHeight (0.6667f));
-    lfo1Wrapper->setBounds (0, getHeight() - proportionOfHeight (0.3333f), proportionOfWidth (0.4993f), proportionOfHeight (0.3333f));
+    lfo1Wrapper->setBounds (0, getHeight() - proportionOfHeight (0.3333f), proportionOfWidth (0.3333f), proportionOfHeight (0.3333f));
     adsr2Wrapper->setBounds (proportionOfWidth (0.4993f), 0, proportionOfWidth (0.4993f), proportionOfHeight (0.6667f));
-    lfo2Wrapper->setBounds (proportionOfWidth (0.4993f), getHeight() - proportionOfHeight (0.3333f), proportionOfWidth (0.4993f), proportionOfHeight (0.3333f));
+    lfo2Wrapper->setBounds (proportionOfWidth (0.3333f), getHeight() - proportionOfHeight (0.3333f), proportionOfWidth (0.3333f), proportionOfHeight (0.3333f));
+    lfo3Wrapper->setBounds (proportionOfWidth (0.6666f), proportionOfHeight (0.6666f), proportionOfWidth (0.3333f), proportionOfHeight (0.3333f));
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]
 }
@@ -139,17 +147,20 @@ BEGIN_JUCER_METADATA
                  fixedSize="0" initialWidth="600" initialHeight="400">
   <BACKGROUND backgroundColour="ffffffff"/>
   <GENERICCOMPONENT name="ADSR1" id="aa02ec06e0ef68d2" memberName="adsr1Wrapper"
-                    virtualName="" explicitFocusOrder="0" pos="0 0 49.929% 66.667%"
+                    virtualName="" explicitFocusOrder="0" pos="0 0 49.858% 66.667%"
                     class="GroupWrapComponent&lt;ADSRComponent&gt;" params="ownerFilter, 0"/>
   <GENERICCOMPONENT name="LFO1" id="9521c8513f7d0e00" memberName="lfo1Wrapper" virtualName=""
-                    explicitFocusOrder="0" pos="0 0Rr 49.929% 33.333%" class="GroupWrapComponent&lt;LFOComponent&gt;"
+                    explicitFocusOrder="0" pos="0 0Rr 33.286% 33.333%" class="GroupWrapComponent&lt;LFOComponent&gt;"
                     params=""/>
   <GENERICCOMPONENT name="ADSR2" id="e97ce6f55a156364" memberName="adsr2Wrapper"
-                    virtualName="" explicitFocusOrder="0" pos="49.929% 0 49.929% 66.667%"
+                    virtualName="" explicitFocusOrder="0" pos="49.858% 0 49.858% 66.667%"
                     class="GroupWrapComponent&lt;ADSRComponent&gt;" params="ownerFilter, 1"/>
   <GENERICCOMPONENT name="LFO2" id="f836b115579cdc4f" memberName="lfo2Wrapper" virtualName=""
-                    explicitFocusOrder="0" pos="49.929% 0Rr 49.929% 33.333%" class="GroupWrapComponent&lt;LFOComponent&gt;"
+                    explicitFocusOrder="0" pos="33.286% 0Rr 33.286% 33.333%" class="GroupWrapComponent&lt;LFOComponent&gt;"
                     params=""/>
+  <GENERICCOMPONENT name="LFO3" id="7abe9eb613638bcb" memberName="lfo3Wrapper" virtualName=""
+                    explicitFocusOrder="0" pos="66.714% 66.667% 33.286% 33.333%"
+                    class="GroupWrapComponent&lt;LFOComponent&gt;" params=""/>
 </JUCER_COMPONENT>
 
 END_JUCER_METADATA

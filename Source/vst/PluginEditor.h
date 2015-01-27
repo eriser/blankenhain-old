@@ -7,7 +7,7 @@
   the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
   and re-saved.
 
-  Created with Introjucer version: 3.1.0
+  Created with Introjucer version: 3.1.1
 
   ------------------------------------------------------------------------------
 
@@ -67,6 +67,7 @@ private:
     ScopedPointer<GroupWrapComponent<LFOComponent>> lfo1Wrapper;
     ScopedPointer<GroupWrapComponent<ADSRComponent>> adsr2Wrapper;
     ScopedPointer<GroupWrapComponent<LFOComponent>> lfo2Wrapper;
+    ScopedPointer<GroupWrapComponent<LFOComponent>> lfo3Wrapper;
 
 
     //==============================================================================
