@@ -7,13 +7,29 @@ namespace blankenhain {
 	{}
 
 	void Channel::play(Time startTime, Time duration, float* output[2]) {
-		for (unsigned int i = 0; i < duration; i++) {
-			output[0][i] = 0;
-			output[1][i] = 0;
+		const unsigned int blocks = duration / BLOCKSIZE;
+		float* outputLocal[2] = { output[0], output[1] };
+		for (unsigned int j = 0; j < blocks; j++) {
+			playBlock(startTime, BLOCKSIZE, outputLocal);
+			startTime += BLOCKSIZE;
+			outputLocal[0] += BLOCKSIZE;
+			outputLocal[1] += BLOCKSIZE;
 		}
-		voiceManager->playAll(this, startTime, duration, output);
+		playBlock(startTime, duration - blocks * BLOCKSIZE, outputLocal);
+	}
+
+	void Channel::playBlock(Time startTime, Time duration, float* output[2]) {
+		float leftBuffer[BLOCKSIZE]{};
+		float rightBuffer[BLOCKSIZE]{};
+		float* channelBuffer[2] = { leftBuffer, rightBuffer };
+		voiceManager->playAll(this, startTime, duration, channelBuffer);
 
 		// this would be a good place for some channel effects
+
+		for (unsigned int i = 0; i < duration; i++) {
+			output[0][i] = leftBuffer[i];
+			output[1][i] = rightBuffer[i];
+		}
 	}
 
 	void Channel::noteOn(Time time, const NoteOnMessage& message) {

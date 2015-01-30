@@ -10,5 +10,6 @@ namespace blankenhain {
 	const unsigned int POLYPHONY = 16;
 	const float A_FREQUENCY = 440;
 	const unsigned int MODULATION_MATRIX_ENTRIES = 8;
+	const unsigned int BLOCKSIZE = 512;
 }
 #endif  // CONFIG_H_INCLUDED

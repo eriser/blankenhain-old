@@ -17,6 +17,7 @@ namespace blankenhain {
 		Channel(unsigned int sampleRate, VoiceManager* voiceManager);
 
 		void play(Time startTime, Time duration, float* output[2]);
+		void playBlock(Time startTime, Time duration, float* output[2]);
 		void noteOn(Time time, const NoteOnMessage& message);
 		void noteOff(Time time, const NoteOffMessage& message);
 		void parameterChange(const ParameterChangeMessage& message);
