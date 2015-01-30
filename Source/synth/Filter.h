@@ -12,7 +12,7 @@ namespace blankenhain {
 
 		const FilterSettings* settings;
 
-		float x_1[2], x_2[2];
+		float x_1[2];
 		float y_1[2], y_2[2];
 	};
 }
