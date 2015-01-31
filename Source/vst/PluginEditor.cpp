@@ -66,7 +66,7 @@ BlankenhainAudioProcessorEditor::BlankenhainAudioProcessorEditor (BlankenhainAud
     addAndMakeVisible (filter3Wrapper = new GroupWrapComponent<FilterComponent> (ownerFilter, 2));
     filter3Wrapper->setName ("Filter3");
 
-    addAndMakeVisible (modMatrix = new GroupWrapComponent<ModulationMatrixComponent>());
+    addAndMakeVisible (modMatrix = new GroupWrapComponent<ModulationMatrixComponent> (ownerFilter));
     modMatrix->setName ("Modulation");
 
 
@@ -224,7 +224,7 @@ BEGIN_JUCER_METADATA
                     class="GroupWrapComponent&lt;FilterComponent&gt;" params="ownerFilter, 2"/>
   <GENERICCOMPONENT name="Modulation" id="409331363e1ab1af" memberName="modMatrix"
                     virtualName="" explicitFocusOrder="0" pos="75.025% 0% 24.975% 100%"
-                    class="GroupWrapComponent&lt;ModulationMatrixComponent&gt;" params=""/>
+                    class="GroupWrapComponent&lt;ModulationMatrixComponent&gt;" params="ownerFilter"/>
 </JUCER_COMPONENT>
 
 END_JUCER_METADATA

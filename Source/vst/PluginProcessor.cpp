@@ -142,13 +142,6 @@ void BlankenhainAudioProcessor::prepareToPlay(double sampleRate, int samplesPerB
 	synth->channels[0].filters[1] = FilterSettings(static_cast<unsigned int>(sampleRate), FilterType::HIGHPASS, 0., 0., false);
 	synth->channels[0].filters[2] = FilterSettings(static_cast<unsigned int>(sampleRate), FilterType::HIGHPASS, 0., 0., false);
 	synth->channels[0].lfos[0] = LFOSettings(static_cast<unsigned int>(sampleRate), OscillatorType::SINE, 3.f, .5f, true);
-	Modulation& mod = synth->channels[0].modulationMatrix.entries[0];
-	mod.active = true;
-	mod.scale = .5;
-	mod.sourceIndex = 0;
-	mod.source = ModulationSource::LFO;
-	mod.target = ModulationTarget::FILTER_CUTOFF;
-	mod.targetIndex = 0;
 }
 
 void BlankenhainAudioProcessor::releaseResources()

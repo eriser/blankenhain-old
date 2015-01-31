@@ -113,11 +113,11 @@ void LFOComponent::resized()
     //[UserPreResize] Add your own custom resize code here..
     //[/UserPreResize]
 
-    rateSlider->setBounds (0, 0, proportionOfWidth (0.5000f), getHeight() - 44);
+    rateSlider->setBounds (0, 0, proportionOfWidth (0.5005f), getHeight() - 44);
     waveform->setBounds (proportionOfWidth (0.0000f), getHeight() - 24, proportionOfWidth (1.0000f), 24);
-    depthSlider->setBounds (proportionOfWidth (0.5000f), 0, proportionOfWidth (0.5000f), getHeight() - 44);
-    label->setBounds (0, getHeight() - 24 - 20, proportionOfWidth (0.5000f), 20);
-    label2->setBounds (proportionOfWidth (0.5000f), getHeight() - 24 - 20, proportionOfWidth (0.5000f), 20);
+    depthSlider->setBounds (proportionOfWidth (0.5005f), 0, proportionOfWidth (0.5005f), getHeight() - 44);
+    label->setBounds (0, getHeight() - 24 - 20, proportionOfWidth (0.5005f), 20);
+    label2->setBounds (proportionOfWidth (0.5005f), getHeight() - 24 - 20, proportionOfWidth (0.5005f), 20);
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]
 }
@@ -181,7 +181,7 @@ BEGIN_JUCER_METADATA
                  fixedSize="0" initialWidth="600" initialHeight="400">
   <BACKGROUND backgroundColour="ffffffff"/>
   <SLIDER name="new slider" id="25adebd8cb2e4432" memberName="rateSlider"
-          virtualName="" explicitFocusOrder="0" pos="0 0 50.055% 44M" min="0"
+          virtualName="" explicitFocusOrder="0" pos="0 0 50.049% 44M" min="0"
           max="1" int="0.001" style="RotaryHorizontalVerticalDrag" textBoxPos="TextBoxBelow"
           textBoxEditable="1" textBoxWidth="60" textBoxHeight="20" skewFactor="1"/>
   <COMBOBOX name="new combo box" id="72f6ebc4b6994175" memberName="waveform"
@@ -189,17 +189,17 @@ BEGIN_JUCER_METADATA
             layout="33" items="Sine&#10;Triangle&#10;Square&#10;Noise" textWhenNonSelected=""
             textWhenNoItems="(no choices)"/>
   <SLIDER name="new slider" id="2d5bc2faa83f1489" memberName="depthSlider"
-          virtualName="" explicitFocusOrder="0" pos="50.055% 0 50.055% 44M"
+          virtualName="" explicitFocusOrder="0" pos="50.049% 0 50.049% 44M"
           min="0" max="1" int="0.001" style="RotaryHorizontalVerticalDrag"
           textBoxPos="TextBoxBelow" textBoxEditable="1" textBoxWidth="60"
           textBoxHeight="20" skewFactor="1"/>
   <LABEL name="new label" id="67ad6162f890660c" memberName="label" virtualName=""
-         explicitFocusOrder="0" pos="0 24Rr 50.055% 20" edTextCol="ff000000"
+         explicitFocusOrder="0" pos="0 24Rr 50.049% 20" edTextCol="ff000000"
          edBkgCol="0" labelText="Rate" editableSingleClick="0" editableDoubleClick="0"
          focusDiscardsChanges="0" fontname="Default font" fontsize="12"
          bold="1" italic="0" justification="36"/>
   <LABEL name="new label" id="cffa3af2cdf400f2" memberName="label2" virtualName=""
-         explicitFocusOrder="0" pos="50.055% 24Rr 50.055% 20" edTextCol="ff000000"
+         explicitFocusOrder="0" pos="50.049% 24Rr 50.049% 20" edTextCol="ff000000"
          edBkgCol="0" labelText="Depth" editableSingleClick="0" editableDoubleClick="0"
          focusDiscardsChanges="0" fontname="Default font" fontsize="12"
          bold="1" italic="0" justification="36"/>

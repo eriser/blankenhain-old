@@ -219,12 +219,12 @@ BEGIN_JUCER_METADATA
                  fixedSize="0" initialWidth="600" initialHeight="400">
   <BACKGROUND backgroundColour="ffffffff"/>
   <SLIDER name="new slider" id="bdf7649dc12a8036" memberName="frequencySlider"
-          virtualName="" explicitFocusOrder="0" pos="0% 0% 50.055% 44M"
+          virtualName="" explicitFocusOrder="0" pos="0% 0% 50.049% 44M"
           min="0" max="1" int="0.001" style="RotaryHorizontalVerticalDrag"
           textBoxPos="TextBoxBelow" textBoxEditable="1" textBoxWidth="60"
           textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="new slider" id="909826510df720ec" memberName="qSlider"
-          virtualName="" explicitFocusOrder="0" pos="50.055% 0% 50.055% 44M"
+          virtualName="" explicitFocusOrder="0" pos="50.049% 0% 50.049% 44M"
           min="0" max="1" int="0.001" style="RotaryHorizontalVerticalDrag"
           textBoxPos="TextBoxBelow" textBoxEditable="1" textBoxWidth="60"
           textBoxHeight="20" skewFactor="1"/>
@@ -233,12 +233,12 @@ BEGIN_JUCER_METADATA
             layout="33" items="Off&#10;Lowpass&#10;Highpass&#10;Bandpass&#10;Notch"
             textWhenNonSelected="" textWhenNoItems="(no choices)"/>
   <LABEL name="new label" id="588176d33db6e210" memberName="label" virtualName=""
-         explicitFocusOrder="0" pos="0% 24Rr 50.055% 20" edTextCol="ff000000"
+         explicitFocusOrder="0" pos="0% 24Rr 50.049% 20" edTextCol="ff000000"
          edBkgCol="0" labelText="Frequency" editableSingleClick="0" editableDoubleClick="0"
          focusDiscardsChanges="0" fontname="Default font" fontsize="12"
          bold="1" italic="0" justification="36"/>
   <LABEL name="new label" id="595b247720b88f8" memberName="label2" virtualName=""
-         explicitFocusOrder="0" pos="50.055% 24Rr 50.055% 20" edTextCol="ff000000"
+         explicitFocusOrder="0" pos="50.049% 24Rr 50.049% 20" edTextCol="ff000000"
          edBkgCol="0" labelText="Q" editableSingleClick="0" editableDoubleClick="0"
          focusDiscardsChanges="0" fontname="Default font" fontsize="12"
          bold="1" italic="0" justification="36"/>

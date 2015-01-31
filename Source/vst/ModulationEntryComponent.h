@@ -22,6 +22,8 @@
 
 //[Headers]     -- You can add your own extra header files here --
 #include "JuceHeader.h"
+
+class BlankenhainAudioProcessor;
 //[/Headers]
 
 
@@ -40,7 +42,7 @@ class ModulationEntryComponent  : public Component,
 {
 public:
     //==============================================================================
-    ModulationEntryComponent ();
+    ModulationEntryComponent (BlankenhainAudioProcessor* processor_, int instance_);
     ~ModulationEntryComponent();
 
     //==============================================================================
@@ -56,6 +58,10 @@ public:
 
 private:
     //[UserVariables]   -- You can add your own custom variables in this section.
+	bool isActive() const;
+
+	BlankenhainAudioProcessor* processor;
+	int instance;
     //[/UserVariables]
 
     //==============================================================================
