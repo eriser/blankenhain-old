@@ -27,6 +27,12 @@ values{}, synthValues{}
 		types[getParameterIndex(ParameterType::FREQUENCY, instance)] = ParameterType::FREQUENCY;
 		types[getParameterIndex(ParameterType::Q, instance)] = ParameterType::Q;
 	}
+	for (int instance = 0; instance < LFOS_PER_CHANNEL; instance++) {
+		names[getParameterIndex(ParameterType::RATE, instance)] = "Rate" + String(instance + 1);
+		names[getParameterIndex(ParameterType::DEPTH, instance)] = "Depth" + String(instance + 1);
+		types[getParameterIndex(ParameterType::RATE, instance)] = ParameterType::RATE;
+		types[getParameterIndex(ParameterType::DEPTH, instance)] = ParameterType::DEPTH;
+	}
 }
 
 int Parameters::getNumParameters() const {
@@ -64,6 +70,8 @@ int Parameters::getParameterIndex(ParameterType type, int instance) const {
 	const unsigned int oscillator_offset = oscillator_parameters_offset + PARAMETERS_PER_OSCILLATOR * instance;
 	const unsigned int filter_parameters_offset = oscillator_parameters_offset + PARAMETERS_PER_OSCILLATOR * OSCILLATORS_PER_CHANNEL;
 	const unsigned int filter_offset = filter_parameters_offset + PARAMETERS_PER_FILTER * instance;
+	const unsigned int lfo_parameters_offset = filter_parameters_offset + PARAMETERS_PER_FILTER * FILTERS_PER_CHANNEL;
+	const unsigned int lfo_offset = lfo_parameters_offset + PARAMETERS_PER_LFO * instance;
 	switch (type) {
 	case ParameterType::ATTACK:
 		return envelope_offset + 0;
@@ -81,6 +89,10 @@ int Parameters::getParameterIndex(ParameterType type, int instance) const {
 		return filter_offset + 0;
 	case ParameterType::Q:
 		return filter_offset + 1;
+	case ParameterType::RATE:
+		return lfo_offset + 0;
+	case ParameterType::DEPTH:
+		return lfo_offset + 1;
 	default:
 		return -1;
 	}
@@ -103,5 +115,10 @@ void Parameters::setSynth(Blankenhain& synth) {
 	for (int instance = 0; instance < FILTERS_PER_CHANNEL; instance++) {
 		synthValues[getParameterIndex(ParameterType::FREQUENCY, instance)] = &filterSettings[instance].frequency;
 		synthValues[getParameterIndex(ParameterType::Q, instance)] = &filterSettings[instance].Q;
+	}
+	LFOSettings* lfoSettings = synth.channels[0].lfos;
+	for (int instance = 0; instance < LFOS_PER_CHANNEL; instance++) {
+		synthValues[getParameterIndex(ParameterType::RATE, instance)] = &lfoSettings[instance].rate;
+		synthValues[getParameterIndex(ParameterType::DEPTH, instance)] = &lfoSettings[instance].depth;
 	}
 }

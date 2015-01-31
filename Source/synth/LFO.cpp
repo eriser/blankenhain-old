@@ -11,7 +11,8 @@ namespace blankenhain {
 		(void)rateMod;
 		(void)depthMod;
 
-		float x = settings->rate / settings->sampleRate;
+		// TODO sclaing
+		float x = 5.f * settings->rate / settings->sampleRate;
 		if (settings->synced) {
 			x *= time - triggerTime;
 		}

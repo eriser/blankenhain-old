@@ -18,6 +18,9 @@
 */
 
 //[Headers] You can add your own extra header files here...
+#include "PluginProcessor.h"
+
+using namespace blankenhain;
 //[/Headers]
 
 #include "LFOComponent.h"
@@ -125,16 +128,25 @@ void LFOComponent::resized()
 void LFOComponent::sliderValueChanged (Slider* sliderThatWasMoved)
 {
     //[UsersliderValueChanged_Pre]
+	auto& parameters = processor->getParameters();
     //[/UsersliderValueChanged_Pre]
 
     if (sliderThatWasMoved == rateSlider)
     {
         //[UserSliderCode_rateSlider] -- add your slider handling code here..
+		processor->setParameterNotifyingHost(
+			parameters.getParameterIndex(ParameterType::RATE, instance),
+			float(rateSlider->getValue())
+			);
         //[/UserSliderCode_rateSlider]
     }
     else if (sliderThatWasMoved == depthSlider)
     {
         //[UserSliderCode_depthSlider] -- add your slider handling code here..
+		processor->setParameterNotifyingHost(
+			parameters.getParameterIndex(ParameterType::DEPTH, instance),
+			float(depthSlider->getValue())
+			);
         //[/UserSliderCode_depthSlider]
     }
 
@@ -150,6 +162,22 @@ void LFOComponent::comboBoxChanged (ComboBox* comboBoxThatHasChanged)
     if (comboBoxThatHasChanged == waveform)
     {
         //[UserComboBoxCode_waveform] -- add your combo box handling code here..
+		LFOSettings& lfo = processor->getSynth().channels[0].lfos[instance];
+		switch (waveform->getSelectedItemIndex()) {
+		case -1:
+		case 0:
+			lfo.type = OscillatorType::SINE;
+			break;
+		case 1:
+			lfo.type = OscillatorType::SAW;
+			break;
+		case 2:
+			lfo.type = OscillatorType::SQUARE;
+			break;
+		case 3:
+			lfo.type = OscillatorType::NOISE;
+			break;
+		}
         //[/UserComboBoxCode_waveform]
     }
 

@@ -132,8 +132,9 @@ void BlankenhainAudioProcessor::prepareToPlay(double sampleRate, int samplesPerB
 {
 	synth = std::make_unique<Blankenhain>(static_cast<unsigned int>(sampleRate));
 	parameters.setSynth(*synth);
-	EnvelopeSettings& env = synth->channels[0].envelopes[0];
-	env = EnvelopeSettings(static_cast<unsigned int>(sampleRate), .0, .0, .0, .0);
+	synth->channels[0].envelopes[0] = EnvelopeSettings(static_cast<unsigned int>(sampleRate), .0, .0, .0, .0);
+	synth->channels[0].envelopes[1] = EnvelopeSettings(static_cast<unsigned int>(sampleRate), .0, .0, .0, .0);
+	synth->channels[0].envelopes[2] = EnvelopeSettings(static_cast<unsigned int>(sampleRate), .0, .0, .0, .0);
 	OscillatorSettings& osc = synth->channels[0].oscillators[0];
 	osc = OscillatorSettings(static_cast<unsigned int>(sampleRate), OscillatorType::SAW, .0, 0., 0);
 	synth->channels[0].oscillators[1] = OscillatorSettings(static_cast<unsigned int>(sampleRate), OscillatorType::SINE, .0, 0., 0);
@@ -141,7 +142,9 @@ void BlankenhainAudioProcessor::prepareToPlay(double sampleRate, int samplesPerB
 	synth->channels[0].filters[0] = FilterSettings(static_cast<unsigned int>(sampleRate), FilterType::LOWPASS, 700., 0.5, false);
 	synth->channels[0].filters[1] = FilterSettings(static_cast<unsigned int>(sampleRate), FilterType::HIGHPASS, 0., 0., false);
 	synth->channels[0].filters[2] = FilterSettings(static_cast<unsigned int>(sampleRate), FilterType::HIGHPASS, 0., 0., false);
-	synth->channels[0].lfos[0] = LFOSettings(static_cast<unsigned int>(sampleRate), OscillatorType::SINE, 3.f, .5f, true);
+	synth->channels[0].lfos[0] = LFOSettings(static_cast<unsigned int>(sampleRate), OscillatorType::SINE, 0.f, 0.f, true);
+	synth->channels[0].lfos[1] = LFOSettings(static_cast<unsigned int>(sampleRate), OscillatorType::SINE, 0.f, 0.f, true);
+	synth->channels[0].lfos[2] = LFOSettings(static_cast<unsigned int>(sampleRate), OscillatorType::SINE, 0.f, 0.f, true);
 }
 
 void BlankenhainAudioProcessor::releaseResources()

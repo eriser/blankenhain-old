@@ -7,16 +7,19 @@
 enum class ParameterType {
 	ATTACK, DECAY, SUSTAIN, RELEASE,
 	VOLUME, DETUNE,
-	FREQUENCY, Q
+	FREQUENCY, Q,
+	RATE, DEPTH,
 };
 
 const unsigned int PARAMETERS_PER_ENVELOPE = 4;
 const unsigned int PARAMETERS_PER_OSCILLATOR = 2;
 const unsigned int PARAMETERS_PER_FILTER = 2;
+const unsigned int PARAMETERS_PER_LFO = 2;
 const int N_PARAMETERS = 
 	PARAMETERS_PER_ENVELOPE * blankenhain::ENVELOPES_PER_CHANNEL
 	+ PARAMETERS_PER_OSCILLATOR * blankenhain::OSCILLATORS_PER_CHANNEL
 	+ PARAMETERS_PER_FILTER * blankenhain::FILTERS_PER_CHANNEL
+	+ PARAMETERS_PER_LFO * blankenhain::LFOS_PER_CHANNEL
 ;
 
 #include "../synth/Blankenhain.h"
