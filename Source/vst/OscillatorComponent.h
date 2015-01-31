@@ -71,6 +71,8 @@ private:
     ScopedPointer<Label> label;
     ScopedPointer<Label> label2;
     ScopedPointer<ComboBox> waveform;
+    ScopedPointer<Slider> pitchSlider;
+    ScopedPointer<Label> label3;
 
 
     //==============================================================================
