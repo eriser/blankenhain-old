@@ -17,18 +17,12 @@
   ==============================================================================
 */
 
-#ifndef __JUCE_HEADER_3DB5996FF2CF23E__
-#define __JUCE_HEADER_3DB5996FF2CF23E__
+#ifndef __JUCE_HEADER_7932748FC001F0E8__
+#define __JUCE_HEADER_7932748FC001F0E8__
 
 //[Headers]     -- You can add your own extra header files here --
 #include "JuceHeader.h"
-#include "PluginProcessor.h"
-#include "ADSRComponent.h"
-#include "GroupWrapComponent.h"
-#include "LFOComponent.h"
-#include "OscillatorComponent.h"
-#include "FilterComponent.h"
-#include "ModulationMatrixComponent.h"
+#include "ModulationEntryComponent.h"
 //[/Headers]
 
 
@@ -41,18 +35,15 @@
     Describe your class and how it works here!
                                                                     //[/Comments]
 */
-class BlankenhainAudioProcessorEditor  : public AudioProcessorEditor,
-                                         public Timer
+class ModulationMatrixComponent  : public Component
 {
 public:
     //==============================================================================
-    BlankenhainAudioProcessorEditor (BlankenhainAudioProcessor* ownerFilter);
-    ~BlankenhainAudioProcessorEditor();
+    ModulationMatrixComponent ();
+    ~ModulationMatrixComponent();
 
     //==============================================================================
     //[UserMethods]     -- You can add your own custom methods in this section.
-    void timerCallback();
-    BlankenhainAudioProcessor* getProcessor() const;
     //[/UserMethods]
 
     void paint (Graphics& g);
@@ -62,30 +53,24 @@ public:
 
 private:
     //[UserVariables]   -- You can add your own custom variables in this section.
-    LookAndFeel_V3 lookAndFeel;
     //[/UserVariables]
 
     //==============================================================================
-    ScopedPointer<GroupWrapComponent<ADSRComponent>> adsr1Wrapper;
-    ScopedPointer<GroupWrapComponent<LFOComponent>> lfo1Wrapper;
-    ScopedPointer<GroupWrapComponent<ADSRComponent>> adsr2Wrapper;
-    ScopedPointer<GroupWrapComponent<LFOComponent>> lfo2Wrapper;
-    ScopedPointer<GroupWrapComponent<OscillatorComponent>> osc1Wrapper;
-    ScopedPointer<GroupWrapComponent<OscillatorComponent>> osc2Wrapper;
-    ScopedPointer<GroupWrapComponent<FilterComponent>> filter1Wrapper;
-    ScopedPointer<GroupWrapComponent<FilterComponent>> filter2Wrapper;
-    ScopedPointer<GroupWrapComponent<OscillatorComponent>> osc3Wrapper;
-    ScopedPointer<GroupWrapComponent<ADSRComponent>> adsr3Wrapper;
-    ScopedPointer<GroupWrapComponent<LFOComponent>> lfo3Wrapper;
-    ScopedPointer<GroupWrapComponent<FilterComponent>> filter3Wrapper;
-    ScopedPointer<GroupWrapComponent<ModulationMatrixComponent>> modMatrix;
+    ScopedPointer<ModulationEntryComponent> modEntry1;
+    ScopedPointer<ModulationEntryComponent> modEntry2;
+    ScopedPointer<ModulationEntryComponent> modEntry3;
+    ScopedPointer<ModulationEntryComponent> modEntry4;
+    ScopedPointer<ModulationEntryComponent> modEntry5;
+    ScopedPointer<ModulationEntryComponent> modEntry6;
+    ScopedPointer<ModulationEntryComponent> modEntry7;
+    ScopedPointer<ModulationEntryComponent> modEntry8;
 
 
     //==============================================================================
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (BlankenhainAudioProcessorEditor)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ModulationMatrixComponent)
 };
 
 //[EndFile] You can add extra defines here...
 //[/EndFile]
 
-#endif   // __JUCE_HEADER_3DB5996FF2CF23E__
+#endif   // __JUCE_HEADER_7932748FC001F0E8__

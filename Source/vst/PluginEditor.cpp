@@ -42,9 +42,6 @@ BlankenhainAudioProcessorEditor::BlankenhainAudioProcessorEditor (BlankenhainAud
     addAndMakeVisible (lfo2Wrapper = new GroupWrapComponent<LFOComponent> (ownerFilter, 1));
     lfo2Wrapper->setName ("LFO2");
 
-    addAndMakeVisible (lfo3Wrapper = new GroupWrapComponent<LFOComponent> (ownerFilter, 2));
-    lfo3Wrapper->setName ("LFO3");
-
     addAndMakeVisible (osc1Wrapper = new GroupWrapComponent<OscillatorComponent> (ownerFilter, 0));
     osc1Wrapper->setName ("OSC1");
 
@@ -57,11 +54,26 @@ BlankenhainAudioProcessorEditor::BlankenhainAudioProcessorEditor (BlankenhainAud
     addAndMakeVisible (filter2Wrapper = new GroupWrapComponent<FilterComponent> (ownerFilter, 1));
     filter2Wrapper->setName ("Filter2");
 
+    addAndMakeVisible (osc3Wrapper = new GroupWrapComponent<OscillatorComponent> (ownerFilter, 2));
+    osc3Wrapper->setName ("OSC3");
+
+    addAndMakeVisible (adsr3Wrapper = new GroupWrapComponent<ADSRComponent> (ownerFilter, 2));
+    adsr3Wrapper->setName ("ADSR3");
+
+    addAndMakeVisible (lfo3Wrapper = new GroupWrapComponent<LFOComponent> (ownerFilter, 2));
+    lfo3Wrapper->setName ("LFO3");
+
+    addAndMakeVisible (filter3Wrapper = new GroupWrapComponent<FilterComponent> (ownerFilter, 2));
+    filter3Wrapper->setName ("Filter3");
+
+    addAndMakeVisible (modMatrix = new GroupWrapComponent<ModulationMatrixComponent>());
+    modMatrix->setName ("Modulation");
+
 
     //[UserPreSize]
     //[/UserPreSize]
 
-    setSize (600, 400);
+    setSize (800, 600);
 
 
     //[Constructor] You can add your own custom stuff here..
@@ -80,11 +92,15 @@ BlankenhainAudioProcessorEditor::~BlankenhainAudioProcessorEditor()
     lfo1Wrapper = nullptr;
     adsr2Wrapper = nullptr;
     lfo2Wrapper = nullptr;
-    lfo3Wrapper = nullptr;
     osc1Wrapper = nullptr;
     osc2Wrapper = nullptr;
     filter1Wrapper = nullptr;
     filter2Wrapper = nullptr;
+    osc3Wrapper = nullptr;
+    adsr3Wrapper = nullptr;
+    lfo3Wrapper = nullptr;
+    filter3Wrapper = nullptr;
+    modMatrix = nullptr;
 
 
     //[Destructor]. You can add your own custom destruction code here..
@@ -108,15 +124,19 @@ void BlankenhainAudioProcessorEditor::resized()
     //[UserPreResize] Add your own custom resize code here..
     //[/UserPreResize]
 
-    adsr1Wrapper->setBounds (proportionOfWidth (0.3333f), 0, proportionOfWidth (0.3333f), proportionOfHeight (0.3333f));
-    lfo1Wrapper->setBounds (0, getHeight() - proportionOfHeight (0.3333f), proportionOfWidth (0.3333f), proportionOfHeight (0.3333f));
-    adsr2Wrapper->setBounds (proportionOfWidth (0.3333f), proportionOfHeight (0.3333f), proportionOfWidth (0.3333f), proportionOfHeight (0.3333f));
-    lfo2Wrapper->setBounds (proportionOfWidth (0.3333f), getHeight() - proportionOfHeight (0.3333f), proportionOfWidth (0.3333f), proportionOfHeight (0.3333f));
-    lfo3Wrapper->setBounds (proportionOfWidth (0.6667f), proportionOfHeight (0.6667f), proportionOfWidth (0.3333f), proportionOfHeight (0.3333f));
-    osc1Wrapper->setBounds (proportionOfWidth (0.0000f), proportionOfHeight (0.0000f), proportionOfWidth (0.3333f), proportionOfHeight (0.3333f));
-    osc2Wrapper->setBounds (proportionOfWidth (0.0000f), proportionOfHeight (0.3333f), proportionOfWidth (0.3333f), proportionOfHeight (0.3333f));
-    filter1Wrapper->setBounds (proportionOfWidth (0.6667f), proportionOfHeight (0.0000f), proportionOfWidth (0.3333f), proportionOfHeight (0.3333f));
-    filter2Wrapper->setBounds (proportionOfWidth (0.6667f), proportionOfHeight (0.3333f), proportionOfWidth (0.3333f), proportionOfHeight (0.3333f));
+    adsr1Wrapper->setBounds (proportionOfWidth (0.0000f), proportionOfHeight (0.2497f), proportionOfWidth (0.2498f), proportionOfHeight (0.2497f));
+    lfo1Wrapper->setBounds (proportionOfWidth (0.0000f), proportionOfHeight (0.4994f), proportionOfWidth (0.2498f), proportionOfHeight (0.2497f));
+    adsr2Wrapper->setBounds (proportionOfWidth (0.2498f), proportionOfHeight (0.2497f), proportionOfWidth (0.2498f), proportionOfHeight (0.2497f));
+    lfo2Wrapper->setBounds (proportionOfWidth (0.2498f), proportionOfHeight (0.4994f), proportionOfWidth (0.2498f), proportionOfHeight (0.2497f));
+    osc1Wrapper->setBounds (proportionOfWidth (0.0000f), proportionOfHeight (0.0000f), proportionOfWidth (0.2498f), proportionOfHeight (0.2497f));
+    osc2Wrapper->setBounds (proportionOfWidth (0.2498f), proportionOfHeight (0.0000f), proportionOfWidth (0.2498f), proportionOfHeight (0.2497f));
+    filter1Wrapper->setBounds (proportionOfWidth (0.0000f), proportionOfHeight (0.7503f), proportionOfWidth (0.2498f), proportionOfHeight (0.2497f));
+    filter2Wrapper->setBounds (proportionOfWidth (0.2498f), proportionOfHeight (0.7503f), proportionOfWidth (0.2498f), proportionOfHeight (0.2497f));
+    osc3Wrapper->setBounds (proportionOfWidth (0.4995f), proportionOfHeight (0.0000f), proportionOfWidth (0.2498f), proportionOfHeight (0.2497f));
+    adsr3Wrapper->setBounds (proportionOfWidth (0.4995f), proportionOfHeight (0.2497f), proportionOfWidth (0.2498f), proportionOfHeight (0.2497f));
+    lfo3Wrapper->setBounds (proportionOfWidth (0.4995f), proportionOfHeight (0.4994f), proportionOfWidth (0.2498f), proportionOfHeight (0.2497f));
+    filter3Wrapper->setBounds (proportionOfWidth (0.4995f), proportionOfHeight (0.7503f), proportionOfWidth (0.2498f), proportionOfHeight (0.2497f));
+    modMatrix->setBounds (proportionOfWidth (0.7503f), proportionOfHeight (0.0000f), proportionOfWidth (0.2498f), proportionOfHeight (1.0000f));
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]
 }
@@ -164,35 +184,47 @@ BEGIN_JUCER_METADATA
                  componentName="" parentClasses="public AudioProcessorEditor, public Timer"
                  constructorParams="BlankenhainAudioProcessor* ownerFilter" variableInitialisers="AudioProcessorEditor(ownerFilter)"
                  snapPixels="8" snapActive="1" snapShown="1" overlayOpacity="0.330"
-                 fixedSize="0" initialWidth="600" initialHeight="400">
+                 fixedSize="0" initialWidth="800" initialHeight="600">
   <BACKGROUND backgroundColour="ffffffff"/>
   <GENERICCOMPONENT name="ADSR1" id="aa02ec06e0ef68d2" memberName="adsr1Wrapper"
-                    virtualName="" explicitFocusOrder="0" pos="33.333% 0 33.333% 33.333%"
+                    virtualName="" explicitFocusOrder="0" pos="0% 24.968% 24.975% 24.968%"
                     class="GroupWrapComponent&lt;ADSRComponent&gt;" params="ownerFilter, 0"/>
   <GENERICCOMPONENT name="LFO1" id="9521c8513f7d0e00" memberName="lfo1Wrapper" virtualName=""
-                    explicitFocusOrder="0" pos="0 0Rr 33.333% 33.333%" class="GroupWrapComponent&lt;LFOComponent&gt;"
+                    explicitFocusOrder="0" pos="0% 49.937% 24.975% 24.968%" class="GroupWrapComponent&lt;LFOComponent&gt;"
                     params="ownerFilter, 0"/>
   <GENERICCOMPONENT name="ADSR2" id="e97ce6f55a156364" memberName="adsr2Wrapper"
-                    virtualName="" explicitFocusOrder="0" pos="33.333% 33.333% 33.333% 33.333%"
+                    virtualName="" explicitFocusOrder="0" pos="24.975% 24.968% 24.975% 24.968%"
                     class="GroupWrapComponent&lt;ADSRComponent&gt;" params="ownerFilter, 1"/>
   <GENERICCOMPONENT name="LFO2" id="f836b115579cdc4f" memberName="lfo2Wrapper" virtualName=""
-                    explicitFocusOrder="0" pos="33.333% 0Rr 33.333% 33.333%" class="GroupWrapComponent&lt;LFOComponent&gt;"
-                    params="ownerFilter, 1"/>
-  <GENERICCOMPONENT name="LFO3" id="7abe9eb613638bcb" memberName="lfo3Wrapper" virtualName=""
-                    explicitFocusOrder="0" pos="66.667% 66.667% 33.333% 33.333%"
-                    class="GroupWrapComponent&lt;LFOComponent&gt;" params="ownerFilter, 2"/>
+                    explicitFocusOrder="0" pos="24.975% 49.937% 24.975% 24.968%"
+                    class="GroupWrapComponent&lt;LFOComponent&gt;" params="ownerFilter, 1"/>
   <GENERICCOMPONENT name="OSC1" id="301482411b8be9b8" memberName="osc1Wrapper" virtualName=""
-                    explicitFocusOrder="0" pos="0% 0% 33.333% 33.333%" class="GroupWrapComponent&lt;OscillatorComponent&gt;"
+                    explicitFocusOrder="0" pos="0% 0% 24.975% 24.968%" class="GroupWrapComponent&lt;OscillatorComponent&gt;"
                     params="ownerFilter, 0"/>
   <GENERICCOMPONENT name="OSC2" id="da7522de7cbdc9a7" memberName="osc2Wrapper" virtualName=""
-                    explicitFocusOrder="0" pos="0% 33.333% 33.333% 33.333%" class="GroupWrapComponent&lt;OscillatorComponent&gt;"
+                    explicitFocusOrder="0" pos="24.975% 0% 24.975% 24.968%" class="GroupWrapComponent&lt;OscillatorComponent&gt;"
                     params="ownerFilter, 1"/>
   <GENERICCOMPONENT name="Filter1" id="61ac5656499830de" memberName="filter1Wrapper"
-                    virtualName="" explicitFocusOrder="0" pos="66.667% 0% 33.333% 33.333%"
+                    virtualName="" explicitFocusOrder="0" pos="0% 75.032% 24.975% 24.968%"
                     class="GroupWrapComponent&lt;FilterComponent&gt;" params="ownerFilter, 0"/>
   <GENERICCOMPONENT name="Filter2" id="479d0707b283ea86" memberName="filter2Wrapper"
-                    virtualName="" explicitFocusOrder="0" pos="66.667% 33.333% 33.333% 33.333%"
+                    virtualName="" explicitFocusOrder="0" pos="24.975% 75.032% 24.975% 24.968%"
                     class="GroupWrapComponent&lt;FilterComponent&gt;" params="ownerFilter, 1"/>
+  <GENERICCOMPONENT name="OSC3" id="66f95d2cadc0337c" memberName="osc3Wrapper" virtualName=""
+                    explicitFocusOrder="0" pos="49.951% 0% 24.975% 24.968%" class="GroupWrapComponent&lt;OscillatorComponent&gt;"
+                    params="ownerFilter, 2"/>
+  <GENERICCOMPONENT name="ADSR3" id="ab5df36835b95708" memberName="adsr3Wrapper"
+                    virtualName="" explicitFocusOrder="0" pos="49.951% 24.968% 24.975% 24.968%"
+                    class="GroupWrapComponent&lt;ADSRComponent&gt;" params="ownerFilter, 2"/>
+  <GENERICCOMPONENT name="LFO3" id="713f3cb87a927d08" memberName="lfo3Wrapper" virtualName=""
+                    explicitFocusOrder="0" pos="49.951% 49.937% 24.975% 24.968%"
+                    class="GroupWrapComponent&lt;LFOComponent&gt;" params="ownerFilter, 2"/>
+  <GENERICCOMPONENT name="Filter3" id="6f75bffddb0b4812" memberName="filter3Wrapper"
+                    virtualName="" explicitFocusOrder="0" pos="49.951% 75.032% 24.975% 24.968%"
+                    class="GroupWrapComponent&lt;FilterComponent&gt;" params="ownerFilter, 2"/>
+  <GENERICCOMPONENT name="Modulation" id="409331363e1ab1af" memberName="modMatrix"
+                    virtualName="" explicitFocusOrder="0" pos="75.025% 0% 24.975% 100%"
+                    class="GroupWrapComponent&lt;ModulationMatrixComponent&gt;" params=""/>
 </JUCER_COMPONENT>
 
 END_JUCER_METADATA
