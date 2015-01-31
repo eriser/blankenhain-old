@@ -10,7 +10,7 @@ namespace blankenhain {
 		Oscillator() = default;
 		Oscillator(const OscillatorSettings* settings, unsigned int note);
 
-		void value(Time time, float output[2]);
+		void value(Time time, float output[2], float volumeMod, float detuneMod);
 
 		const OscillatorSettings* settings;
 		int note;

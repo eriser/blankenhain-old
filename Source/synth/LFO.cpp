@@ -11,7 +11,7 @@ namespace blankenhain {
 		(void)rateMod;
 		(void)depthMod;
 
-		float x = settings->rate;
+		float x = settings->rate / settings->sampleRate;
 		if (settings->synced) {
 			x *= time - triggerTime;
 		}

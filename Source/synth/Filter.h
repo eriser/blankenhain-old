@@ -8,7 +8,7 @@ namespace blankenhain {
 		Filter() = default;
 		Filter(const FilterSettings* settings);
 
-		void process(float sample[2]);
+		void process(float sample[2], float frequencyMod, float qMod);
 
 		const FilterSettings* settings;
 

@@ -22,7 +22,7 @@ namespace blankenhain {
 
 		void play(Time startTime, Time duration, float* output[2]);
 		void noteOff(Time time);
-		void applyModulation(float* sources, float* targets);
+		void applyModulation(const float* sources, float* targets);
 
 		Time start;
 		bool noteOn;

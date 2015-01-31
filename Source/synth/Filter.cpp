@@ -3,6 +3,8 @@
 // TODO remove dependency
 #include <cmath>
 
+#include "Functions.h"
+
 #pragma warning(disable: 4351)
 
 namespace blankenhain {
@@ -11,20 +13,23 @@ namespace blankenhain {
 		x_1{}, y_1{}, y_2{}
 	{}
 
-	void Filter::process(float sample[2]) {
+	void Filter::process(float sample[2], float frequencyMod, float qMod) {
 		if (!settings->active) {
 			return;
 		}
 
 		// compute biquad coefficients
-
 		float a1, a2;
 		float b0, b1, b2;
 
-		const float w0 = 2.0f * acos(-1.0f) * settings->frequency / (settings->sampleRate * 2);
+		// TODO multiplier/scaling
+		const float frequency = clamp(settings->frequency + frequencyMod * 1000.f, 0.f, 1000.f);
+		const float Q = clamp(settings->Q + qMod, 0.01f, 1.f);
+
+		const float w0 = 2.0f * acos(-1.0f) * frequency / (settings->sampleRate * 2);
 		const float cos_w0 = cos(w0);
 		const float sin_w0 = sin(w0);
-		const float alpha = sin_w0 / (2 * settings->Q);
+		const float alpha = sin_w0 / (2 * Q);
 
 		switch (settings->type) {
 		case FilterType::LOWPASS:

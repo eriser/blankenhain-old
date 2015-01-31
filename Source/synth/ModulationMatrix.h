@@ -9,14 +9,15 @@ namespace blankenhain {
 	};
 
 	enum class ModulationTarget {
-		VOLUME, NOTE, FILTER_CUTOFF, FILTER_Q, MODULATION_SCALE
+		VOLUME, DETUNE, FILTER_CUTOFF, FILTER_Q, MODULATION_SCALE
 	};
 
 	struct Modulation {
 		ModulationSource source;
 		ModulationTarget target;
 		float scale;
-		unsigned int index;
+		unsigned int sourceIndex;
+		unsigned int targetIndex;
 		bool active = false;
 	};
 
