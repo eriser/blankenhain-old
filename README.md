@@ -1,4 +1,4 @@
 blankenhain software synthesizer
 ===========
 
-Blankenhain software synthesizer. Heavy WIP. This does not do anything useful, yet.
+Archived version of one of the first trys for Blankenhain software synthesizer. Old and useless.
